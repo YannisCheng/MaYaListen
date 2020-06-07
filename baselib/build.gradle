@@ -1,0 +1,72 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    signingConfigs {
+
+        debug {
+        }
+
+        release {
+            storeFile file('/Users/yannischeng/Project_Android_New/XiMaWithNewApi/app/KeyStore')
+            storePassword proStorePassword
+            keyPassword proKeyPassword
+            keyAlias proKeyAlias
+        }
+
+    }
+
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            multiDexEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
+            multiDexEnabled true
+        }
+    }
+}
+
+dependencies {
+    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
+    kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
+    api fileTree(dir: "libs", include: ["*.jar"])
+    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    api "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
+    api "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+    api "androidx.core:core-ktx:$rootProject.ktxVersion"
+    api "androidx.fragment:fragment-ktx:$rootProject.fragmentVersion"
+    api "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
+    api "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
+    /*api "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
+    api "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"*/
+    api "androidx.recyclerview:recyclerview:1.1.0"
+    api "androidx.room:room-runtime:$rootProject.roomVersion"
+    api "androidx.room:room-ktx:$rootProject.roomVersion"
+    api "androidx.viewpager2:viewpager2:$rootProject.viewPagerVersion"
+    api "androidx.work:work-runtime-ktx:$rootProject.workVersion"
+    api "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+    api "com.google.android.material:material:$rootProject.materialVersion"
+    api "com.google.code.gson:gson:$rootProject.gsonVersion"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
+
+}
