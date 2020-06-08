@@ -48,6 +48,7 @@ class MainActivity : BaseActivity() {
                     binding.viewPager,
                     TabLayoutMediator.TabConfigurationStrategy { tab, position ->
                         tab.text = tabsTitle[position].aggregateListConfig.aggregateName
+
                     })
 
                 mdiator?.attach()

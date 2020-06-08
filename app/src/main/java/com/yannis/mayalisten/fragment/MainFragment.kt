@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.yannis.mayalisten.adapter.ConcreteRankListAdapter
 import com.yannis.mayalisten.adapter.RankOfItemTabAdapter
 import com.yannis.mayalisten.base.BaseFragment
 import com.yannis.mayalisten.bean.AggregateRankFirstPageBean
+import com.yannis.mayalisten.bean.AggregateRankListTabsBean
 import com.yannis.mayalisten.databinding.MainFragmentBinding
 import com.yannis.mayalisten.view_mode.ConcreteRankListVM
 import com.yannis.mayalisten.view_mode.MainViewModel
@@ -60,7 +62,18 @@ class MainFragment : BaseFragment() {
             contentRecycler.adapter = concreteRankListAdapter
         }
         setData2View()
+        onClick()
         return binding.root
+    }
+
+    private fun onClick() {
+        rankOfItemTabAdapter?.setOnItemClickListener(BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+
+            val itemBean = adapter.getItem(position) as AggregateRankListTabsBean
+            getRankListOfItemTab(itemBean)
+            itemBean.isChecked = !itemBean.isChecked
+            rankOfItemTabAdapter?.notifyDataSetChanged()
+        })
     }
 
     private fun setData2View() {
@@ -71,23 +84,26 @@ class MainFragment : BaseFragment() {
         )[MainViewModel::class.java]
         viewModel.beanList.observe(viewLifecycleOwner, Observer {
             rankOfItemTabAdapter?.setNewData(it)
-            // 假数据
-            modeOfRankItem = ViewModelProvider(
-                this,
-                ConcreteRankListVM.ViewModeProvider(
-                    it[0].categoryId,
-                    it[0].rankClusterId,
-                    1,
-                    20,
-                    it[0].rankingListId
-                )
-            )[ConcreteRankListVM::class.java]
-            modeOfRankItem.liveData.observe(viewLifecycleOwner, Observer {
-                concreteRankListAdapter?.setNewData(it.list)
-            })
+            getRankListOfItemTab(it[0])
         })
 
 
+    }
+
+    private fun getRankListOfItemTab(it: AggregateRankListTabsBean) {
+        modeOfRankItem = ViewModelProvider(
+            this,
+            ConcreteRankListVM.ViewModeProvider(
+                it.categoryId,
+                it.rankClusterId,
+                1,
+                20,
+                it.rankingListId
+            )
+        )[ConcreteRankListVM::class.java]
+        modeOfRankItem.liveData.observe(viewLifecycleOwner, Observer {
+            concreteRankListAdapter?.setNewData(it.list)
+        })
     }
 
 

@@ -1,6 +1,6 @@
 package com.yannis.mayalisten.adapter
 
-import android.widget.TextView
+import android.widget.CheckBox
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.yannis.mayalisten.R
@@ -18,11 +18,14 @@ class RankOfItemTabAdapter(data: MutableList<AggregateRankListTabsBean>?) :
     }
 
     override fun convert(helper: BaseViewHolder?, item: AggregateRankListTabsBean?) {
-        /*val binding: ItemRankOfItemTabLayoutBinding
-        binding.itemMode = item*/
         if (helper != null) {
             if (item != null) {
-                helper.getView<TextView>(R.id.tv_content).text = item.displayName
+                val checkBox = helper.getView<CheckBox>(R.id.cb_content)
+                if (helper.adapterPosition == 0) {
+                    checkBox.isChecked = true
+                }
+                checkBox.text = item.displayName
+                if (item.isChecked) checkBox.isChecked = true else checkBox.isChecked = false
             }
         }
     }

@@ -18,7 +18,8 @@ data class AggregateRankListTabsBean(
     val rankingListId: Int,
     val rankingRule: String,
     val sortRuleDesc: String,
-    val updateAtDesc: String
+    val updateAtDesc: String,
+    var isChecked: Boolean = false
 ) : Serializable {
     override fun toString(): String {
         return "AggregateRankListTabsBean(activityPicClicked=$activityPicClicked, activityPicUnClicked=$activityPicUnClicked, categoryId=$categoryId, contentType='$contentType', displayName='$displayName', name='$name', rankClusterId=$rankClusterId, rankingListId=$rankingListId, rankingRule='$rankingRule', sortRuleDesc='$sortRuleDesc', updateAtDesc='$updateAtDesc')"

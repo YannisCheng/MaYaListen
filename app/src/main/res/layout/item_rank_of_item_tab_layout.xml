@@ -9,17 +9,21 @@
     </data>
 
     <LinearLayout
+
+        android:id="@+id/ll"
         android:layout_width="match_parent"
-        android:layout_height="169px"
+        android:layout_height="175px"
         android:layout_gravity="center">
 
-        <TextView
-            android:id="@+id/tv_content"
+        <CheckBox
+            android:id="@+id/cb_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/maya_color_gray_bg"
+            android:button="@drawable/left_bg_selector"
             android:gravity="center"
             android:textColor="@color/maya_color_black_text_second"
+            android:text=""
             android:textSize="13dp" />
     </LinearLayout>
 
