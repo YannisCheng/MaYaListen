@@ -1,5 +1,7 @@
 package com.yannis.mayalisten.bean
 
+import java.io.Serializable
+
 /**
  *
  * @author  wenjia.Cheng  cwj1714@163.com
@@ -9,7 +11,7 @@ data class ConcreteRankListBean(
     val list: List<ItemBean>,
     val maxPageId: Int,
     val totalCount: Int
-) {
+) : Serializable {
     override fun toString(): String {
         return "ConcreteRankListBean(list=$list, maxPageId=$maxPageId, totalCount=$totalCount)"
     }
@@ -61,7 +63,7 @@ data class ItemBean(
     val type: Int,
     val uid: Int,
     val vipFreeType: Int
-) {
+) : Serializable {
     override fun toString(): String {
         return "ItemBean(activityLabel=$activityLabel, ageLevel=$ageLevel, albumCoverUrl290='$albumCoverUrl290', albumId=$albumId, albumIntro='$albumIntro', albumScore=$albumScore, categoryId=$categoryId, coverLarge='$coverLarge', coverMiddle='$coverMiddle', coverSmall='$coverSmall', customTitle='$customTitle', editorTitle='$editorTitle', id=$id, intro='$intro', isDraft=$isDraft, isFinished=$isFinished, isPaid=$isPaid, isSample=$isSample, isVipFree=$isVipFree, lastUptrackAt=$lastUptrackAt, lastUptrackId=$lastUptrackId, lastUptrackTitle='$lastUptrackTitle', materialType='$materialType', opType=$opType, originalCoverPath='$originalCoverPath', originalStatus=$originalStatus, playsCounts=$playsCounts, popularity='$popularity', positionChange=$positionChange, preferredType=$preferredType, provider='$provider', recommendReason='$recommendReason', refundSupportType=$refundSupportType, serialState=$serialState, status=$status, subscribeCount=$subscribeCount, subscribeStatus=$subscribeStatus, subscribesCounts=$subscribesCounts, tags='$tags', title='$title', trackId=$trackId, tracks=$tracks, type=$type, uid=$uid, vipFreeType=$vipFreeType)"
     }

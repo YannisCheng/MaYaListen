@@ -1,5 +1,7 @@
 package com.yannis.mayalisten.bean
 
+import java.io.Serializable
+
 /**
  *
  * @author  wenjia.Cheng  cwj1714@163.com
@@ -17,7 +19,7 @@ data class AggregateRankListTabsBean(
     val rankingRule: String,
     val sortRuleDesc: String,
     val updateAtDesc: String
-) {
+) : Serializable {
     override fun toString(): String {
         return "AggregateRankListTabsBean(activityPicClicked=$activityPicClicked, activityPicUnClicked=$activityPicUnClicked, categoryId=$categoryId, contentType='$contentType', displayName='$displayName', name='$name', rankClusterId=$rankClusterId, rankingListId=$rankingListId, rankingRule='$rankingRule', sortRuleDesc='$sortRuleDesc', updateAtDesc='$updateAtDesc')"
     }

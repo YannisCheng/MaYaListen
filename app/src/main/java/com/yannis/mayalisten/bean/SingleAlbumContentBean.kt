@@ -1,5 +1,7 @@
 package com.yannis.mayalisten.bean
 
+import java.io.Serializable
+
 /**
  *
  * @author  wenjia.Cheng  cwj1714@163.com
@@ -9,7 +11,7 @@ data class SingleAlbumContentBean(
     val album: Album,
     val tracks: Tracks,
     val user: User
-)
+) : Serializable
 
 data class Album(
     val ageLevel: Int,
@@ -88,7 +90,7 @@ data class Album(
     val vipFirstStatus: Int,
     val vipFreeType: Int
 
-) {
+) : Serializable {
     override fun toString(): String {
         return "Album(ageLevel=$ageLevel, albumId=$albumId, albumTimeLimited=$albumTimeLimited, authorizedExpireTime=$authorizedExpireTime, authorizedTypeId=$authorizedTypeId, avatarPath='$avatarPath', buyNotes='$buyNotes', canInviteListen=$canInviteListen, canShareAndStealListen=$canShareAndStealListen, categoryId=$categoryId, categoryName='$categoryName', contractStatus=$contractStatus, coverLarge='$coverLarge', coverMiddle='$coverMiddle', coverSmall='$coverSmall', coverWebLarge='$coverWebLarge', createdAt=$createdAt, customSubTitle='$customSubTitle', customTitle='$customTitle', detailCoverPath='$detailCoverPath', financialStatus=$financialStatus, followers=$followers, freeToPaidStatus=$freeToPaidStatus, freeToPaidTime=$freeToPaidTime, hasRecs=$hasRecs, intro='$intro', introRich='$introRich', isAuthorized=$isAuthorized, isDefault=$isDefault, isDraft=$isDraft, isFinished=$isFinished, isInBlacklist=$isInBlacklist, isNoCopyright=$isNoCopyright, isPaid=$isPaid, isPublic=$isPublic, isRecordDesc=$isRecordDesc, isVerified=$isVerified, isVipFree=$isVipFree, is_default=$is_default, lastUptrackAt=$lastUptrackAt, lastUptrackCoverPath='$lastUptrackCoverPath', lastUptrackId=$lastUptrackId, lastUptrackTitle='$lastUptrackTitle', nickname='$nickname', offlineType=$offlineType, originalStatus=$originalStatus, other_content='$other_content', other_title='$other_title', outline='$outline', personalDescription='$personalDescription', playTimes=$playTimes, playTrackId=$playTrackId, preferredType=$preferredType, recommendReason='$recommendReason', salePoint='$salePoint', salePointPopup='$salePointPopup', saleScope=$saleScope, serialState=$serialState, serializeStatus=$serializeStatus, shareSupportType=$shareSupportType, shares=$shares, shortIntro='$shortIntro', shortIntroRich='$shortIntroRich', status=$status, subscribeCount=$subscribeCount, tags='$tags', title='$title', tracks=$tracks, tracksIsAllPurchased=$tracksIsAllPurchased, type=$type, uid=$uid, unReadAlbumCommentCount=$unReadAlbumCommentCount, updatedAt=$updatedAt, vipFirstStatus=$vipFirstStatus, vipFreeType=$vipFreeType)"
     }
@@ -96,7 +98,7 @@ data class Album(
 
 data class Tracks(
     val list: List<AlbumItemBean>
-) {
+) : Serializable {
     override fun toString(): String {
         return "Tracks(list=$list)"
     }
@@ -123,7 +125,7 @@ data class User(
     val uid: Int,
     val vLogoType: Int,
     val verifyType: Int
-) {
+) : Serializable {
     override fun toString(): String {
         return "User(albums=$albums, anchorGrade=$anchorGrade, bizType=$bizType, currentAnchorIsLiving=$currentAnchorIsLiving, followers=$followers, followings=$followings, isVerified=$isVerified, liveRecordId=$liveRecordId, liveRoomId=$liveRoomId, liveStatus=$liveStatus, nickname='$nickname', personDescribe='$personDescribe', personalSignature='$personalSignature', ptitle='$ptitle', smallLogo='$smallLogo', subBizType=$subBizType, tracks=$tracks, uid=$uid, vLogoType=$vLogoType, verifyType=$verifyType)"
     }
@@ -173,7 +175,7 @@ data class AlbumItemBean(
     val uid: Int,
     val userSource: Int,
     val vipFirstStatus: Int
-) {
+) : Serializable {
     override fun toString(): String {
         return "AlbumItemBean(albumId=$albumId, categoryId=$categoryId, commentId='$commentId', comments=$comments, coverLarge='$coverLarge', coverMiddle='$coverMiddle', coverSmall='$coverSmall', createdAt=$createdAt, duration=$duration, id=$id, isAuthorized=$isAuthorized, isDraft=$isDraft, isHoldCopyright=$isHoldCopyright, isPaid=$isPaid, isPublic=$isPublic, isRichAudio=$isRichAudio, isSample=$isSample, isVideo=$isVideo, likes=$likes, nickname='$nickname', opType=$opType, orderNo=$orderNo, orderNum=$orderNum, paidType=$paidType, playPathAacv164='$playPathAacv164', playPathAacv224='$playPathAacv224', playPathHq='$playPathHq', playUrl32='$playUrl32', playUrl64='$playUrl64', playtimes=$playtimes, processState=$processState, relatedId=$relatedId, sampleDuration=$sampleDuration, shares=$shares, smallLogo='$smallLogo', status=$status, title='$title', trackId=$trackId, trackRecordId=$trackRecordId, type=$type, uid=$uid, userSource=$userSource, vipFirstStatus=$vipFirstStatus)"
     }
