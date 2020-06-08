@@ -34,6 +34,12 @@ buildscript {
         uiAutomatorVersion = '2.2.0'
         viewPagerVersion = '1.0.0'
         workVersion = '2.3.4'
+        rxjavaVersion = '2.1.13'
+        rxandroidVersion = '2.0.1'
+        retrofitVersion = '2.4.0'
+        converterGgsonVersion = '2.2.0'
+        adapterRxjava2Version = '2.3.0'
+        loggingInterceptor = '3.10.0'
     }
 
     repositories {
