@@ -2,13 +2,13 @@ package com.yannis.mayalisten.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.yannis.mayalisten.adapter.ConcreteRankListAdapter
 import com.yannis.mayalisten.adapter.RankOfItemTabAdapter
 import com.yannis.mayalisten.base.BaseFragment
@@ -67,13 +67,21 @@ class MainFragment : BaseFragment() {
     }
 
     private fun onClick() {
-        rankOfItemTabAdapter?.setOnItemClickListener(BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
-
+        rankOfItemTabAdapter?.setOnItemChildClickListener { adapter, view, position ->
             val itemBean = adapter.getItem(position) as AggregateRankListTabsBean
-            getRankListOfItemTab(itemBean)
-            itemBean.isChecked = !itemBean.isChecked
+            if (!itemBean.isChecked) {
+                itemBean.isChecked = true
+                (adapter.data as List<AggregateRankListTabsBean>).forEach {
+                    if (it.rankClusterId != itemBean.rankClusterId) it.isChecked = false
+                }
+            }
             rankOfItemTabAdapter?.notifyDataSetChanged()
-        })
+            getRankListOfItemTab(itemBean)
+        }
+
+        concreteRankListAdapter?.setOnItemClickListener { adapter, view, position ->
+            Log.e("TAG", "onClick: ${position}")
+        }
     }
 
     private fun setData2View() {
@@ -83,11 +91,10 @@ class MainFragment : BaseFragment() {
             MainViewModel.ViewModeFactory(itemBean?.aggregateListConfig?.clusterType)
         )[MainViewModel::class.java]
         viewModel.beanList.observe(viewLifecycleOwner, Observer {
+            it[0].isChecked = true
             rankOfItemTabAdapter?.setNewData(it)
             getRankListOfItemTab(it[0])
         })
-
-
     }
 
     private fun getRankListOfItemTab(it: AggregateRankListTabsBean) {
@@ -105,6 +112,4 @@ class MainFragment : BaseFragment() {
             concreteRankListAdapter?.setNewData(it.list)
         })
     }
-
-
 }

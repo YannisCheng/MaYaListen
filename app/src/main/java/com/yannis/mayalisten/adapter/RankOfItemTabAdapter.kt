@@ -19,11 +19,9 @@ class RankOfItemTabAdapter(data: MutableList<AggregateRankListTabsBean>?) :
 
     override fun convert(helper: BaseViewHolder?, item: AggregateRankListTabsBean?) {
         if (helper != null) {
+            helper.addOnClickListener(R.id.cb_content)
             if (item != null) {
                 val checkBox = helper.getView<CheckBox>(R.id.cb_content)
-                if (helper.adapterPosition == 0) {
-                    checkBox.isChecked = true
-                }
                 checkBox.text = item.displayName
                 if (item.isChecked) checkBox.isChecked = true else checkBox.isChecked = false
             }

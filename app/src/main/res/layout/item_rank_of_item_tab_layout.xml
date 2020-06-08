@@ -9,7 +9,6 @@
     </data>
 
     <LinearLayout
-
         android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="175px"
@@ -19,7 +18,7 @@
             android:id="@+id/cb_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/maya_color_gray_bg"
+            android:background="@drawable/left_bg_selector"
             android:button="@drawable/left_bg_selector"
             android:gravity="center"
             android:textColor="@color/maya_color_black_text_second"
