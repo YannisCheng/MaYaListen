@@ -5,15 +5,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.yannis.mayalisten.adapter.ConcreteRankListAdapter
+import com.yannis.mayalisten.adapter.RankOfItemTabAdapter
 import com.yannis.mayalisten.base.BaseFragment
 import com.yannis.mayalisten.bean.AggregateRankFirstPageBean
 import com.yannis.mayalisten.databinding.MainFragmentBinding
+import com.yannis.mayalisten.view_mode.ConcreteRankListVM
+import com.yannis.mayalisten.view_mode.MainViewModel
 
 class MainFragment : BaseFragment() {
 
     private var itemBean: AggregateRankFirstPageBean? = null
     private lateinit var binding: MainFragmentBinding
     private lateinit var viewModel: MainViewModel
+    private lateinit var modeOfRankItem: ConcreteRankListVM
+    private var rankOfItemTabAdapter: RankOfItemTabAdapter? = null
+    private var concreteRankListAdapter: ConcreteRankListAdapter? = null
 
     companion object {
         fun newInstance(mItemBean: AggregateRankFirstPageBean): MainFragment {
@@ -24,7 +34,6 @@ class MainFragment : BaseFragment() {
             return fragment
         }
     }
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -42,13 +51,43 @@ class MainFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = MainFragmentBinding.inflate(inflater, container, false)
+        rankOfItemTabAdapter = RankOfItemTabAdapter(null)
+        concreteRankListAdapter = ConcreteRankListAdapter(null)
+        binding.apply {
+            leftRecycler.layoutManager = LinearLayoutManager(this@MainFragment.activity)
+            leftRecycler.adapter = rankOfItemTabAdapter
+            contentRecycler.layoutManager = LinearLayoutManager(this@MainFragment.activity)
+            contentRecycler.adapter = concreteRankListAdapter
+        }
         setData2View()
         return binding.root
     }
 
     private fun setData2View() {
 
-        binding.showContent.text = itemBean.toString()
+        viewModel = ViewModelProvider(
+            this,
+            MainViewModel.ViewModeFactory(itemBean?.aggregateListConfig?.clusterType)
+        )[MainViewModel::class.java]
+        viewModel.beanList.observe(viewLifecycleOwner, Observer {
+            rankOfItemTabAdapter?.setNewData(it)
+            // 假数据
+            modeOfRankItem = ViewModelProvider(
+                this,
+                ConcreteRankListVM.ViewModeProvider(
+                    it[0].categoryId,
+                    it[0].rankClusterId,
+                    1,
+                    20,
+                    it[0].rankingListId
+                )
+            )[ConcreteRankListVM::class.java]
+            modeOfRankItem.liveData.observe(viewLifecycleOwner, Observer {
+                concreteRankListAdapter?.setNewData(it.list)
+            })
+        })
+
+
     }
 
 

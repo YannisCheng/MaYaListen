@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="itemMode"
+            type="com.yannis.mayalisten.bean.AggregateRankListTabsBean" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="321px"
+        android:layout_gravity="center"
+        android:background="@color/maya_color_white">
+
+        <TextView
+            android:id="@+id/tv_rank"
+            android:layout_width="144px"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/maya_color_black_text_second"
+            android:textSize="14dp" />
+
+        <ImageView
+            android:id="@+id/iv_album_img"
+            android:layout_width="228px"
+            android:layout_height="228px"
+            android:layout_gravity="center_vertical" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="53px">
+
+            <TextView
+                android:id="@+id/tv_content_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50px"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@color/maya_color_black_text_main"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_title_second"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_content_title"
+                android:layout_marginTop="16px"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@color/maya_color_gray"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/tv_hot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_title_second"
+                android:layout_marginTop="27px"
+                android:text=""
+                android:textColor="@color/maya_color_gray_light"
+                android:textSize="10dp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</layout>

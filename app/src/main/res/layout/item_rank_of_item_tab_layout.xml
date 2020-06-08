@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="itemMode"
+            type="com.yannis.mayalisten.bean.AggregateRankListTabsBean" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="169px"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/maya_color_gray_bg"
+            android:gravity="center"
+            android:textColor="@color/maya_color_black_text_second"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+
+</layout>

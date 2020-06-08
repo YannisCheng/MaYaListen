@@ -20,18 +20,18 @@ interface MaYaApi {
     fun getAggregateRankFirstPage(): Observable<BaseResultBean<ArrayList<AggregateRankFirstPageBean>>>
 
     @GET("discovery-ranking-web/v3/ranking/AggregateRankListTabs/1590971595575")
-    fun getAggregateRankListTabs(@Query("rankingListId") rankingListId: String): Observable<BaseResultBean<ArrayList<AggregateRankListTabsBean>>>
+    fun getAggregateRankListTabs(@Query("rankingListId") rankingListId: Int): Observable<BaseResultBean<ArrayList<AggregateRankListTabsBean>>>
 
     /**
      * 选项卡具体专辑排名
      */
     @GET("discovery-ranking-web/v3/ranking/concreteRankList/1590971595956")
     fun getConcreteRankList(
-        @Query("categoryId") categoryId: String,
-        @Query("clusterType") clusterType: String,
-        @Query("pageId") pageId: String,
-        @Query("pageSize") pageSize: String,
-        @Query("rankingListId") rankingListId: String
+        @Query("categoryId") categoryId: Int,
+        @Query("clusterType") clusterType: Int,
+        @Query("pageId") pageId: Int,
+        @Query("pageSize") pageSize: Int,
+        @Query("rankingListId") rankingListId: Int
     ): Observable<BaseResultBean<ConcreteRankListBean>>
 
     /**

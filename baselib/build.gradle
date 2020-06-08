@@ -77,9 +77,12 @@ dependencies {
     api "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     api "com.squareup.retrofit2:converter-gson:$rootProject.converterGgsonVersion"
     api "com.squareup.retrofit2:adapter-rxjava2:$rootProject.adapterRxjava2Version"
-    //OKHttp的日志拦截器，可以打印网络请求结果
+    // OKHttp的日志拦截器，可以打印网络请求结果
     api "com.squareup.okhttp3:logging-interceptor:$rootProject.loggingInterceptor"
     // gson
     api "com.google.code.gson:gson:$rootProject.gsonVersion"
+    // BaseRecyclerViewAdapterHelper - RecyclerView 适配器
+    api "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.baseRecyclerViewAdapterHelperVersion"
+
 
 }

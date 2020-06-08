@@ -40,6 +40,7 @@ buildscript {
         converterGgsonVersion = '2.2.0'
         adapterRxjava2Version = '2.3.0'
         loggingInterceptor = '3.10.0'
+        baseRecyclerViewAdapterHelperVersion = '2.9.34'
     }
 
     repositories {
