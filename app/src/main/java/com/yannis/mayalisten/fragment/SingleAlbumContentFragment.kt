@@ -1,5 +1,6 @@
 package com.yannis.mayalisten.fragment
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.yannis.mayalisten.adapter.SingleAlbumItemAdapter
 import com.yannis.mayalisten.databinding.SingleAlbumContentFragmentBinding
 
 class SingleAlbumContentFragment : Fragment() {
@@ -18,6 +21,7 @@ class SingleAlbumContentFragment : Fragment() {
     private var trackId: Int = 0
     private var asc: Boolean = false
     private lateinit var viewModel: SingleAlbumContentViewModel
+    private lateinit var singleAlbumItemAdapter: SingleAlbumItemAdapter
 
     companion object {
         fun newInstance(albumId: Int, asc: Boolean, trackId: Int): SingleAlbumContentFragment {
@@ -42,6 +46,12 @@ class SingleAlbumContentFragment : Fragment() {
             trackId = it.getInt("trackId")
             asc = it.getBoolean("asc")
         }
+        binding.apply {
+            singleAlbumItemAdapter = SingleAlbumItemAdapter(null)
+            recyclerView.adapter = singleAlbumItemAdapter
+            recyclerView.layoutManager =
+                LinearLayoutManager(this@SingleAlbumContentFragment.context)
+        }
         return binding.root
     }
 
@@ -50,13 +60,15 @@ class SingleAlbumContentFragment : Fragment() {
         Log.e(TAG, "onViewCreated: ")
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         Log.e(TAG, "onActivityCreated: ")
         viewModel = ViewModelProvider(this)[SingleAlbumContentViewModel::class.java]
         viewModel.getSingleAlbumContent(albumId, true, trackId)
             .observe(viewLifecycleOwner, Observer {
-                Log.e(TAG, "onActivityCreated: ${it.tracks.list[0].toString()}")
+                binding.tvCountTotal.text = "共${it.album.tracks.toString()}集"
+                singleAlbumItemAdapter.setNewData(it.tracks.list)
             })
     }
 

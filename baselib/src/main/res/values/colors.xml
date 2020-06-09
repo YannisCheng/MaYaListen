@@ -5,6 +5,7 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="maya_color_white">#ffffff</color>
     <color name="maya_color_black_text_main">#333333</color>
+    <color name="maya_color_black">#000000</color>
     <color name="maya_color_black_text_second">#666666</color>
     <color name="maya_color_line">#eeeeee</color>
     <color name="maya_color_gray">#999999</color>

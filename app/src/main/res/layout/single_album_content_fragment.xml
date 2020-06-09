@@ -25,35 +25,33 @@
 
         <TextView
             android:id="@+id/tv_paixu"
-            android:layout_width="wrap_content"
+            android:layout_width="180px"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="50px"
             android:layout_toLeftOf="@id/tv_download"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:text="排序"
             android:textColor="@color/maya_color_black_text_second" />
 
         <TextView
             android:id="@+id/tv_download"
-            android:layout_width="wrap_content"
+            android:layout_width="160px"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="50px"
             android:layout_toLeftOf="@id/tv_count_total"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:text="下载"
             android:textColor="@color/maya_color_black_text_second" />
 
         <TextView
+            android:layout_width="320px"
             android:id="@+id/tv_count_total"
-            android:layout_width="wrap_content"
+            android:paddingLeft="20px"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="50px"
             android:gravity="center_vertical"
-            android:text="共148集"
+            android:text="共3566集"
             android:textColor="@color/maya_color_black_text_second" />
 
     </RelativeLayout>
