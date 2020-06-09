@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -102,6 +104,12 @@ class MainFragment : BaseFragment() {
             MainViewModel.ViewModeFactory(itemBean?.aggregateListConfig?.clusterType)
         )[MainViewModel::class.java]
         viewModel.beanList.observe(viewLifecycleOwner, Observer {
+
+            binding.apply {
+                if (it.size == 1) leftRecycler.visibility = GONE else leftRecycler.visibility =
+                    VISIBLE
+            }
+
             it[0].isChecked = true
             rankOfItemTabAdapter?.setNewData(it)
             getRankListOfItemTab(it[0])
