@@ -21,7 +21,6 @@
             android:value="2560" />-->
 
         <activity android:name=".activity.SingleAlbumContentActivity" />
-        <activity android:name=".activity.AggregateRankFirstPageActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

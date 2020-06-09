@@ -2,18 +2,19 @@ package com.yannis.mayalisten.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yannis.mayalisten.activity.SingleAlbumContentActivity
 import com.yannis.mayalisten.adapter.ConcreteRankListAdapter
 import com.yannis.mayalisten.adapter.RankOfItemTabAdapter
 import com.yannis.mayalisten.base.BaseFragment
 import com.yannis.mayalisten.bean.AggregateRankFirstPageBean
 import com.yannis.mayalisten.bean.AggregateRankListTabsBean
+import com.yannis.mayalisten.bean.ItemBean
 import com.yannis.mayalisten.databinding.MainFragmentBinding
 import com.yannis.mayalisten.view_mode.ConcreteRankListVM
 import com.yannis.mayalisten.view_mode.MainViewModel
@@ -67,6 +68,10 @@ class MainFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
     private fun onClick() {
         rankOfItemTabAdapter?.setOnItemChildClickListener { adapter, _, position ->
             val itemBean = adapter.getItem(position) as AggregateRankListTabsBean
@@ -81,7 +86,12 @@ class MainFragment : BaseFragment() {
         }
 
         concreteRankListAdapter?.setOnItemClickListener { adapter, view, position ->
-            Log.e("TAG", "onClick: ${position}")
+            this@MainFragment.context?.let {
+                SingleAlbumContentActivity.start(
+                    it,
+                    adapter.data[position] as ItemBean
+                )
+            }
         }
     }
 

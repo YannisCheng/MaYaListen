@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="258px">
+
+    <TextView
+        android:id="@+id/tv_order"
+        android:layout_width="181px"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textColor="@color/maya_color_gray_light"
+        android:textSize="@dimen/text_size_title"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="42px"
+        android:layout_marginRight="38px"
+        android:text=""
+        android:textColor="@color/maya_color_gray_light"
+        android:textSize="@dimen/text_size_second" />
+
+    <TextView
+        android:id="@+id/tv_download_left"
+        android:layout_width="140px"
+        android:layout_height="140px"
+        android:layout_below="@id/tv_time"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="26px"
+        android:layout_marginRight="38px" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="108px"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="42px"
+        android:layout_toLeftOf="@id/tv_time"
+        android:layout_toRightOf="@id/tv_order"
+        android:maxLength="1"
+        android:text=""
+        android:textColor="@color/maya_color_black_text_main"
+        android:textSize="@dimen/text_size" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="108px"
+        android:layout_below="@id/tv_title"
+        android:layout_toRightOf="@id/tv_order"
+        android:orientation="horizontal"
+
+        android:textColor="@color/maya_color_gray_light">
+
+        <TextView
+            android:id="@+id/tv_play_count"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textColor="@color/maya_color_gray_light"
+            android:textSize="@dimen/text_notice_light" />
+
+        <TextView
+            android:id="@+id/tv_play_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="38px"
+            android:gravity="center_vertical"
+            android:textColor="@color/maya_color_gray_light"
+            android:textSize="@dimen/text_notice_light" />
+
+        <TextView
+            android:id="@+id/tv_play_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="38px"
+            android:gravity="center_vertical"
+            android:textColor="@color/maya_color_gray_light"
+            android:textSize="@dimen/text_notice_light" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/tv_order"
+        android:background="@color/maya_color_line" />
+</RelativeLayout>

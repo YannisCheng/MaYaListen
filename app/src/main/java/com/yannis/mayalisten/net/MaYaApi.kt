@@ -39,8 +39,8 @@ interface MaYaApi {
      */
     @GET("mobile-album/album/page/ts-1590971941673?ac=WIFI&device=iPhone&isQueryInvitationBrand=true&isVideoAsc=true&pageSize=20&source=0")
     fun getSingleAlbumContent(
-        @Query("albumId") albumId: String,
-        @Query("isAsc") isAsc: String,
-        @Query("trackId") trackId: String
+        @Query("albumId") albumId: Int,
+        @Query("isAsc") isAsc: Boolean,
+        @Query("trackId") trackId: Int
     ): Observable<BaseResultBean<SingleAlbumContentBean>>
 }

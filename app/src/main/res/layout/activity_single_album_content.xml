@@ -5,4 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".activity.SingleAlbumContentActivity">
 
+    <FrameLayout
+        android:id="@+id/fl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
