@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true">
+    <item
+        android:drawable="@drawable/video_player_btn_pause_00"
+        android:duration="33" />
+    <item
+        android:drawable="@drawable/video_player_btn_pause_01"
+        android:duration="33" />
+    <item
+        android:drawable="@drawable/video_player_btn_pause_02"
+        android:duration="33" />
+    <item
+        android:drawable="@drawable/video_player_btn_pause_03"
+        android:duration="33" />
+    <item
+        android:drawable="@drawable/video_player_btn_pause_04"
+        android:duration="33" />
+    <item
+        android:drawable="@drawable/video_player_btn_pause_05"
+        android:duration="33" />
+    <item
+        android:drawable="@drawable/video_player_btn_pause_06"
+        android:duration="33" />
+    <item
+        android:drawable="@drawable/video_player_btn_pause_07"
+        android:duration="33" />
+    <item
+        android:drawable="@drawable/video_player_btn_pause_08"
+        android:duration="33" />
+</animation-list>

@@ -9,32 +9,47 @@
     </data>
 
     <RelativeLayout
-        android:layout_height="324px"
         android:layout_width="match_parent"
-        android:paddingRight="51px"
+        android:layout_height="324px"
         android:layout_gravity="center"
-        android:background="@color/maya_color_white">
-
-        <TextView
-            android:id="@+id/tv_rank"
-            android:layout_width="144px"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textColor="@color/maya_color_gray_light"
-            android:textSize="14dp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:layout_height="228px"
-            android:layout_centerVertical="true"
-            android:id="@+id/iv_album_img"
-            android:layout_width="228px"
-            android:layout_toRightOf="@id/tv_rank" />
+        android:background="@color/maya_color_white"
+        android:paddingRight="51px">
 
         <RelativeLayout
-            android:layout_marginLeft="43px"
+            android:id="@+id/rl_rank"
+            android:layout_width="144px"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_fanlist"
+                android:layout_width="74px"
+                android:layout_height="74px"
+                android:layout_centerInParent="true"
+                android:background="@drawable/live_fanlist_top1"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_rank"
+                android:layout_width="144px"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/maya_black_bbbbbb"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+
+        <ImageView
+            android:id="@+id/iv_album_img"
+            android:layout_width="228px"
+            android:layout_height="228px"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/rl_rank" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="43px"
             android:layout_toRightOf="@id/iv_album_img">
 
             <TextView
@@ -57,7 +72,7 @@
                 android:layout_marginTop="4px"
                 android:singleLine="true"
                 android:text=""
-                android:textColor="@color/maya_color_gray"
+                android:textColor="@color/maya_black_999999"
                 android:textSize="11dp" />
 
             <TextView
@@ -67,7 +82,7 @@
                 android:layout_below="@id/tv_title_second"
                 android:layout_marginTop="16px"
                 android:text=""
-                android:textColor="@color/maya_color_gray_light"
+                android:textColor="@color/maya_black_bbbbbb"
                 android:textSize="10dp" />
         </RelativeLayout>
 

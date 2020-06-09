@@ -33,24 +33,29 @@
             android:text="排序"
             android:textColor="@color/maya_color_black_text_second" />
 
-        <TextView
+        <ImageView
             android:id="@+id/tv_download"
             android:layout_width="160px"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/tv_count_total"
             android:gravity="center"
-            android:text="下载"
-            android:textColor="@color/maya_color_black_text_second" />
+            android:padding="42px"
+            android:src="@drawable/host_community_track_download"
+            android:textColor="@color/maya_color_black_text_second"
+            android:tint="@color/maya_color_black_text_second" />
 
         <TextView
-            android:layout_width="320px"
             android:id="@+id/tv_count_total"
+            android:drawableEnd="@drawable/main_arrow_triangle_down_dark"
+            android:drawableTint="@color/maya_color_black_text_second"
             android:paddingLeft="20px"
+            android:layout_width="320px"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
+            android:paddingEnd="40px"
             android:text="共3566集"
             android:textColor="@color/maya_color_black_text_second" />
 

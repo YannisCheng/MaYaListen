@@ -3,23 +3,43 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_order"
+    <RelativeLayout
+        android:id="@+id/ll_order"
         android:layout_width="181px"
-        android:layout_height="132px"
-        android:layout_marginTop="44px"
-        android:gravity="center"
-        android:textColor="@color/maya_color_gray_light"
-        android:textSize="16sp" />
+        android:layout_height="181px"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_order"
+            android:layout_width="181px"
+            android:layout_height="132px"
+            android:layout_marginTop="44px"
+            android:gravity="center"
+            android:textColor="@color/maya_black_bbbbbb"
+            android:textSize="16sp"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/iv_fanlist"
+            android:layout_width="74px"
+            android:layout_height="74px"
+            android:layout_centerInParent="true"
+            android:background="@drawable/live_fanlist_top1"
+            android:visibility="gone" />
+    </RelativeLayout>
 
 
-    <TextView
+    <ImageView
         android:id="@+id/tv_download_left"
         android:layout_width="134px"
         android:layout_height="134px"
         android:layout_below="@id/tv_title"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="24px" />
+        android:layout_marginRight="24px"
+        android:padding="30px"
+        android:src="@drawable/host_community_track_download"
+        android:tint="@color/maya_color_black_text_second" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -29,7 +49,7 @@
         android:layout_marginTop="44px"
         android:layout_marginRight="107px"
         android:layout_toLeftOf="@id/tv_time"
-        android:layout_toRightOf="@id/tv_order"
+        android:layout_toRightOf="@id/ll_order"
         android:maxLines="2"
         android:text=""
         android:textColor="@color/maya_color_black"
@@ -43,7 +63,7 @@
         android:layout_marginTop="44px"
         android:layout_marginRight="30px"
         android:text=""
-        android:textColor="@color/maya_color_gray"
+        android:textColor="@color/maya_black_999999"
         android:textSize="11sp" />
 
     <LinearLayout
@@ -52,16 +72,16 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_title"
         android:layout_marginTop="64px"
-        android:layout_toRightOf="@id/tv_order"
+        android:layout_toRightOf="@id/ll_order"
         android:orientation="horizontal"
-        android:textColor="@color/maya_color_gray_light">
+        android:textColor="@color/maya_black_bbbbbb">
 
         <TextView
             android:id="@+id/tv_play_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:textColor="@color/maya_color_gray"
+            android:textColor="@color/maya_black_999999"
             android:textSize="@dimen/text_notice_light" />
 
         <TextView
@@ -70,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="38px"
             android:gravity="center_vertical"
-            android:textColor="@color/maya_color_gray"
+            android:textColor="@color/maya_black_999999"
             android:textSize="@dimen/text_notice_light" />
 
         <TextView
@@ -79,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="38px"
             android:gravity="center_vertical"
-            android:textColor="@color/maya_color_gray"
+            android:textColor="@color/maya_black_999999"
             android:textSize="@dimen/text_notice_light" />
     </LinearLayout>
 
@@ -87,6 +107,6 @@
         android:layout_width="match_parent"
         android:layout_height="2px"
         android:layout_below="@id/tv_download_left"
-        android:layout_toRightOf="@id/tv_order"
+        android:layout_toRightOf="@id/ll_order"
         android:background="@color/maya_color_line" />
 </RelativeLayout>

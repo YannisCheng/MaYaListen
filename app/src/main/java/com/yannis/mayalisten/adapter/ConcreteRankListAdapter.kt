@@ -1,7 +1,9 @@
 package com.yannis.mayalisten.adapter
 
 import android.annotation.SuppressLint
+import android.view.View
 import android.view.View.GONE
+import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -25,6 +27,24 @@ class ConcreteRankListAdapter(data: MutableList<ItemBean>?) :
     override fun convert(helper: BaseViewHolder?, item: ItemBean?) {
 
         helper?.let {
+            when (it.adapterPosition) {
+                0 -> {
+                    setTopView(it, R.drawable.live_fanlist_top1)
+                }
+                1 -> {
+                    setTopView(it, R.drawable.live_fanlist_top2)
+                }
+                2 -> {
+                    setTopView(it, R.drawable.live_fanlist_top3)
+                }
+                else -> {
+                    it.getView<ImageView>(R.id.iv_fanlist).visibility = GONE
+                    it.getView<TextView>(R.id.tv_rank).visibility = View.VISIBLE
+                    it.getView<TextView>(R.id.tv_rank).text =
+                        (it.adapterPosition + 1).toString()
+                }
+            }
+
             val albumInfoView = it.getView<TextView>(R.id.tv_title_second)
             Glide.with(mContext).load(item?.coverMiddle).into(helper.getView(R.id.iv_album_img))
             it.getView<TextView>(R.id.tv_rank)?.text = "${helper.adapterPosition + 1}"
@@ -34,5 +54,12 @@ class ConcreteRankListAdapter(data: MutableList<ItemBean>?) :
             it.getView<TextView>(R.id.tv_hot)?.text = item?.popularity ?: ""
         }
 
+    }
+
+    private fun setTopView(it: BaseViewHolder, imgId: Int) {
+        it.getView<ImageView>(R.id.iv_fanlist).visibility = View.VISIBLE
+        it.getView<TextView>(R.id.tv_rank).visibility = GONE
+        it.getView<ImageView>(R.id.iv_fanlist)
+            .background = mContext.resources.getDrawable(imgId)
     }
 }

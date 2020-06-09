@@ -8,15 +8,43 @@
     android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
-    <TextView
-        android:id="@+id/action_bar"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="140px"
-        android:gravity="center"
-        android:text="玛雅听声"
-        android:textColor="@color/maya_color_black_text_main"
-        android:textSize="16sp"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="140px"
+            android:layout_height="140px"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16px"
+            android:padding="20px"
+            android:src="@drawable/live_arrow_orange_normal_left"
+            android:tint="@color/maya_color_black_text_main" />
+
+        <TextView
+            android:id="@+id/action_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="140px"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="玛雅听声"
+            android:textColor="@color/maya_color_black_text_main"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="140px"
+            android:layout_height="140px"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16px"
+            android:padding="34px"
+            android:src="@drawable/zone_home_share"
+            android:tint="@color/maya_color_black_text_main" />
+    </RelativeLayout>
+
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"

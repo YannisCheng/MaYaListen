@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yannis.mayalisten.adapter.SingleAlbumItemAdapter
 import com.yannis.mayalisten.databinding.SingleAlbumContentFragmentBinding
+import com.yannis.mayalisten.view_mode.SingleAlbumContentViewModel
 
 class SingleAlbumContentFragment : Fragment() {
 

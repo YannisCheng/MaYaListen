@@ -1,4 +1,4 @@
-package com.yannis.mayalisten.fragment
+package com.yannis.mayalisten.view_mode
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
