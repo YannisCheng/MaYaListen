@@ -87,7 +87,7 @@ class MainFragment : BaseFragment() {
             getRankListOfItemTab(itemBean)
         }
 
-        concreteRankListAdapter?.setOnItemClickListener { adapter, view, position ->
+        concreteRankListAdapter?.setOnItemClickListener { adapter, _, position ->
             this@MainFragment.context?.let {
                 SingleAlbumContentActivity.start(
                     it,
