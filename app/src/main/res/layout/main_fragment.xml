@@ -4,21 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/maya_color_white"
     tools:context=".fragment.MainFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="15px"
         android:id="@+id/left_recycler"
         android:layout_width="273px"
         android:layout_height="match_parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_rank_of_item_tab_layout" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="15px"
         android:id="@+id/content_recycler"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constraintLeft_toRightOf="@id/left_recycler"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_concrete_rank_list_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
