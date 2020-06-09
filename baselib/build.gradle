@@ -83,6 +83,29 @@ dependencies {
     api "com.google.code.gson:gson:$rootProject.gsonVersion"
     // BaseRecyclerViewAdapterHelper - RecyclerView 适配器
     api "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.baseRecyclerViewAdapterHelperVersion"
+    // 适配
+    api "me.jessyan:autosize:$rootProject.autosizeVersion"
+    // EventBus - 事件处理,ext 额外属性使用
+    api "org.greenrobot:eventbus:$rootProject.eventBusVersion"
+    // LeakCanary - 内存泄漏检测
+    debugApi "com.squareup.leakcanary:leakcanary-android:$rootProject.leakcanaryAndroidVersion"
+    // smartRefreshLayout AndroidX 依赖
+    api "com.scwang.smart:refresh-layout-kernel:$rootProject.smartRefreshLayoutVersion"
+    //核心必须依赖
+    api "com.scwang.smart:refresh-header-classics:$rootProject.smartRefreshLayoutVersion"
+    //经典刷新头
+    api "com.scwang.smart:refresh-header-radar:$rootProject.smartRefreshLayoutVersion"
+    //雷达刷新头
+    api "com.scwang.smart:refresh-header-falsify:$rootProject.smartRefreshLayoutVersion"
+    //虚拟刷新头
+    api "com.scwang.smart:refresh-header-material:$rootProject.smartRefreshLayoutVersion"
+    //谷歌刷新头
+    api "com.scwang.smart:refresh-header-two-level:$rootProject.smartRefreshLayoutVersion"
+    //二级刷新头
+    api "com.scwang.smart:refresh-footer-ball:$rootProject.smartRefreshLayoutVersion"
+    //球脉冲加载
+    api "com.scwang.smart:refresh-footer-classics:$rootProject.smartRefreshLayoutVersion"
+    //经典加载
 
 
 }
