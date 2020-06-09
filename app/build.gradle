@@ -33,10 +33,17 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
+        // 仅保留中文资源
+        resConfigs 'zh'
     }
 
     buildTypes {
         release {
+            //压缩无用资源
+            shrinkResources true
+            //zipAlign优化
+            zipAlignEnabled true
             minifyEnabled true
             multiDexEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
