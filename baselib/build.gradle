@@ -84,7 +84,7 @@ dependencies {
     // BaseRecyclerViewAdapterHelper - RecyclerView 适配器
     api "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.baseRecyclerViewAdapterHelperVersion"
     // 适配
-    api "me.jessyan:autosize:$rootProject.autosizeVersion"
+    //api "me.jessyan:autosize:$rootProject.autosizeVersion"
     // EventBus - 事件处理,ext 额外属性使用
     api "org.greenrobot:eventbus:$rootProject.eventBusVersion"
     // LeakCanary - 内存泄漏检测

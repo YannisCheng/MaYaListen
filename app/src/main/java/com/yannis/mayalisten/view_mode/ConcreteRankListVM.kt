@@ -3,7 +3,6 @@ package com.yannis.mayalisten.view_mode
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.yannis.mayalisten.base.BaseResultBean
 import com.yannis.mayalisten.bean.ConcreteRankListBean
 import com.yannis.mayalisten.net.RetrofitManager
@@ -17,16 +16,12 @@ import io.reactivex.disposables.Disposable
  * @date    2020/6/8
  */
 class ConcreteRankListVM(
-    categoryId: Int,
-    clusterType: Int,
-    pageId: Int? = 1,
-    pageSize: Int? = 20,
-    rankingListId: Int
+
 ) : ViewModel() {
 
     val liveData = MutableLiveData<ConcreteRankListBean>()
 
-    class ViewModeProvider(
+    /*class ViewModeProvider(
         var categoryId: Int,
         var clusterType: Int,
         var pageId: Int? = 1,
@@ -36,9 +31,16 @@ class ConcreteRankListVM(
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return ConcreteRankListVM(categoryId, clusterType, 1, 20, rankingListId) as T
         }
-    }
+    }*/
 
-    init {
+
+    fun getRequestData(
+        categoryId: Int,
+        clusterType: Int,
+        pageId: Int? = 1,
+        pageSize: Int? = 20,
+        rankingListId: Int
+    ) {
         RetrofitManager.getInstance().getApi().getConcreteRankList(
             categoryId,
             clusterType,
@@ -68,4 +70,5 @@ class ConcreteRankListVM(
 
             })
     }
+
 }

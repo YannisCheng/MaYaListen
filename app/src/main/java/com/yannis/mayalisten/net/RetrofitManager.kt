@@ -47,7 +47,7 @@ class RetrofitManager {
                         .build()
                 )
             })
-            .build();
+            .build()
 
         api = Retrofit.Builder()
             .baseUrl(NetConstants.BASE_URL)
@@ -59,7 +59,7 @@ class RetrofitManager {
     }
 
 
-    public fun getApi(): MaYaApi {
+    fun getApi(): MaYaApi {
         return api
     }
 

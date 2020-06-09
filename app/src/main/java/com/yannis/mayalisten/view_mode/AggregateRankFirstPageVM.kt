@@ -44,5 +44,11 @@ class AggregateRankFirstPageVM : ViewModel() {
             })
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        Log.e(TAG, "onCleared: ")
+
+    }
+
 
 }

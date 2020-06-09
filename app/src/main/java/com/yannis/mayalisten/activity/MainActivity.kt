@@ -1,9 +1,9 @@
 package com.yannis.mayalisten.activity
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yannis.mayalisten.base.BaseActivity
@@ -23,36 +23,36 @@ class MainActivity : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ViewModelProvider(this).get(AggregateRankFirstPageVM::class.java)
-            .listBean.observe(this, Observer {
-                tabsTitle.addAll(it);
+        val model: AggregateRankFirstPageVM by viewModels()
+        model.listBean.observe(this, Observer { it ->
+            tabsTitle.addAll(it)
 
-                it?.forEach {
-                    binding.tabLayout.addTab(
-                        binding.tabLayout.newTab().setText(it.aggregateListConfig.aggregateName)
-                    )
+            it?.forEach {
+                binding.tabLayout.addTab(
+                    binding.tabLayout.newTab().setText(it.aggregateListConfig.aggregateName)
+                )
+            }
+
+            binding.viewPager.adapter = object : FragmentStateAdapter(this) {
+                override fun getItemCount(): Int {
+                    return it.size
                 }
 
-                binding.viewPager.adapter = object : FragmentStateAdapter(this) {
-                    override fun getItemCount(): Int {
-                        return it.size
-                    }
-
-                    override fun createFragment(position: Int): Fragment {
-                        return MainFragment.newInstance(it[position])
-                    }
+                override fun createFragment(position: Int): Fragment {
+                    return MainFragment.newInstance(it[position])
                 }
+            }
 
-                mdiator = TabLayoutMediator(
-                    binding.tabLayout,
-                    binding.viewPager,
-                    TabLayoutMediator.TabConfigurationStrategy { tab, position ->
-                        tab.text = tabsTitle[position].aggregateListConfig.aggregateName
+            mdiator = TabLayoutMediator(
+                binding.tabLayout,
+                binding.viewPager,
+                TabLayoutMediator.TabConfigurationStrategy { tab, position ->
+                    tab.text = tabsTitle[position].aggregateListConfig.aggregateName
 
-                    })
+                })
 
-                mdiator?.attach()
-            })
+            mdiator?.attach()
+        })
     }
 
     override fun onDestroy() {

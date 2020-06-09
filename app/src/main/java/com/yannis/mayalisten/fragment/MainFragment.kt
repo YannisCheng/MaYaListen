@@ -46,6 +46,7 @@ class MainFragment : BaseFragment() {
         arguments?.let {
             itemBean = it.getSerializable("bean") as AggregateRankFirstPageBean?
         }
+        modeOfRankItem = ViewModelProvider(this)[ConcreteRankListVM::class.java]
     }
 
     override fun onCreateView(
@@ -67,7 +68,7 @@ class MainFragment : BaseFragment() {
     }
 
     private fun onClick() {
-        rankOfItemTabAdapter?.setOnItemChildClickListener { adapter, view, position ->
+        rankOfItemTabAdapter?.setOnItemChildClickListener { adapter, _, position ->
             val itemBean = adapter.getItem(position) as AggregateRankListTabsBean
             if (!itemBean.isChecked) {
                 itemBean.isChecked = true
@@ -98,16 +99,7 @@ class MainFragment : BaseFragment() {
     }
 
     private fun getRankListOfItemTab(it: AggregateRankListTabsBean) {
-        modeOfRankItem = ViewModelProvider(
-            this,
-            ConcreteRankListVM.ViewModeProvider(
-                it.categoryId,
-                it.rankClusterId,
-                1,
-                20,
-                it.rankingListId
-            )
-        )[ConcreteRankListVM::class.java]
+        modeOfRankItem.getRequestData(it.categoryId, it.rankClusterId, 1, 20, it.rankingListId)
         modeOfRankItem.liveData.observe(viewLifecycleOwner, Observer {
             concreteRankListAdapter?.setNewData(it.list)
         })
