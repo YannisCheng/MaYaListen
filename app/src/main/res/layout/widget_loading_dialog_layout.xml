@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_loading_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/ll_msg"
+        android:layout_width="400px"
+        android:layout_height="400px"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="160px"
+            android:layout_height="160px"
+            android:layout_gravity="center_horizontal"
+            android:indeterminateBehavior="repeat"
+            android:indeterminateDrawable="@drawable/host_common_theme_loading"
+            android:indeterminateOnly="true" />
+
+        <TextView
+            android:id="@+id/tv_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="加载中..."
+            android:textColor="@color/maya_color_black_text_main"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</RelativeLayout>
