@@ -17,19 +17,19 @@ import retrofit2.http.Query
 interface MaYaApi {
 
     /**
-     * 顶部tab获取
+     * 首页顶部tab数据获取
      */
     @GET("discovery-ranking-web/v3/ranking/AggregateRankFirstPage/1590971595389")
     fun getAggregateRankFirstPage(): Observable<BaseResultBean<ArrayList<AggregateRankFirstPageBean>>>
 
     /**
-     * 每一个tab下的排名
+     * 首页单个tab-> 左侧所有list
      */
     @GET("discovery-ranking-web/v3/ranking/AggregateRankListTabs/1590971595575")
     fun getAggregateRankListTabs(@Query("rankingListId") rankingListId: Int): Observable<BaseResultBean<ArrayList<AggregateRankListTabsBean>>>
 
     /**
-     * 选项卡具体专辑排名
+     * 首页单个tab -> 左侧单个list -> 所有专辑
      */
     @GET("discovery-ranking-web/v3/ranking/concreteRankList/1590971595956")
     fun getConcreteRankList(
@@ -41,7 +41,7 @@ interface MaYaApi {
     ): Observable<BaseResultBean<ConcreteRankListBean>>
 
     /**
-     * 专辑内容
+     * 单张专辑所有内容
      */
     @GET("mobile-album/album/page/ts-1590971941673?ac=WIFI&device=iPhone&isQueryInvitationBrand=true&isVideoAsc=true&pageSize=20&source=0")
     fun getSingleAlbumContent(

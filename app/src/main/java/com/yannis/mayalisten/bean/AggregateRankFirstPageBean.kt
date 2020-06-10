@@ -3,7 +3,8 @@ package com.yannis.mayalisten.bean
 import java.io.Serializable
 
 /**
- * 首页总排名tab数据bean
+ * 首页顶部tab数据获取
+ *
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/6/7
  */

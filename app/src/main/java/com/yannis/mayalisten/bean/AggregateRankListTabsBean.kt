@@ -3,6 +3,7 @@ package com.yannis.mayalisten.bean
 import java.io.Serializable
 
 /**
+ * 首页单个tab-> 左侧所有list
  *
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/6/7

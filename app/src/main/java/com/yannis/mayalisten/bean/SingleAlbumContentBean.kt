@@ -3,6 +3,7 @@ package com.yannis.mayalisten.bean
 import java.io.Serializable
 
 /**
+ * 单张专辑所有内容
  *
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/6/8
