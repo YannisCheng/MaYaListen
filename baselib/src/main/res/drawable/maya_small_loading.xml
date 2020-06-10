@@ -9,5 +9,5 @@
         android:pivotY="50%"
         android:repeatCount="-1"
         android:repeatMode="restart"
-        android:toDegrees="360" />
+        android:toDegrees="359" />
 </rotate>
