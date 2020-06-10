@@ -17,4 +17,6 @@
 
     <color name="maya_transparent_half">#80000000</color>
     <color name="maya_transparent">@android:color/transparent</color>
+    <color name="maya_green">#4ed957</color>
+
 </resources>
