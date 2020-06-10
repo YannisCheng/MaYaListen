@@ -63,12 +63,11 @@ class LoadingDialog(context: Context) : Dialog(context) {
             val progress = rootView.findViewById<ProgressBar>(R.id.progress) as ProgressBar
             val msgTv = rootView.findViewById<TextView>(R.id.tv_msg) as TextView
 
-
-            if (msg != "") {
+            msg.takeIf {
+                it != ""
+            }?.let {
                 msgTv.text = msg
-            } else {
-                msgTv.visibility = GONE
-            }
+            } ?: run { msgTv.visibility = GONE }
 
             loadingDialog.apply {
                 setContentView(rootView)

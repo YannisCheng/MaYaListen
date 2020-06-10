@@ -16,9 +16,15 @@ import retrofit2.http.Query
  */
 interface MaYaApi {
 
+    /**
+     * 顶部tab获取
+     */
     @GET("discovery-ranking-web/v3/ranking/AggregateRankFirstPage/1590971595389")
     fun getAggregateRankFirstPage(): Observable<BaseResultBean<ArrayList<AggregateRankFirstPageBean>>>
 
+    /**
+     * 每一个tab下的排名
+     */
     @GET("discovery-ranking-web/v3/ranking/AggregateRankListTabs/1590971595575")
     fun getAggregateRankListTabs(@Query("rankingListId") rankingListId: Int): Observable<BaseResultBean<ArrayList<AggregateRankListTabsBean>>>
 
