@@ -8,7 +8,7 @@ import com.yannis.mayalisten.R
 import com.yannis.mayalisten.base.BaseActivity
 import com.yannis.mayalisten.bean.ItemBean
 import com.yannis.mayalisten.databinding.ActivitySingleAlbumContentBinding
-import com.yannis.mayalisten.fragment.SingleAlbumContentFragment
+import com.yannis.mayalisten.fragment.SingleAlbumEvaluationsFragment
 
 class SingleAlbumContentActivity : BaseActivity() {
 
@@ -34,9 +34,11 @@ class SingleAlbumContentActivity : BaseActivity() {
         setContentView(binding.root)
         binding.apply {
             fragmentTransaction = supportFragmentManager.beginTransaction()
+
             fragmentTransaction.replace(
                 R.id.fl,
-                SingleAlbumContentFragment.newInstance(itemBean.albumId, true, itemBean.trackId)
+                //SingleAlbumContentFragment.newInstance(itemBean.albumId, true, itemBean.trackId)
+                SingleAlbumEvaluationsFragment.newInstance(itemBean.albumId)
             )
             fragmentTransaction.commit()
         }

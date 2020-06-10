@@ -1,9 +1,7 @@
 package com.yannis.mayalisten.fragment
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +13,11 @@ import com.yannis.mayalisten.adapter.SingleAlbumItemAdapter
 import com.yannis.mayalisten.databinding.SingleAlbumContentFragmentBinding
 import com.yannis.mayalisten.view_mode.SingleAlbumContentViewModel
 
+
+private const val ALBUM_ID = "albumId"
+private const val ASC = "asc"
+private const val TRACK_ID = "trackId"
+
 class SingleAlbumContentFragment : Fragment() {
 
     private lateinit var binding: SingleAlbumContentFragmentBinding
@@ -25,6 +28,7 @@ class SingleAlbumContentFragment : Fragment() {
     private lateinit var singleAlbumItemAdapter: SingleAlbumItemAdapter
 
     companion object {
+        /*@JvmStatic
         fun newInstance(albumId: Int, asc: Boolean, trackId: Int): SingleAlbumContentFragment {
             val args = Bundle()
             args.putInt("albumId", albumId)
@@ -33,6 +37,25 @@ class SingleAlbumContentFragment : Fragment() {
             val fragment = SingleAlbumContentFragment()
             fragment.arguments = args
             return fragment
+        }*/
+
+        @JvmStatic
+        fun newInstance(albumId: Int, asc: Boolean, trackId: Int) =
+            SingleAlbumContentFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(ALBUM_ID, albumId)
+                    putBoolean(ASC, asc)
+                    putInt(TRACK_ID, trackId)
+                }
+            }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            albumId = it.getInt(ALBUM_ID)
+            trackId = it.getInt(TRACK_ID)
+            asc = it.getBoolean(ASC)
         }
     }
 
@@ -41,12 +64,7 @@ class SingleAlbumContentFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = SingleAlbumContentFragmentBinding.inflate(inflater, container, false)
-        Log.e(TAG, "onCreateView: ")
-        arguments?.let {
-            albumId = it.getInt("albumId")
-            trackId = it.getInt("trackId")
-            asc = it.getBoolean("asc")
-        }
+
         binding.apply {
             singleAlbumItemAdapter = SingleAlbumItemAdapter(null)
             recyclerView.adapter = singleAlbumItemAdapter
@@ -58,13 +76,11 @@ class SingleAlbumContentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e(TAG, "onViewCreated: ")
     }
 
     @SuppressLint("SetTextI18n")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log.e(TAG, "onActivityCreated: ")
         viewModel = ViewModelProvider(this)[SingleAlbumContentViewModel::class.java]
         viewModel.getSingleAlbumContent(albumId, true, trackId)
             .observe(viewLifecycleOwner, Observer {
