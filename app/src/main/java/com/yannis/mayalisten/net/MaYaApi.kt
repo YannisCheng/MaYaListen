@@ -1,10 +1,7 @@
 package com.yannis.mayalisten.net
 
 import com.yannis.mayalisten.base.BaseResultBean
-import com.yannis.mayalisten.bean.AggregateRankFirstPageBean
-import com.yannis.mayalisten.bean.AggregateRankListTabsBean
-import com.yannis.mayalisten.bean.ConcreteRankListBean
-import com.yannis.mayalisten.bean.SingleAlbumContentBean
+import com.yannis.mayalisten.bean.*
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -49,4 +46,28 @@ interface MaYaApi {
         @Query("isAsc") isAsc: Boolean,
         @Query("trackId") trackId: Int
     ): Observable<BaseResultBean<SingleAlbumContentBean>>
+
+    /**
+     * 对专辑自身的评价
+     */
+    @GET("album-comment-mobile/album/comment/list/query/1591776846264?order=content-score-desc&pageId=1&pageSize=20")
+    fun getAlbumEvaluations(
+        @Query("albumId") albumId: Int
+    ): Observable<BaseResultBean<AlbumEvaluationsBean>>
+
+    /**
+     * 专辑-单条音频播放-声音内容
+     */
+    @GET("mobile/track/v2/baseInfo/1591777317565?device=android")
+    fun getAlbumPlayEntry(
+        @Query("trackId") trackId: Int
+    ): Observable<AlbumPlayEntryBean>
+
+    /**
+     * 专辑-单条音频播放-评价
+     */
+    @GET("comment-mobile/v1/track/comment/1591777645643?hotPageId=1&hotPageSize=30&imageViewSize=960&order=0&pageId=2&pageSize=30")
+    fun getAlbumPlayEntryEvaluations(
+        @Query("trackId") trackId: Int
+    ): Observable<AlbumPlayEntryEvaluationBean>
 }
