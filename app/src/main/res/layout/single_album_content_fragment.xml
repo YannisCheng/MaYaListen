@@ -31,7 +31,8 @@
             android:layout_toLeftOf="@id/tv_download"
             android:gravity="center"
             android:text="排序"
-            android:textColor="@color/maya_color_black_text_second" />
+            android:textColor="@color/maya_color_black_text_second"
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/tv_download"
@@ -47,14 +48,14 @@
 
         <TextView
             android:id="@+id/tv_count_total"
-            android:drawableEnd="@drawable/main_arrow_triangle_down_dark"
-            android:drawableTint="@color/maya_color_black_text_second"
-            android:paddingLeft="20px"
             android:layout_width="320px"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:drawableEnd="@drawable/main_arrow_triangle_down_dark"
+            android:drawableTint="@color/maya_color_black_text_second"
             android:gravity="center_vertical"
+            android:paddingLeft="20px"
             android:paddingEnd="40px"
             android:text="共3566集"
             android:textColor="@color/maya_color_black_text_second" />

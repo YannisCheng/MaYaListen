@@ -21,8 +21,8 @@
             android:background="@drawable/left_bg_selector"
             android:button="@drawable/left_bg_selector"
             android:gravity="center"
-            android:textColor="@color/maya_color_black_text_second"
             android:text=""
+            android:textColor="@color/maya_color_black_text_second"
             android:textSize="13dp" />
     </LinearLayout>
 
