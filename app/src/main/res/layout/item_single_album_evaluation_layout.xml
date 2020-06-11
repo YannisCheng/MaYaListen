@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="55px"
-            android:text="嘻哈小混蛋"
+            android:text=""
             android:textColor="@color/maya_color_black_text_main"
             android:textSize="14sp" />
 
@@ -71,7 +71,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="43px"
             android:gravity="center_vertical"
-            android:text="3423"
+            android:text=""
             android:textColor="@color/maya_black_bbbbbb"
             android:textSize="12sp" />
 
@@ -86,7 +86,7 @@
             android:drawableLeft="@drawable/weike_icon_btn_like"
             android:drawableTint="@color/maya_black_bbbbbb"
             android:gravity="center_vertical"
-            android:text="2342"
+            android:text=""
             android:textColor="@color/maya_black_bbbbbb"
             android:textSize="12sp" />
 
