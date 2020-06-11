@@ -61,7 +61,7 @@ interface MaYaApi {
     @GET("mobile/track/v2/baseInfo/1591777317565?device=android")
     fun getAlbumPlayEntry(
         @Query("trackId") trackId: Int
-    ): Observable<AlbumPlayEntryBean>
+    ): Observable<AlbumPlayVoiceBean>
 
     /**
      * 专辑-单条音频播放-评价

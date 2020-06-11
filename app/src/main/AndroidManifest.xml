@@ -12,14 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <!--<meta-data
+        <activity android:name=".activity.AlbumContentPlayActivity"></activity>
+        <!--
+        <meta-data
             android:name="design_width_in_px"
             android:value="1440" />
         <meta-data
             android:name="design_height_in_px"
-            android:value="2560" />-->
-
+            android:value="2560" />
+        -->
         <activity android:name=".activity.SingleAlbumContentActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>

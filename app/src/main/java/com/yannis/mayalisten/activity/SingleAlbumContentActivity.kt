@@ -12,8 +12,10 @@ import com.yannis.mayalisten.databinding.ActivitySingleAlbumContentBinding
 import com.yannis.mayalisten.fragment.SingleAlbumContentFragment
 import com.yannis.mayalisten.fragment.SingleAlbumEvaluationsFragment
 
+/**
+ * 专辑->内容 界面
+ */
 class SingleAlbumContentActivity : BaseActivity() {
-
 
     private lateinit var binding: ActivitySingleAlbumContentBinding
     private lateinit var itemBean: ItemBean

@@ -14,7 +14,9 @@ import com.yannis.mayalisten.databinding.ActivityMainBinding
 import com.yannis.mayalisten.fragment.MainFragment
 import com.yannis.mayalisten.view_mode.AggregateRankFirstPageVM
 
-
+/**
+ * 首页
+ */
 class MainActivity : BaseActivity() {
 
     lateinit var binding: ActivityMainBinding

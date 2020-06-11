@@ -8,7 +8,7 @@ import java.io.Serializable
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/6/10
  */
-data class AlbumPlayEntryBean(
+data class AlbumPlayVoiceBean(
     val albumInfo: AlbumInfo,
     val msg: String,
     val ret: Int,
