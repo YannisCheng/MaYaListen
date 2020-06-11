@@ -33,15 +33,9 @@ class ConcreteRankListAdapter(data: MutableList<ItemBean>?) :
 
         helper?.let {
             when (it.adapterPosition) {
-                0 -> {
-                    setTopView(it, R.drawable.live_fanlist_top1)
-                }
-                1 -> {
-                    setTopView(it, R.drawable.live_fanlist_top2)
-                }
-                2 -> {
-                    setTopView(it, R.drawable.live_fanlist_top3)
-                }
+                0 -> setTopView(it, R.drawable.live_fanlist_top1)
+                1 -> setTopView(it, R.drawable.live_fanlist_top2)
+                2 -> setTopView(it, R.drawable.live_fanlist_top3)
                 else -> {
                     it.getView<ImageView>(R.id.iv_fanlist).visibility = GONE
                     it.getView<TextView>(R.id.tv_rank).visibility = View.VISIBLE
@@ -72,9 +66,7 @@ class ConcreteRankListAdapter(data: MutableList<ItemBean>?) :
     ) {
         val imageView = it.getView<ImageView>(R.id.iv_rank_notice) as ImageView
         when (item?.positionChange) {
-            0 -> {
-                imageView.setImageDrawable(mContext.getDrawable(R.drawable.draw_shape_line))
-            }
+            0 -> imageView.setImageDrawable(mContext.getDrawable(R.drawable.draw_shape_line))
             1 -> {
                 imageView.setImageResource(R.drawable.cartoon_ic_arrow_up)
                 imageView.imageTintList =
