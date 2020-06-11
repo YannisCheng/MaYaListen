@@ -30,16 +30,6 @@ class SingleAlbumContentFragment : Fragment() {
     private lateinit var singleAlbumItemAdapter: SingleAlbumItemAdapter
 
     companion object {
-        /*@JvmStatic
-        fun newInstance(albumId: Int, asc: Boolean, trackId: Int): SingleAlbumContentFragment {
-            val args = Bundle()
-            args.putInt("albumId", albumId)
-            args.putBoolean("asc", asc)
-            args.putInt("trackId", trackId)
-            val fragment = SingleAlbumContentFragment()
-            fragment.arguments = args
-            return fragment
-        }*/
 
         @JvmStatic
         fun newInstance(albumId: Int, asc: Boolean, trackId: Int) =

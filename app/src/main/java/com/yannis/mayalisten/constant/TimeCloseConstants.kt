@@ -11,7 +11,7 @@ class TimeCloseConstants {
 
     companion object {
         @JvmStatic
-        var list = listOf<TimeCloseBean>(
+        val list = listOf<TimeCloseBean>(
             TimeCloseBean(false, "不开启"),
             TimeCloseBean(false, "播完当前声音"),
             TimeCloseBean(false, "播完2集声音"),

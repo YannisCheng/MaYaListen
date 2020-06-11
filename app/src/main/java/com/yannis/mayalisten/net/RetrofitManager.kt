@@ -14,28 +14,21 @@ import java.util.concurrent.TimeUnit
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/6/7
  */
-class RetrofitManager {
 
-    private var api: MaYaApi
+class RetrofitManager private constructor() {
 
-    /**
-     * 单例模式
-     */
     companion object {
+        private lateinit var api: MaYaApi
+
         @Volatile
         private var instance: RetrofitManager? = null
 
-        fun getInstance(): RetrofitManager {
-            return instance ?: synchronized(this) {
-                instance ?: RetrofitManager()
-            }
-        }
+        @JvmStatic
+        fun getInstance(): RetrofitManager =
+            instance ?: synchronized(this) { instance ?: RetrofitManager() }
     }
 
     init {
-        val httpLoggingInterceptor = HttpLoggingInterceptor()
-        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-
         val okHttpClient = OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)

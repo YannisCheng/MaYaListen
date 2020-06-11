@@ -22,8 +22,9 @@ class SingleAlbumContentActivity : BaseActivity() {
     private lateinit var mdiator: TabLayoutMediator
 
     companion object {
+        @JvmStatic
         fun start(context: Context, itemBean: ItemBean) {
-            val intent: Intent = Intent(context, SingleAlbumContentActivity::class.java)
+            val intent = Intent(context, SingleAlbumContentActivity::class.java)
             intent.putExtra("item_bean", itemBean)
             context.startActivity(intent)
         }

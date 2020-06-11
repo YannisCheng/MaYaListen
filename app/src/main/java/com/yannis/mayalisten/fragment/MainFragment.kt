@@ -1,6 +1,5 @@
 package com.yannis.mayalisten.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,17 +30,12 @@ class MainFragment : BaseFragment() {
     private var concreteRankListAdapter: ConcreteRankListAdapter? = null
 
     companion object {
-        fun newInstance(mItemBean: AggregateRankFirstPageBean): MainFragment {
-            val args = Bundle()
-            args.putSerializable("bean", mItemBean)
-            val fragment = MainFragment()
-            fragment.arguments = args
-            return fragment
+        @JvmStatic
+        fun newInstance(mItemBean: AggregateRankFirstPageBean) = MainFragment().apply {
+            Bundle().apply {
+                putSerializable("bean", mItemBean)
+            }
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

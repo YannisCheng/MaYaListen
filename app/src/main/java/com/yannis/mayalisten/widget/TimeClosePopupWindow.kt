@@ -22,16 +22,15 @@ import com.yannis.mayalisten.databinding.TimeCloseLayoutBinding
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/6/11
  */
-class TimeClosePopupWindow(context: Context) : PopupWindow(), PopupWindow.OnDismissListener {
+class TimeClosePopupWindow(private var mContext: Context) : PopupWindow(),
+    PopupWindow.OnDismissListener {
 
-    private var mContext: Context
     private var window: Window
     private var timeCloseAdapter: TimeCloseAdapter
     private var binding: TimeCloseLayoutBinding
 
 
     init {
-        mContext = context
         binding = TimeCloseLayoutBinding.inflate(LayoutInflater.from(mContext), null, false)
         window = (mContext as Activity).window
         setWindowAlpha(0.4f)
