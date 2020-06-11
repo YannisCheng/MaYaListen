@@ -32,7 +32,7 @@ class MainFragment : BaseFragment() {
     companion object {
         @JvmStatic
         fun newInstance(mItemBean: AggregateRankFirstPageBean) = MainFragment().apply {
-            Bundle().apply {
+            arguments = Bundle().apply {
                 putSerializable("bean", mItemBean)
             }
         }
