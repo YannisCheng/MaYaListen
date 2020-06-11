@@ -1,8 +1,8 @@
 package com.yannis.mayalisten.base
 
 import androidx.appcompat.app.AppCompatActivity
-import com.yannis.mayalisten.fragment.TimeClosePopupWindow
 import com.yannis.mayalisten.widget.LoadingDialog
+import com.yannis.mayalisten.widget.TimeClosePopupWindow
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 

@@ -11,8 +11,8 @@ import com.bumptech.glide.Glide
 import com.yannis.mayalisten.base.BaseActivity
 import com.yannis.mayalisten.bean.AlbumItemBean
 import com.yannis.mayalisten.databinding.ActivityAlbumContentPlayBinding
-import com.yannis.mayalisten.fragment.TimeClosePopupWindow
 import com.yannis.mayalisten.view_mode.AlbumPlayVoiceVM
+import com.yannis.mayalisten.widget.TimeClosePopupWindow
 
 /**
  * 专辑->内容->播放界面
@@ -66,7 +66,8 @@ class AlbumContentPlayActivity : BaseActivity() {
 
                 ivTimeClose.setOnClickListener {
                     // 定时关闭
-                    popupWindow = TimeClosePopupWindow(this@AlbumContentPlayActivity)
+                    popupWindow =
+                        TimeClosePopupWindow(this@AlbumContentPlayActivity)
                     popupWindow.showAtLocation(ivTimeClose, Gravity.BOTTOM, 0, 0)
                 }
             }

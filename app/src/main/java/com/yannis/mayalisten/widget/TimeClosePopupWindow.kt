@@ -1,4 +1,4 @@
-package com.yannis.mayalisten.fragment
+package com.yannis.mayalisten.widget
 
 import android.app.Activity
 import android.content.Context
