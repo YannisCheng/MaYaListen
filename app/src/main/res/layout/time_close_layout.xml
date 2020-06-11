@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:orientation="vertical">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/v_line"
+        android:background="@drawable/bg_corners_top_popup_window"
+        android:paddingTop="32px"
+        tools:listitem="@layout/item_time_close_layout" />
+
+    <View
+        android:id="@+id/v_line"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_above="@+id/tv_close"
+        android:background="@color/maya_color_line" />
+
+    <TextView
+        android:id="@+id/tv_close"
+        android:layout_width="match_parent"
+        android:layout_height="165px"
+        android:layout_alignParentBottom="true"
+        android:background="@color/maya_color_white"
+        android:gravity="center"
+        android:text="关闭"
+        android:textColor="@color/maya_color_black_text_main"
+        android:textSize="13sp" />
+</RelativeLayout>

@@ -1,6 +1,7 @@
 package com.yannis.mayalisten.base
 
 import androidx.appcompat.app.AppCompatActivity
+import com.yannis.mayalisten.fragment.TimeClosePopupWindow
 import com.yannis.mayalisten.widget.LoadingDialog
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -12,6 +13,7 @@ import io.reactivex.disposables.Disposable
  */
 abstract class BaseActivity : AppCompatActivity() {
     var compositeDisposable: CompositeDisposable? = null
+    lateinit var popupWindow: TimeClosePopupWindow
     val builder: LoadingDialog.Builder = LoadingDialog.Builder(this)
 
     fun showLoading(msg: String) {
