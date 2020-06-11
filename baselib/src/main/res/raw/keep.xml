@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@layout/view_notify_dark_play,
+    @drawable/yw_1222_0335,
+    @drawable/notification_icon,
+    @drawable/mipush_small_notification,
+    @drawable/host_reflect_widget_pause,
+    @drawable/host_reflect_widget_play" />

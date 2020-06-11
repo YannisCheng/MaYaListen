@@ -1,6 +1,5 @@
 package com.yannis.mayalisten.view_mode
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.yannis.mayalisten.base.BaseResultBean
@@ -32,10 +31,6 @@ class SingleAlbumContentViewModel : ViewModel() {
                 }
 
                 override fun onNext(t: BaseResultBean<SingleAlbumContentBean>) {
-                    Log.e(
-                        "TAG",
-                        "SingleAlbumContentBean onNext: " + t.data.tracks.list[0].toString()
-                    )
                     mutableLiveData.value = t.data
                 }
 

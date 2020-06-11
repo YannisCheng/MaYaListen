@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
+import android.widget.PopupWindow
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
@@ -12,23 +13,32 @@ import com.yannis.mayalisten.base.BaseActivity
 import com.yannis.mayalisten.bean.AlbumItemBean
 import com.yannis.mayalisten.databinding.ActivityAlbumContentPlayBinding
 import com.yannis.mayalisten.view_mode.AlbumPlayVoiceVM
+import com.yannis.mayalisten.widget.PlayListPopupWindow
 import com.yannis.mayalisten.widget.TimeClosePopupWindow
 
 /**
  * 专辑->内容->播放界面
  */
 private const val BEAN = "track_id"
+private const val BEANS = "beans"
 
 class AlbumContentPlayActivity : BaseActivity() {
 
     private lateinit var binding: ActivityAlbumContentPlayBinding
     private lateinit var albumItemBean: AlbumItemBean;
+    private lateinit var beans: ArrayList<AlbumItemBean>
+    private lateinit var popupWindow: PopupWindow
 
     companion object {
         @JvmStatic
-        fun starter(context: Context, trackId: AlbumItemBean) {
+        fun starter(
+            context: Context,
+            trackId: AlbumItemBean,
+            itemBeans: ArrayList<AlbumItemBean>
+        ) {
             val intent = Intent(context, AlbumContentPlayActivity::class.java)
             intent.putExtra(BEAN, trackId)
+            intent.putExtra(BEANS, itemBeans)
             context.startActivity(intent)
         }
     }
@@ -38,6 +48,7 @@ class AlbumContentPlayActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         intent?.let {
             albumItemBean = it.getSerializableExtra(BEAN) as AlbumItemBean
+            beans = it.getSerializableExtra(BEANS) as ArrayList<AlbumItemBean>
         }
         binding = ActivityAlbumContentPlayBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -60,11 +71,13 @@ class AlbumContentPlayActivity : BaseActivity() {
                     // 播放状态
                 }
 
-                ivPlayList.setOnClickListener {
+                llPlayList.setOnClickListener {
                     // 播放列表
+                    popupWindow = PlayListPopupWindow(this@AlbumContentPlayActivity, beans)
+                    popupWindow.showAtLocation(ivTimeClose, Gravity.BOTTOM, 0, 0)
                 }
 
-                ivTimeClose.setOnClickListener {
+                llTimeClose.setOnClickListener {
                     // 定时关闭
                     popupWindow =
                         TimeClosePopupWindow(this@AlbumContentPlayActivity)

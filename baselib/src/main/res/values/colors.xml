@@ -18,5 +18,7 @@
     <color name="maya_transparent_half">#80000000</color>
     <color name="maya_transparent">@android:color/transparent</color>
     <color name="maya_green">#4ed957</color>
+    <color name="maya_play_list_item_text">#707788</color>
+
 
 </resources>

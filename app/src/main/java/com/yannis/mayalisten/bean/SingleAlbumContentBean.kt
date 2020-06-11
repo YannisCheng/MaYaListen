@@ -133,6 +133,7 @@ data class User(
 }
 
 data class AlbumItemBean(
+    var isChecked: Boolean,
     val albumId: Int,
     val categoryId: Int,
     val commentId: String,
@@ -178,6 +179,6 @@ data class AlbumItemBean(
     val vipFirstStatus: Int
 ) : Serializable {
     override fun toString(): String {
-        return "AlbumItemBean(albumId=$albumId, categoryId=$categoryId, commentId='$commentId', comments=$comments, coverLarge='$coverLarge', coverMiddle='$coverMiddle', coverSmall='$coverSmall', createdAt=$createdAt, duration=$duration, id=$id, isAuthorized=$isAuthorized, isDraft=$isDraft, isHoldCopyright=$isHoldCopyright, isPaid=$isPaid, isPublic=$isPublic, isRichAudio=$isRichAudio, isSample=$isSample, isVideo=$isVideo, likes=$likes, nickname='$nickname', opType=$opType, orderNo=$orderNo, orderNum=$orderNum, paidType=$paidType, playPathAacv164='$playPathAacv164', playPathAacv224='$playPathAacv224', playPathHq='$playPathHq', playUrl32='$playUrl32', playUrl64='$playUrl64', playtimes=$playtimes, processState=$processState, relatedId=$relatedId, sampleDuration=$sampleDuration, shares=$shares, smallLogo='$smallLogo', status=$status, title='$title', trackId=$trackId, trackRecordId=$trackRecordId, type=$type, uid=$uid, userSource=$userSource, vipFirstStatus=$vipFirstStatus)"
+        return "AlbumItemBean(isChecked=$isChecked, albumId=$albumId, categoryId=$categoryId, commentId='$commentId', comments=$comments, coverLarge='$coverLarge', coverMiddle='$coverMiddle', coverSmall='$coverSmall', createdAt=$createdAt, duration=$duration, id=$id, isAuthorized=$isAuthorized, isDraft=$isDraft, isHoldCopyright=$isHoldCopyright, isPaid=$isPaid, isPublic=$isPublic, isRichAudio=$isRichAudio, isSample=$isSample, isVideo=$isVideo, likes=$likes, nickname='$nickname', opType=$opType, orderNo=$orderNo, orderNum=$orderNum, paidType=$paidType, playPathAacv164='$playPathAacv164', playPathAacv224='$playPathAacv224', playPathHq='$playPathHq', playUrl32='$playUrl32', playUrl64='$playUrl64', playtimes=$playtimes, processState=$processState, relatedId=$relatedId, sampleDuration=$sampleDuration, shares=$shares, smallLogo='$smallLogo', status=$status, title='$title', trackId=$trackId, trackRecordId=$trackRecordId, type=$type, uid=$uid, userSource=$userSource, vipFirstStatus=$vipFirstStatus)"
     }
 }

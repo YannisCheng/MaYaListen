@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/ll_top"
+        android:layout_width="match_parent"
+        android:layout_height="173px"
+        android:layout_above="@id/v_line_2"
+        android:background="@drawable/bg_corners_top_popup_window">
+
+        <TextView
+            android:id="@+id/tv_order_play"
+            android:layout_width="362px"
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/ic_baseline_playlist_play_24"
+            android:gravity="center_vertical|right"
+            android:paddingLeft="45px"
+            android:text="顺序播放"
+            android:textColor="@color/maya_color_black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_order_over"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="70px"
+            android:drawableLeft="@drawable/ic_baseline_play_for_work_24"
+            android:drawablePadding="10px"
+            android:gravity="center_vertical|right"
+            android:text="倒序"
+            android:textColor="@color/maya_color_black"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/v_line_2"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_above="@+id/recycler_view"
+        android:background="@color/maya_color_line" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="1260px"
+        android:layout_above="@id/v_line"
+        android:background="@color/maya_color_white"
+        tools:listitem="@layout/item_play_list_layout" />
+
+    <View
+        android:id="@+id/v_line"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_above="@+id/tv_close"
+        android:background="@color/maya_color_line" />
+
+    <TextView
+        android:id="@+id/tv_close"
+        android:layout_width="match_parent"
+        android:layout_height="165px"
+        android:layout_alignParentBottom="true"
+        android:background="@color/maya_color_white"
+        android:gravity="center"
+        android:text="关闭"
+        android:textColor="@color/maya_color_black_text_main"
+        android:textSize="15sp" />
+</RelativeLayout>

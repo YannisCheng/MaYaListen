@@ -32,8 +32,7 @@
             android:layout_marginRight="16px"
             android:layout_toRightOf="@id/iv_back"
             android:background="@drawable/host_common_theme_loading"
-            android:padding="30px"
-            android:tint="@color/maya_color_black_text_main" />
+            android:padding="30px" />
 
         <TextView
             android:id="@+id/action_bar"

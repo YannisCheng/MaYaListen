@@ -73,17 +73,20 @@ class SingleAlbumContentFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        var itemBeans: ArrayList<AlbumItemBean> = ArrayList()
         viewModel = ViewModelProvider(this)[SingleAlbumContentViewModel::class.java]
         viewModel.getSingleAlbumContent(albumId, true, trackId)
             .observe(viewLifecycleOwner, Observer {
                 binding.tvCountTotal.text = "共${it.album.tracks.toString()}集"
                 singleAlbumItemAdapter.setNewData(it.tracks.list)
+                itemBeans = it.tracks.list as ArrayList<AlbumItemBean>
             })
         singleAlbumItemAdapter.setOnItemClickListener { adapter, view, position ->
             this@SingleAlbumContentFragment.context?.let {
                 AlbumContentPlayActivity.starter(
                     it,
-                    adapter.data[position] as AlbumItemBean
+                    adapter.data[position] as AlbumItemBean,
+                    itemBeans
                 )
             }
         }
