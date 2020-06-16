@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/v_line"
         android:background="@drawable/bg_corners_top_popup_window"
+        android:overScrollMode="never"
         android:paddingTop="32px"
         tools:listitem="@layout/item_time_close_layout" />
 

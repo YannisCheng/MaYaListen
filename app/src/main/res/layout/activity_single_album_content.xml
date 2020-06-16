@@ -14,9 +14,10 @@
         android:layout_height="150px"
         android:layoutMode="clipBounds"
         android:overScrollMode="ifContentScrolls"
-        app:tabMode="fixed"></com.google.android.material.tabs.TabLayout>
+        app:tabMode="fixed" />
 
     <androidx.viewpager2.widget.ViewPager2
+        android:overScrollMode="never"
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

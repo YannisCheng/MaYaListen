@@ -49,6 +49,7 @@
         android:layout_height="1260px"
         android:layout_above="@id/v_line"
         android:background="@color/maya_color_white"
+        android:overScrollMode="never"
         tools:listitem="@layout/item_play_list_layout" />
 
     <View
