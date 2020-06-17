@@ -2,6 +2,7 @@ package com.yannis.mayalisten.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.yannis.mayalisten.adapter.SingleAlbumItemAdapter
 import com.yannis.mayalisten.bean.AlbumItemBean
 import com.yannis.mayalisten.databinding.SingleAlbumContentFragmentBinding
 import com.yannis.mayalisten.view_mode.SingleAlbumContentViewModel
+import com.yannis.mayalisten.widget.IndexChoosePopupWindow
 
 
 private const val ALBUM_ID = "albumId"
@@ -62,6 +64,7 @@ class SingleAlbumContentFragment : Fragment() {
             recyclerView.adapter = singleAlbumItemAdapter
             recyclerView.layoutManager =
                 LinearLayoutManager(this@SingleAlbumContentFragment.context)
+
         }
         return binding.root
     }
@@ -74,13 +77,29 @@ class SingleAlbumContentFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         var itemBeans: ArrayList<AlbumItemBean> = ArrayList()
+
         viewModel = ViewModelProvider(this)[SingleAlbumContentViewModel::class.java]
         viewModel.getSingleAlbumContent(albumId, true, trackId)
             .observe(viewLifecycleOwner, Observer {
                 binding.tvCountTotal.text = "共${it.album.tracks.toString()}集"
                 singleAlbumItemAdapter.setNewData(it.tracks.list)
                 itemBeans = it.tracks.list as ArrayList<AlbumItemBean>
+
+                binding.tvCountTotal.setOnClickListener {
+                    this@SingleAlbumContentFragment.context?.let { context ->
+                        run {
+                            val indexChoosePopupWindow = IndexChoosePopupWindow(context, itemBeans)
+                            indexChoosePopupWindow.showAsDropDown(
+                                binding.rlTop,
+                                0,
+                                0,
+                                Gravity.BOTTOM
+                            )
+                        }
+                    }
+                }
             })
+
         singleAlbumItemAdapter.setOnItemClickListener { adapter, view, position ->
             this@SingleAlbumContentFragment.context?.let {
                 AlbumContentPlayActivity.starter(

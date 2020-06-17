@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_loading_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/maya_transparent_half">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="1126px"
+        android:background="@color/maya_color_white"
+        android:paddingLeft="18px"
+        android:paddingTop="18px"
+        android:paddingRight="40px"
+        android:paddingBottom="18px"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/item_index_choose_play_list_layout" />
+
+</LinearLayout>

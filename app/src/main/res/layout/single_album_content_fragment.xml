@@ -8,6 +8,7 @@
     tools:context=".fragment.SingleAlbumContentFragment">
 
     <RelativeLayout
+        android:id="@+id/rl_top"
         android:layout_width="match_parent"
         android:layout_height="174px"
         android:orientation="horizontal">

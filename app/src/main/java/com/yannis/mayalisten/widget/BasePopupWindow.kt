@@ -18,8 +18,7 @@ open class BasePopupWindow(mContext: Context) : PopupWindow(),
 
     private var window: Window = (mContext as Activity).window
 
-
-    fun setBaseDialogSetting(binding: ViewBinding) {
+    fun setBaseDialogSettingNoBg(binding: ViewBinding) {
         apply {
             contentView = binding.root
             isOutsideTouchable = true
@@ -30,6 +29,10 @@ open class BasePopupWindow(mContext: Context) : PopupWindow(),
             setOnDismissListener(this@BasePopupWindow)
             update()
         }
+    }
+
+    fun setBaseDialogSetting(binding: ViewBinding) {
+        setBaseDialogSettingNoBg(binding)
         setWindowAlpha(0.4f)
     }
 
