@@ -45,6 +45,7 @@ buildscript {
         autosizeVersion = '1.2.1'
         leakcanaryAndroidVersion = '2.3'
         smartRefreshLayoutVersion = '2.0.1'
+        lottieVersion = '3.4.1'
     }
 
     repositories {

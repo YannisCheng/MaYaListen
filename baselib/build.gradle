@@ -111,6 +111,7 @@ dependencies {
     //球脉冲加载
     api "com.scwang.smart:refresh-footer-classics:$rootProject.smartRefreshLayoutVersion"
     //经典加载
-
+    // lottie 动画
+    api "com.airbnb.android:lottie:$rootProject.lottieVersion"
 
 }
