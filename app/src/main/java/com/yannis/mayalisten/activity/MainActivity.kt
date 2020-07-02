@@ -1,6 +1,7 @@
 package com.yannis.mayalisten.activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -13,6 +14,7 @@ import com.yannis.mayalisten.bean.AggregateRankFirstPageBean
 import com.yannis.mayalisten.databinding.ActivityMainBinding
 import com.yannis.mayalisten.fragment.MainFragment
 import com.yannis.mayalisten.view_mode.AggregateRankFirstPageVM
+import com.yannis.mayalisten.widget.WebViewActivity
 
 /**
  * 首页
@@ -67,6 +69,11 @@ class MainActivity : BaseActivity() {
 
             mdiator?.attach()
         })
+
+        binding.ivShare.setOnClickListener {
+            val intent: Intent = Intent(this, WebViewActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onDestroy() {
