@@ -1,14 +1,12 @@
 package com.yannis.mayalisten.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yannis.mayalisten.R
 import com.yannis.mayalisten.activity.SingleAlbumContentActivity
 import com.yannis.mayalisten.adapter.ConcreteRankListAdapter
 import com.yannis.mayalisten.adapter.RankOfItemTabAdapter
@@ -20,11 +18,9 @@ import com.yannis.mayalisten.databinding.MainFragmentBinding
 import com.yannis.mayalisten.view_mode.ConcreteRankListVM
 import com.yannis.mayalisten.view_mode.MainViewModel
 
-class MainFragment : BaseFragment() {
+class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
 
     private var itemBean: AggregateRankFirstPageBean? = null
-    private lateinit var binding: MainFragmentBinding
-    private lateinit var viewModel: MainViewModel
     private lateinit var modeOfRankItem: ConcreteRankListVM
     private var rankOfItemTabAdapter: RankOfItemTabAdapter? = null
     private var concreteRankListAdapter: ConcreteRankListAdapter? = null
@@ -44,28 +40,6 @@ class MainFragment : BaseFragment() {
             itemBean = it.getSerializable("bean") as AggregateRankFirstPageBean?
         }
         modeOfRankItem = ViewModelProvider(this)[ConcreteRankListVM::class.java]
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = MainFragmentBinding.inflate(inflater, container, false)
-        rankOfItemTabAdapter = RankOfItemTabAdapter(null)
-        concreteRankListAdapter = ConcreteRankListAdapter(null)
-        binding.apply {
-            leftRecycler.layoutManager = LinearLayoutManager(this@MainFragment.activity)
-            leftRecycler.adapter = rankOfItemTabAdapter
-            contentRecycler.layoutManager = LinearLayoutManager(this@MainFragment.activity)
-            contentRecycler.adapter = concreteRankListAdapter
-        }
-        setData2View()
-        onClick()
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun onClick() {
@@ -92,22 +66,18 @@ class MainFragment : BaseFragment() {
     }
 
     private fun setData2View() {
+        viewModel.getLoadData(itemBean?.aggregateListConfig?.clusterType)
+            .observe(viewLifecycleOwner, Observer {
 
-        viewModel = ViewModelProvider(
-            this,
-            MainViewModel.ViewModeFactory(itemBean?.aggregateListConfig?.clusterType)
-        )[MainViewModel::class.java]
-        viewModel.beanList.observe(viewLifecycleOwner, Observer {
+                binding.apply {
+                    if (it.size == 1) leftRecycler.visibility = GONE else leftRecycler.visibility =
+                        VISIBLE
+                }
 
-            binding.apply {
-                if (it.size == 1) leftRecycler.visibility = GONE else leftRecycler.visibility =
-                    VISIBLE
-            }
-
-            it[0].isChecked = true
-            rankOfItemTabAdapter?.setNewData(it)
-            getRankListOfItemTab(it[0])
-        })
+                it[0].isChecked = true
+                rankOfItemTabAdapter?.setNewData(it)
+                getRankListOfItemTab(it[0])
+            })
     }
 
     private fun getRankListOfItemTab(it: AggregateRankListTabsBean) {
@@ -115,5 +85,26 @@ class MainFragment : BaseFragment() {
         modeOfRankItem.liveData.observe(viewLifecycleOwner, Observer {
             concreteRankListAdapter?.setNewData(it.list)
         })
+    }
+
+    override fun setBindViewModel(): Class<MainViewModel> {
+        return MainViewModel::class.java
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.main_fragment
+    }
+
+    override fun initView() {
+        rankOfItemTabAdapter = RankOfItemTabAdapter(null)
+        concreteRankListAdapter = ConcreteRankListAdapter(null)
+        binding.apply {
+            leftRecycler.layoutManager = LinearLayoutManager(this@MainFragment.activity)
+            leftRecycler.adapter = rankOfItemTabAdapter
+            contentRecycler.layoutManager = LinearLayoutManager(this@MainFragment.activity)
+            contentRecycler.adapter = concreteRankListAdapter
+        }
+        setData2View()
+        onClick()
     }
 }

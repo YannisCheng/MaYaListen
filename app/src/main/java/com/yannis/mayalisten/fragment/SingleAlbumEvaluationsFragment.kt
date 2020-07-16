@@ -1,24 +1,21 @@
 package com.yannis.mayalisten.fragment
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yannis.mayalisten.R
 import com.yannis.mayalisten.adapter.SingleAlbumEvaluationAdapter
+import com.yannis.mayalisten.base.BaseFragment
 import com.yannis.mayalisten.databinding.FragmentSingleAlbumEvaluationsBinding
 import com.yannis.mayalisten.view_mode.SingleAlbumEvaluationsMV
 
 
 private const val ALBUM_ID = "albumId"
 
-class SingleAlbumEvaluationsFragment : Fragment() {
+class SingleAlbumEvaluationsFragment :
+    BaseFragment<SingleAlbumEvaluationsMV, FragmentSingleAlbumEvaluationsBinding>() {
 
     private var param1: Int? = 0
-    private lateinit var evaluationsMV: SingleAlbumEvaluationsMV
     private lateinit var evaluationAdapter: SingleAlbumEvaluationAdapter
 
     companion object {
@@ -38,12 +35,7 @@ class SingleAlbumEvaluationsFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val binding = FragmentSingleAlbumEvaluationsBinding.inflate(inflater, container, false)
-        evaluationsMV = ViewModelProvider(this)[SingleAlbumEvaluationsMV::class.java]
+    override fun initView() {
         evaluationAdapter = SingleAlbumEvaluationAdapter(null)
         binding.apply {
             recyclerView.layoutManager =
@@ -52,12 +44,17 @@ class SingleAlbumEvaluationsFragment : Fragment() {
         }
 
         param1?.let {
-            evaluationsMV.getSingleAlbumEvaluations(it).observe(viewLifecycleOwner, Observer {
+            viewModel.getSingleAlbumEvaluations(it).observe(viewLifecycleOwner, Observer {
                 evaluationAdapter.setNewData(it.comments.list)
             })
         }
-        return binding.root
     }
 
+    override fun setBindViewModel(): Class<SingleAlbumEvaluationsMV> {
+        return SingleAlbumEvaluationsMV::class.java
+    }
 
+    override fun getLayoutId(): Int {
+        return R.layout.fragment_single_album_evaluations
+    }
 }
