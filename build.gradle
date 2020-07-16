@@ -48,7 +48,6 @@ buildscript {
         lottieVersion = '3.4.1'
         pagingVersion = "2.1.2"
         crashreportUpgrade = "1.4.2"
-        tinkerAndroidLib = "1.9.14.7"
     }
 
     repositories {

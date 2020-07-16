@@ -125,6 +125,4 @@ dependencies {
     api "com.airbnb.android:lottie:$rootProject.lottieVersion"
     // bugly：crash上报+升级
     api "com.tencent.bugly:crashreport_upgrade:$rootProject.crashreportUpgrade"
-    // 指定tinker依赖版本（注：应用升级1.3.5版本起，不再内置tinker）
-    api "com.tencent.tinker:tinker-android-lib:$rootProject.tinkerAndroidLib"
 }

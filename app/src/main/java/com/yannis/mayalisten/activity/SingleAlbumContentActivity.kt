@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import com.yannis.mayalisten.R
 import com.yannis.mayalisten.base.BaseActivity
 import com.yannis.mayalisten.bean.ItemBean
 import com.yannis.mayalisten.databinding.ActivitySingleAlbumContentBinding
@@ -15,9 +17,8 @@ import com.yannis.mayalisten.fragment.SingleAlbumEvaluationsFragment
 /**
  * 专辑->内容 界面
  */
-class SingleAlbumContentActivity : BaseActivity() {
+class SingleAlbumContentActivity : BaseActivity<ViewModel, ActivitySingleAlbumContentBinding>() {
 
-    private lateinit var binding: ActivitySingleAlbumContentBinding
     private lateinit var itemBean: ItemBean
     private lateinit var mdiator: TabLayoutMediator
 
@@ -76,5 +77,13 @@ class SingleAlbumContentActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         mdiator.detach()
+    }
+
+    override fun setBindViewModel(): Class<ViewModel> {
+        return ViewModel::class.java
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_single_album_content
     }
 }

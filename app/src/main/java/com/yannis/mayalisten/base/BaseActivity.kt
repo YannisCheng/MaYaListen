@@ -7,17 +7,27 @@ import android.view.KeyEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.yannis.mayalisten.BR
 import com.yannis.mayalisten.widget.LoadingDialog
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
 /**
+ * BaseActivity 基类
  *
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/6/8
  */
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatActivity() {
     private val REQUEST_EXTERNAL_STORAGE: Int = 1
+
+    lateinit var binding: VDB
+    lateinit var viewModel: VM
+
     private val PERMISSIONS_STORAGE = arrayOf(
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE",
@@ -47,10 +57,38 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // 初始化 DataViewBInding、ViewBinding、ViewModel
+        initBinding()
+        initView();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             showFilePermission()
         }
     }
+
+    private fun initBinding() {
+        val inflater = DataBindingUtil.inflate<VDB>(layoutInflater, getLayoutId(), null, false)
+        if (ViewModel::class.java != setBindViewModel()) {
+            viewModel = ViewModelProvider(this)[setBindViewModel()]
+            // -- databinding --
+            inflater.setVariable(BR.itemMode, viewModel)
+            inflater.lifecycleOwner = this
+            // -- databinding --
+        }
+        binding = inflater as VDB
+        setContentView(binding.root)
+    }
+
+    abstract fun setBindViewModel(): Class<VM>
+
+    /**
+     * 初始化view布局
+     */
+    fun initView() {}
+
+    /**
+     * 获取布局文件id
+     */
+    abstract fun getLayoutId(): Int
 
     private fun showFilePermission() {
         val checkSelfPermission =
