@@ -12,6 +12,7 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
 /**
+ * AggregateRankFirstPageVM 顶部Tab VM
  *
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/6/8
@@ -20,8 +21,7 @@ class AggregateRankFirstPageVM : ViewModel() {
 
     var listBean: MutableLiveData<MutableList<AggregateRankFirstPageBean>> = MutableLiveData()
 
-
-    init {
+    fun getLoadData() {
         RetrofitManager.getInstance().getApi().getAggregateRankFirstPage()
             .compose(RunOn<BaseResultBean<ArrayList<AggregateRankFirstPageBean>>>())
             .subscribe(object : Observer<BaseResultBean<ArrayList<AggregateRankFirstPageBean>>> {

@@ -63,6 +63,19 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             showFilePermission()
         }
+        loadData()
+        refreshData()
+        dataToView()
+    }
+
+    abstract fun dataToView()
+
+    open fun refreshData() {
+
+    }
+
+    open fun loadData() {
+
     }
 
     private fun initBinding() {
@@ -83,7 +96,7 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
     /**
      * 初始化view布局
      */
-    fun initView() {}
+    abstract fun initView()
 
     /**
      * 获取布局文件id

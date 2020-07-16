@@ -11,14 +11,17 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
 /**
+ * SingleAlbumEvaluationsMV 单张专辑评价VM
  *
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/6/10
  */
 class SingleAlbumEvaluationsMV : ViewModel() {
 
-    fun getSingleAlbumEvaluations(albumId: Int): MutableLiveData<AlbumEvaluationsBean> {
-        val bean: MutableLiveData<AlbumEvaluationsBean> = MutableLiveData()
+    var bean: MutableLiveData<AlbumEvaluationsBean> = MutableLiveData()
+
+    fun getSingleAlbumEvaluations(albumId: Int) {
+
         RetrofitManager.getInstance().getApi()
             .getAlbumEvaluations(albumId)
             .compose(RunOn<BaseResultBean<AlbumEvaluationsBean>>())
@@ -40,8 +43,6 @@ class SingleAlbumEvaluationsMV : ViewModel() {
                         Log.e("TAG", e.toString())
                     }
                 })
-
-        return bean
     }
 
 }

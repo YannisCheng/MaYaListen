@@ -18,6 +18,12 @@ import com.yannis.mayalisten.databinding.MainFragmentBinding
 import com.yannis.mayalisten.view_mode.ConcreteRankListVM
 import com.yannis.mayalisten.view_mode.MainViewModel
 
+/**
+ * MainFragment 主页顶部各个Tab类别的内容
+ *
+ * @author  yannischeng  cwj1714@163.com
+ * @date    2020/7/16 - 14:17
+ */
 class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
 
     private var itemBean: AggregateRankFirstPageBean? = null
@@ -66,18 +72,16 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
     }
 
     private fun setData2View() {
-        viewModel.getLoadData(itemBean?.aggregateListConfig?.clusterType)
-            .observe(viewLifecycleOwner, Observer {
+        viewModel.beanList.observe(viewLifecycleOwner, Observer {
+            binding.apply {
+                if (it.size == 1) leftRecycler.visibility = GONE else leftRecycler.visibility =
+                    VISIBLE
+            }
 
-                binding.apply {
-                    if (it.size == 1) leftRecycler.visibility = GONE else leftRecycler.visibility =
-                        VISIBLE
-                }
-
-                it[0].isChecked = true
-                rankOfItemTabAdapter?.setNewData(it)
-                getRankListOfItemTab(it[0])
-            })
+            it[0].isChecked = true
+            rankOfItemTabAdapter?.setNewData(it)
+            getRankListOfItemTab(it[0])
+        })
     }
 
     private fun getRankListOfItemTab(it: AggregateRankListTabsBean) {
@@ -106,5 +110,13 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
         }
         setData2View()
         onClick()
+    }
+
+    override fun loadData() {
+
+    }
+
+    override fun refreshData() {
+        viewModel.getLoadData(itemBean?.aggregateListConfig?.clusterType)
     }
 }

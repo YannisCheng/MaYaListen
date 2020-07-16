@@ -10,10 +10,17 @@ import com.yannis.mayalisten.net.RunOn
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
+/**
+ * MainViewModel 单个Tab下的排名 VM
+ *
+ * @author  yannischeng  cwj1714@163.com
+ * @date    2020/7/16 - 13:51
+ */
 class MainViewModel : ViewModel() {
 
-    var beanList = MutableLiveData<ArrayList<AggregateRankListTabsBean>>();
-    fun getLoadData(clusterType: Int?): MutableLiveData<ArrayList<AggregateRankListTabsBean>> {
+    var beanList: MutableLiveData<ArrayList<AggregateRankListTabsBean>> = MutableLiveData()
+
+    fun getLoadData(clusterType: Int?) {
         if (clusterType != null) {
             RetrofitManager.getInstance().getApi()
                 .getAggregateRankListTabs(clusterType)
@@ -38,6 +45,5 @@ class MainViewModel : ViewModel() {
                         }
                     })
         }
-        return beanList;
     }
 }

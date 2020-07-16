@@ -17,6 +17,12 @@ import com.yannis.mayalisten.databinding.PlayListLayoutBinding
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/6/11
  */
+/**
+ * PlayListPopupWindow 播放列表弹窗
+ *
+ * @author  yannischeng  cwj1714@163.com
+ * @date    2020/6/11 - 14:21
+ */
 class PlayListPopupWindow(mContext: Context, beans: List<AlbumItemBean>) :
     BasePopupWindow(mContext) {
 

@@ -20,6 +20,12 @@ private const val ALBUM_ID = "albumId"
 private const val ASC = "asc"
 private const val TRACK_ID = "trackId"
 
+/**
+ * SingleAlbumContentFragment 单张专辑内容
+ *
+ * @author  yannischeng  cwj1714@163.com
+ * @date    2020/7/16 - 14:18
+ */
 class SingleAlbumContentFragment :
     BaseFragment<SingleAlbumContentViewModel, SingleAlbumContentFragmentBinding>() {
 
@@ -59,7 +65,7 @@ class SingleAlbumContentFragment :
         super.onActivityCreated(savedInstanceState)
         var itemBeans: ArrayList<AlbumItemBean> = ArrayList()
 
-        viewModel.getSingleAlbumContent(albumId, true, trackId)
+        viewModel.mutableLiveData
             .observe(viewLifecycleOwner, Observer {
                 binding.tvCountTotal.text = "共${it.album.tracks.toString()}集"
                 singleAlbumItemAdapter.setNewData(it.tracks.list)
@@ -106,6 +112,14 @@ class SingleAlbumContentFragment :
 
     override fun getLayoutId(): Int {
         return R.layout.single_album_content_fragment
+    }
+
+    override fun loadData() {
+
+    }
+
+    override fun refreshData() {
+        viewModel.getSingleAlbumContent(albumId, true, trackId)
     }
 
 }

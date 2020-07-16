@@ -12,6 +12,12 @@ import com.yannis.mayalisten.view_mode.SingleAlbumEvaluationsMV
 
 private const val ALBUM_ID = "albumId"
 
+/**
+ * SingleAlbumEvaluationsFragment 单张专辑评价
+ *
+ * @author  yannischeng  cwj1714@163.com
+ * @date    2020/7/16 - 14:18
+ */
 class SingleAlbumEvaluationsFragment :
     BaseFragment<SingleAlbumEvaluationsMV, FragmentSingleAlbumEvaluationsBinding>() {
 
@@ -43,11 +49,9 @@ class SingleAlbumEvaluationsFragment :
             recyclerView.adapter = evaluationAdapter
         }
 
-        param1?.let {
-            viewModel.getSingleAlbumEvaluations(it).observe(viewLifecycleOwner, Observer {
-                evaluationAdapter.setNewData(it.comments.list)
-            })
-        }
+        viewModel.bean.observe(viewLifecycleOwner, Observer {
+            evaluationAdapter.setNewData(it.comments.list)
+        })
     }
 
     override fun setBindViewModel(): Class<SingleAlbumEvaluationsMV> {
@@ -56,5 +60,15 @@ class SingleAlbumEvaluationsFragment :
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_single_album_evaluations
+    }
+
+    override fun loadData() {
+
+    }
+
+    override fun refreshData() {
+        param1?.let {
+            viewModel.getSingleAlbumEvaluations(it)
+        }
     }
 }

@@ -11,9 +11,10 @@ import com.yannis.mayalisten.bean.IndexChooseBean
 import com.yannis.mayalisten.databinding.WidgetIndexChooseItemDialogLayoutBinding
 
 /**
+ * IndexChoosePopupWindow 选择专辑范围PopupWindow
  *
- * @author  wenjia.Cheng  cwj1714@163.com
- * @date    2020/6/17
+ * @author  yannischeng  cwj1714@163.com
+ * @date    2020/7/16 - 14:20
  */
 class IndexChoosePopupWindow(var context: Context, var beans: List<AlbumItemBean>) :
     BasePopupWindow(context) {

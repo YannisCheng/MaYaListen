@@ -11,28 +11,14 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
 /**
+ * ConcreteRankListVM 单个Tab下的某一个排名类别中的具体数据 VM
  *
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/6/8
  */
-class ConcreteRankListVM(
+class ConcreteRankListVM : ViewModel() {
 
-) : ViewModel() {
-
-    val liveData = MutableLiveData<ConcreteRankListBean>()
-
-    /*class ViewModeProvider(
-        var categoryId: Int,
-        var clusterType: Int,
-        var pageId: Int? = 1,
-        var pageSize: Int? = 20,
-        var rankingListId: Int
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return ConcreteRankListVM(categoryId, clusterType, 1, 20, rankingListId) as T
-        }
-    }*/
-
+    var liveData: MutableLiveData<ConcreteRankListBean> = MutableLiveData()
 
     fun getRequestData(
         categoryId: Int,
@@ -67,8 +53,6 @@ class ConcreteRankListVM(
                 override fun onError(e: Throwable) {
                     Log.e("TAG", e.toString())
                 }
-
             })
     }
-
 }

@@ -29,8 +29,14 @@ abstract class BaseFragment<VM : ViewModel, VDB : ViewDataBinding> : Fragment() 
         super.onCreateView(inflater, container, savedInstanceState)
         initBinding(inflater, container)
         initView()
+        refreshData()
+        loadData()
         return binding.root
     }
+
+    open fun refreshData() {}
+
+    abstract fun loadData()
 
     abstract fun initView()
 
