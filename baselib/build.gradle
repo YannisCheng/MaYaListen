@@ -104,25 +104,28 @@ dependencies {
     api "org.greenrobot:eventbus:$rootProject.eventBusVersion"
     // LeakCanary - 内存泄漏检测
     debugApi "com.squareup.leakcanary:leakcanary-android:$rootProject.leakcanaryAndroidVersion"
-    // smartRefreshLayout AndroidX 依赖
+
+    // smartRefreshLayout AndroidX 依赖，核心必须依赖
     api "com.scwang.smart:refresh-layout-kernel:$rootProject.smartRefreshLayoutVersion"
-    //核心必须依赖
+    // 经典刷新头
     api "com.scwang.smart:refresh-header-classics:$rootProject.smartRefreshLayoutVersion"
-    //经典刷新头
-    api "com.scwang.smart:refresh-header-radar:$rootProject.smartRefreshLayoutVersion"
-    //雷达刷新头
-    api "com.scwang.smart:refresh-header-falsify:$rootProject.smartRefreshLayoutVersion"
-    //虚拟刷新头
-    api "com.scwang.smart:refresh-header-material:$rootProject.smartRefreshLayoutVersion"
-    //谷歌刷新头
-    api "com.scwang.smart:refresh-header-two-level:$rootProject.smartRefreshLayoutVersion"
-    //二级刷新头
-    api "com.scwang.smart:refresh-footer-ball:$rootProject.smartRefreshLayoutVersion"
-    //球脉冲加载
+    // 经典加载
     api "com.scwang.smart:refresh-footer-classics:$rootProject.smartRefreshLayoutVersion"
-    //经典加载
+    // 雷达刷新头
+    // api "com.scwang.smart:refresh-header-radar:$rootProject.smartRefreshLayoutVersion"
+    // 虚拟刷新头
+    // api "com.scwang.smart:refresh-header-falsify:$rootProject.smartRefreshLayoutVersion"
+    // 谷歌刷新头
+    // api "com.scwang.smart:refresh-header-material:$rootProject.smartRefreshLayoutVersion"
+    // 二级刷新头
+    // api "com.scwang.smart:refresh-header-two-level:$rootProject.smartRefreshLayoutVersion"
+    // 球脉冲加载
+    // api "com.scwang.smart:refresh-footer-ball:$rootProject.smartRefreshLayoutVersion"
+
     // lottie 动画 http://airbnb.io/lottie/#/
     api "com.airbnb.android:lottie:$rootProject.lottieVersion"
     // bugly：crash上报+升级
     api "com.tencent.bugly:crashreport_upgrade:$rootProject.crashreportUpgrade"
+    // 轮播图
+    api "com.youth.banner:banner:$rootProject.bannerVersion"
 }

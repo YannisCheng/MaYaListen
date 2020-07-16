@@ -48,6 +48,7 @@ buildscript {
         lottieVersion = '3.4.1'
         pagingVersion = "2.1.2"
         crashreportUpgrade = "1.4.2"
+        bannerVersion = "2.0.12"
     }
 
     repositories {
