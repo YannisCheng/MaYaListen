@@ -27,23 +27,26 @@ abstract class BaseFragment<VM : ViewModel, VDB : ViewDataBinding> : Fragment() 
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        initBinding()
+        initBinding(inflater, container)
         initView()
         return binding.root
     }
 
     abstract fun initView()
 
-    private fun initBinding() {
-        val inflater = DataBindingUtil.inflate<VDB>(layoutInflater, getLayoutId(), null, false)
+    private fun initBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ) {
+        val inflaterLayout = DataBindingUtil.inflate<VDB>(inflater, getLayoutId(), container, false)
         if (ViewModel::class.java != setBindViewModel()) {
             viewModel = ViewModelProvider(this)[setBindViewModel()]
             // -- databinding --
-            inflater.setVariable(BR.itemMode, viewModel)
-            inflater.lifecycleOwner = this
+            inflaterLayout.setVariable(BR.itemMode, viewModel)
+            inflaterLayout.lifecycleOwner = this
             // -- databinding --
         }
-        binding = inflater as VDB
+        binding = inflaterLayout as VDB
     }
 
     abstract fun setBindViewModel(): Class<VM>
