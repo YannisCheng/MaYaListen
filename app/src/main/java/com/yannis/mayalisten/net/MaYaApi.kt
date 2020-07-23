@@ -7,6 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 /**
+ * MaYaApi 喜马拉雅音频相关
  *
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/6/7
