@@ -2,22 +2,26 @@ package com.yannis.mayalisten.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import com.yannis.mayalisten.R
 import com.yannis.mayalisten.base.BaseActivity
 import com.yannis.mayalisten.bean.ItemBean
 import com.yannis.mayalisten.databinding.ActivitySingleAlbumContentBinding
 import com.yannis.mayalisten.fragment.SingleAlbumContentFragment
 import com.yannis.mayalisten.fragment.SingleAlbumEvaluationsFragment
 
-/**
- * 专辑->内容 界面
- */
-class SingleAlbumContentActivity : BaseActivity() {
 
-    private lateinit var binding: ActivitySingleAlbumContentBinding
+/**
+ * SingleAlbumContentActivity 专辑->内容 界面
+ *
+ * @author  yannischeng  cwj1714@163.com
+ * @date    2020/7/16 - 14:17
+ */
+class SingleAlbumContentActivity : BaseActivity<ViewModel, ActivitySingleAlbumContentBinding>() {
+
     private lateinit var itemBean: ItemBean
     private lateinit var mdiator: TabLayoutMediator
 
@@ -30,13 +34,27 @@ class SingleAlbumContentActivity : BaseActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivitySingleAlbumContentBinding.inflate(layoutInflater)
+    override fun onDestroy() {
+        super.onDestroy()
+        mdiator.detach()
+    }
+
+    override fun setBindViewModel(): Class<ViewModel> {
+        return ViewModel::class.java
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_single_album_content
+    }
+
+    override fun dataToView() {
+
+    }
+
+    override fun initView() {
         intent?.let {
             itemBean = it.getSerializableExtra("item_bean") as ItemBean
         }
-        setContentView(binding.root)
 
         val arrayList: ArrayList<Fragment> = ArrayList()
         arrayList.add(
@@ -70,11 +88,5 @@ class SingleAlbumContentActivity : BaseActivity() {
                 }
             })
         mdiator.attach()
-
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mdiator.detach()
     }
 }

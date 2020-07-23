@@ -9,16 +9,21 @@ import com.yannis.mayalisten.net.RunOn
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
+/**
+ * SingleAlbumContentViewModel 但张专辑内容 VM
+ *
+ * @author  yannischeng  cwj1714@163.com
+ * @date    2020/7/16 - 13:51
+ */
 class SingleAlbumContentViewModel : ViewModel() {
 
+    var mutableLiveData: MutableLiveData<SingleAlbumContentBean> = MutableLiveData()
 
     fun getSingleAlbumContent(
         albumId: Int,
         asc: Boolean,
         trackId: Int
-    ): MutableLiveData<SingleAlbumContentBean> {
-        var mutableLiveData: MutableLiveData<SingleAlbumContentBean> = MutableLiveData()
-
+    ) {
         RetrofitManager.getInstance().getApi().getSingleAlbumContent(albumId, asc, trackId)
             .compose(RunOn<BaseResultBean<SingleAlbumContentBean>>())
             .subscribe(object : Observer<BaseResultBean<SingleAlbumContentBean>> {
@@ -38,7 +43,5 @@ class SingleAlbumContentViewModel : ViewModel() {
                     //Log.e("TAG", "onError: " + e.toString())
                 }
             })
-
-        return mutableLiveData
     }
 }

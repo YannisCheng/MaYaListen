@@ -9,9 +9,10 @@ import android.widget.PopupWindow
 import androidx.viewbinding.ViewBinding
 
 /**
+ * BasePopupWindow PopupWindow基类
  *
- * @author  wenjia.Cheng  cwj1714@163.com
- * @date    2020/6/11
+ * @author  yannischeng  cwj1714@163.com
+ * @date    2020/6/11 - 14:19
  */
 open class BasePopupWindow(mContext: Context) : PopupWindow(),
     PopupWindow.OnDismissListener {

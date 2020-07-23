@@ -3,15 +3,13 @@ package com.yannis.mayalisten.fragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yannis.mayalisten.R
 import com.yannis.mayalisten.activity.AlbumContentPlayActivity
 import com.yannis.mayalisten.adapter.SingleAlbumItemAdapter
+import com.yannis.mayalisten.base.BaseFragment
 import com.yannis.mayalisten.bean.AlbumItemBean
 import com.yannis.mayalisten.databinding.SingleAlbumContentFragmentBinding
 import com.yannis.mayalisten.view_mode.SingleAlbumContentViewModel
@@ -22,13 +20,18 @@ private const val ALBUM_ID = "albumId"
 private const val ASC = "asc"
 private const val TRACK_ID = "trackId"
 
-class SingleAlbumContentFragment : Fragment() {
+/**
+ * SingleAlbumContentFragment 单张专辑内容
+ *
+ * @author  yannischeng  cwj1714@163.com
+ * @date    2020/7/16 - 14:18
+ */
+class SingleAlbumContentFragment :
+    BaseFragment<SingleAlbumContentViewModel, SingleAlbumContentFragmentBinding>() {
 
-    private lateinit var binding: SingleAlbumContentFragmentBinding
     private var albumId: Int = 0
     private var trackId: Int = 0
     private var asc: Boolean = false
-    private lateinit var viewModel: SingleAlbumContentViewModel
     private lateinit var singleAlbumItemAdapter: SingleAlbumItemAdapter
 
     companion object {
@@ -53,22 +56,6 @@ class SingleAlbumContentFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = SingleAlbumContentFragmentBinding.inflate(inflater, container, false)
-
-        binding.apply {
-            singleAlbumItemAdapter = SingleAlbumItemAdapter(null)
-            recyclerView.adapter = singleAlbumItemAdapter
-            recyclerView.layoutManager =
-                LinearLayoutManager(this@SingleAlbumContentFragment.context)
-
-        }
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
@@ -78,8 +65,7 @@ class SingleAlbumContentFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         var itemBeans: ArrayList<AlbumItemBean> = ArrayList()
 
-        viewModel = ViewModelProvider(this)[SingleAlbumContentViewModel::class.java]
-        viewModel.getSingleAlbumContent(albumId, true, trackId)
+        viewModel.mutableLiveData
             .observe(viewLifecycleOwner, Observer {
                 binding.tvCountTotal.text = "共${it.album.tracks.toString()}集"
                 singleAlbumItemAdapter.setNewData(it.tracks.list)
@@ -109,6 +95,31 @@ class SingleAlbumContentFragment : Fragment() {
                 )
             }
         }
+    }
+
+    override fun initView() {
+        binding.apply {
+            singleAlbumItemAdapter = SingleAlbumItemAdapter(null)
+            recyclerView.adapter = singleAlbumItemAdapter
+            recyclerView.layoutManager =
+                LinearLayoutManager(this@SingleAlbumContentFragment.context)
+        }
+    }
+
+    override fun setBindViewModel(): Class<SingleAlbumContentViewModel> {
+        return SingleAlbumContentViewModel::class.java
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.single_album_content_fragment
+    }
+
+    override fun loadData() {
+
+    }
+
+    override fun refreshData() {
+        viewModel.getSingleAlbumContent(albumId, true, trackId)
     }
 
 }

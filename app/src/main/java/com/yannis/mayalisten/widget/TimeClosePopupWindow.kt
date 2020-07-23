@@ -13,7 +13,7 @@ import com.yannis.mayalisten.constant.TimeCloseConstants
 import com.yannis.mayalisten.databinding.TimeCloseLayoutBinding
 
 /**
- * 定时关闭弹窗
+ * TimeClosePopupWindow 定时关闭弹窗
  *
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/6/11

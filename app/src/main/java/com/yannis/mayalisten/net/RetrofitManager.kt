@@ -10,11 +10,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 /**
+ * RetrofitManager
  *
- * @author  wenjia.Cheng  cwj1714@163.com
- * @date    2020/6/7
+ * @author  yannischeng  cwj1714@163.com
+ * @date    2020/6/7 - 15:16
  */
-
 class RetrofitManager private constructor() {
 
     companion object {

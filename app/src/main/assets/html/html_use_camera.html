@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>html5直接调用手机相机照相/录像</title>
+</head>
+
+<body>
+</body>
+<div>
+    <h3>使用设备的面向用户的相机拍摄照片</h3>
+    <form>
+        <input accept="image/*" capture="user" name="image" type="file">
+        <input type="submit" value="照相上传">
+    </form>
+</div>
+<div>
+    <h3>使用面向环境的设备本地摄像机捕获视频：</h3>
+    <form>
+        <input accept="video/*" capture="environment" name="video" type="file">
+        <input type="submit" value="录像上传">
+    </form>
+</div>
+</html>

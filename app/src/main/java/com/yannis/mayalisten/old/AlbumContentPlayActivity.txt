@@ -1,13 +1,14 @@
-package com.yannis.mayalisten.activity
+package com.yannis.mayalisten.old
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.view.Gravity
 import android.widget.PopupWindow
-import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
-import com.yannis.mayalisten.R
 import com.yannis.mayalisten.base.BaseActivity
 import com.yannis.mayalisten.bean.AlbumItemBean
 import com.yannis.mayalisten.databinding.ActivityAlbumContentPlayBinding
@@ -15,17 +16,15 @@ import com.yannis.mayalisten.view_mode.AlbumPlayVoiceVM
 import com.yannis.mayalisten.widget.PlayListPopupWindow
 import com.yannis.mayalisten.widget.TimeClosePopupWindow
 
+/**
+ * 专辑->内容->播放界面
+ */
 private const val BEAN = "track_id"
 private const val BEANS = "beans"
 
-/**
- * AlbumContentPlayActivity 专辑->内容->播放界面
- *
- * @author  yannischeng  cwj1714@163.com
- * @date    2020/7/16 - 14:16
- */
-class AlbumContentPlayActivity : BaseActivity<AlbumPlayVoiceVM, ActivityAlbumContentPlayBinding>() {
+class AlbumContentPlayActivity : BaseActivity() {
 
+    private lateinit var binding: ActivityAlbumContentPlayBinding
     private lateinit var albumItemBean: AlbumItemBean;
     private lateinit var beans: ArrayList<AlbumItemBean>
     private lateinit var popupWindow: PopupWindow
@@ -44,36 +43,19 @@ class AlbumContentPlayActivity : BaseActivity<AlbumPlayVoiceVM, ActivityAlbumCon
         }
     }
 
-    /*override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        popupWindow.takeIf { it.isShowing }?.let { return true }
-        return super.dispatchTouchEvent(ev)
-    }*/
-
-    /*override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        when (event?.keyCode) {
-            KeyEvent.KEYCODE_BACK -> popupWindow.takeIf { it.isShowing }?.dismiss() ?: backClick()
+    @SuppressLint("ShowToast")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        intent?.let {
+            albumItemBean = it.getSerializableExtra(BEAN) as AlbumItemBean
+            beans = it.getSerializableExtra(BEANS) as ArrayList<AlbumItemBean>
         }
-        return super.onKeyDown(keyCode, event)
-    }*/
+        binding = ActivityAlbumContentPlayBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-    private fun backClick() {
-        finish()
-    }
+        val voiceVM: AlbumPlayVoiceVM by viewModels()
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_album_content_play
-    }
-
-    override fun setBindViewModel(): Class<AlbumPlayVoiceVM> {
-        return AlbumPlayVoiceVM::class.java
-    }
-
-    override fun loadData() {
-        viewModel.getAlbumPlayVoice(albumItemBean.trackId)
-    }
-
-    override fun dataToView() {
-        viewModel.albumPlayVoiceBean.observe(this, Observer {
+        voiceVM.getAlbumPlayVoice(albumItemBean.trackId).observe(this, Observer {
             binding.apply {
                 tvTitle.text = it.trackInfo.title
                 Glide.with(this@AlbumContentPlayActivity).load(it.trackInfo.images[0]).into(ivCover)
@@ -83,7 +65,6 @@ class AlbumContentPlayActivity : BaseActivity<AlbumPlayVoiceVM, ActivityAlbumCon
 
                 ivNextOne.setOnClickListener {
                     // 下一曲
-                    Toast.makeText(this@AlbumContentPlayActivity, "下一曲", Toast.LENGTH_SHORT)
                 }
 
                 ivPlayStatus.setOnClickListener {
@@ -106,10 +87,19 @@ class AlbumContentPlayActivity : BaseActivity<AlbumPlayVoiceVM, ActivityAlbumCon
         })
     }
 
-    override fun initView() {
-        intent?.let {
-            albumItemBean = it.getSerializableExtra(BEAN) as AlbumItemBean
-            beans = it.getSerializableExtra(BEANS) as ArrayList<AlbumItemBean>
+    /*override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        popupWindow.takeIf { it.isShowing }?.let { return true }
+        return super.dispatchTouchEvent(ev)
+    }*/
+
+    /*override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        when (event?.keyCode) {
+            KeyEvent.KEYCODE_BACK -> popupWindow.takeIf { it.isShowing }?.dismiss() ?: backClick()
         }
+        return super.onKeyDown(keyCode, event)
+    }*/
+
+    private fun backClick() {
+        finish()
     }
 }

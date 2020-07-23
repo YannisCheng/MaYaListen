@@ -10,9 +10,10 @@ import android.widget.TextView
 import com.yannis.mayalisten.R
 
 /**
+ * LoadingDialog 加载loading
  *
- * @author  wenjia.Cheng  cwj1714@163.com
- * @date    2020/6/9
+ * @author  yannischeng  cwj1714@163.com
+ * @date    2020/6/9 - 14:20
  */
 class LoadingDialog(context: Context) : Dialog(context) {
 

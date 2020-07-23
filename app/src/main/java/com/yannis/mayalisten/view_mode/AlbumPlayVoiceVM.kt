@@ -10,15 +10,16 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
 /**
+ * AlbumPlayVoiceVM 播放专辑中单个声音 VM
  *
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/6/11
  */
 class AlbumPlayVoiceVM : ViewModel() {
 
-    private var albumPlayVoiceBean: MutableLiveData<AlbumPlayVoiceBean> = MutableLiveData()
+    var albumPlayVoiceBean: MutableLiveData<AlbumPlayVoiceBean> = MutableLiveData()
 
-    fun getAlbumPlayVoice(trackId: Int): MutableLiveData<AlbumPlayVoiceBean> {
+    fun getAlbumPlayVoice(trackId: Int) {
 
         RetrofitManager.getInstance().getApi()
             .getAlbumPlayEntry(trackId)
@@ -41,6 +42,5 @@ class AlbumPlayVoiceVM : ViewModel() {
                 }
 
             })
-        return albumPlayVoiceBean
     }
 }
