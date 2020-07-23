@@ -22,7 +22,7 @@ buildscript {
         junitVersion = '4.12'
         kotlinVersion = '1.3.70'
         ktlintVersion = '0.33.0'
-        ktxVersion = '1.3.0'
+        ktxVersion = '1.3.1'
         lifecycleVersion = '2.2.0'
         materialVersion = '1.3.0-alpha01'
         navigationVersion = '2.2.0'
@@ -33,13 +33,13 @@ buildscript {
         testExtJunit = '1.1.0'
         uiAutomatorVersion = '2.2.0'
         viewPagerVersion = '1.0.0'
-        workVersion = '2.3.4'
+        workVersion = '2.4.0'
         rxjavaVersion = '2.1.13'
         rxandroidVersion = '2.0.1'
         retrofitVersion = '2.9.0'
         converterGgsonVersion = '2.9.0'
         adapterRxjava2Version = '2.9.0'
-        loggingInterceptor = '4.7.2'
+        loggingInterceptor = '4.8.0'
         baseRecyclerViewAdapterHelperVersion = '2.9.34'
         eventBusVersion = '3.2.0'
         autosizeVersion = '1.2.1'
@@ -52,7 +52,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.0.0"
+        classpath 'com.android.tools.build:gradle:4.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
