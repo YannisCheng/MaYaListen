@@ -1,31 +1,23 @@
-package com.yannis.mayalisten.net
-
-import com.yannis.mayalisten.constant.NetConstants
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
+package com.yannis.mayalisten.old
 
 /**
- * RetrofitManager
+ * RetrofitManager2
  *
  * @author  yannischeng  cwj1714@163.com
  * @date    2020/6/7 - 15:16
  */
-class RetrofitManager private constructor() {
+/*
+class RetrofitManager2 private constructor() {
 
     companion object {
         private lateinit var api: MaYaApi
 
         @Volatile
-        private var instance: RetrofitManager? = null
+        private var instance: RetrofitManager2? = null
 
         @JvmStatic
-        fun getInstance(): RetrofitManager =
-            instance ?: synchronized(this) { instance ?: RetrofitManager() }
+        fun getInstance(): RetrofitManager2 =
+            instance ?: synchronized(this) { instance ?: RetrofitManager2() }
     }
 
     init {
@@ -56,4 +48,4 @@ class RetrofitManager private constructor() {
         return api
     }
 
-}
+}*/

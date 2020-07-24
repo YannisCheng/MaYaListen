@@ -4,7 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.yannis.mayalisten.base.BaseResultBean
 import com.yannis.mayalisten.bean.SingleAlbumContentBean
-import com.yannis.mayalisten.net.RetrofitManager
+import com.yannis.mayalisten.net.MaYaApi
+import com.yannis.mayalisten.net.RetrofitManager2
 import com.yannis.mayalisten.net.RunOn
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
@@ -24,7 +25,8 @@ class SingleAlbumContentViewModel : ViewModel() {
         asc: Boolean,
         trackId: Int
     ) {
-        RetrofitManager.getInstance().getApi().getSingleAlbumContent(albumId, asc, trackId)
+        RetrofitManager2.getInstance().getApi(MaYaApi::class.java)
+            .getSingleAlbumContent(albumId, asc, trackId)
             .compose(RunOn<BaseResultBean<SingleAlbumContentBean>>())
             .subscribe(object : Observer<BaseResultBean<SingleAlbumContentBean>> {
                 override fun onComplete() {

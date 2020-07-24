@@ -6,7 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.yannis.mayalisten.base.BaseResultBean
 import com.yannis.mayalisten.bean.AggregateRankFirstPageBean
-import com.yannis.mayalisten.net.RetrofitManager
+import com.yannis.mayalisten.net.MaYaApi
+import com.yannis.mayalisten.net.RetrofitManager2
 import com.yannis.mayalisten.net.RunOn
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
@@ -22,7 +23,7 @@ class AggregateRankFirstPageVM : ViewModel() {
     var listBean: MutableLiveData<MutableList<AggregateRankFirstPageBean>> = MutableLiveData()
 
     fun getLoadData() {
-        RetrofitManager.getInstance().getApi().getAggregateRankFirstPage()
+        RetrofitManager2.getInstance().getApi(MaYaApi::class.java).getAggregateRankFirstPage()
             .compose(RunOn<BaseResultBean<ArrayList<AggregateRankFirstPageBean>>>())
             .subscribe(object : Observer<BaseResultBean<ArrayList<AggregateRankFirstPageBean>>> {
                 override fun onComplete() {

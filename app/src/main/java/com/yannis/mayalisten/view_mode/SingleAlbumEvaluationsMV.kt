@@ -5,7 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.yannis.mayalisten.base.BaseResultBean
 import com.yannis.mayalisten.bean.AlbumEvaluationsBean
-import com.yannis.mayalisten.net.RetrofitManager
+import com.yannis.mayalisten.net.MaYaApi
+import com.yannis.mayalisten.net.RetrofitManager2
 import com.yannis.mayalisten.net.RunOn
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
@@ -22,7 +23,7 @@ class SingleAlbumEvaluationsMV : ViewModel() {
 
     fun getSingleAlbumEvaluations(albumId: Int) {
 
-        RetrofitManager.getInstance().getApi()
+        RetrofitManager2.getInstance().getApi(MaYaApi::class.java)
             .getAlbumEvaluations(albumId)
             .compose(RunOn<BaseResultBean<AlbumEvaluationsBean>>())
             .subscribe(
