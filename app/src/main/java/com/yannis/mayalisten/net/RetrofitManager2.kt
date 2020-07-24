@@ -40,6 +40,7 @@ class RetrofitManager2 private constructor() {
                         .build()
                 )
             })
+            .addInterceptor(BaseUrlInterceptor())
             .build()
 
         retrofit = Retrofit.Builder()
