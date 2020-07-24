@@ -40,6 +40,7 @@ class RetrofitManager2 private constructor() {
                         .build()
                 )
             })
+            // 多个baseurl动态切换
             .addInterceptor(BaseUrlInterceptor())
             .build()
 
