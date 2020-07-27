@@ -11,6 +11,8 @@ import java.util.concurrent.TimeUnit
 /**
  * RetrofitManager2
  *
+ * 参考：https://juejin.im/post/5ca9ac0fe51d452b616f2c7d
+ *
  * @author  yannischeng  cwj1714@163.com
  * @date    2020/6/7 - 15:16
  */
