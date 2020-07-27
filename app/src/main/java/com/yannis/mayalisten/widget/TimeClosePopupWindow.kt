@@ -21,12 +21,11 @@ import com.yannis.mayalisten.databinding.TimeCloseLayoutBinding
  */
 class TimeClosePopupWindow(private var mContext: Context) : BasePopupWindow(mContext) {
 
-    private var timeCloseAdapter: TimeCloseAdapter
-    private var binding: TimeCloseLayoutBinding
+    private var timeCloseAdapter: TimeCloseAdapter = TimeCloseAdapter(TimeCloseConstants.list)
+    private var binding: TimeCloseLayoutBinding =
+        TimeCloseLayoutBinding.inflate(LayoutInflater.from(mContext), null, false)
 
     init {
-        binding = TimeCloseLayoutBinding.inflate(LayoutInflater.from(mContext), null, false)
-        timeCloseAdapter = TimeCloseAdapter(TimeCloseConstants.list)
         binding.apply {
             root.measure(
                 View.MeasureSpec.UNSPECIFIED,
