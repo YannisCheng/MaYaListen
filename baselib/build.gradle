@@ -128,4 +128,6 @@ dependencies {
     api "com.tencent.bugly:crashreport_upgrade:$rootProject.crashreportUpgrade"
     // 轮播图
     api "com.youth.banner:banner:$rootProject.bannerVersion"
+    // 万能工具类
+    api "com.blankj:utilcodex:$rootProject.utilcodexVersion"
 }
