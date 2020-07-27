@@ -1,4 +1,4 @@
-package com.yannis.mayalisten.widget
+package com.yannis.baselib.widget
 
 import android.graphics.Color
 import android.os.Build

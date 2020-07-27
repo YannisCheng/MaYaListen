@@ -3,9 +3,9 @@ package com.yannis.mayalisten.fragment
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yannis.baselib.base.BaseFragment
 import com.yannis.mayalisten.R
 import com.yannis.mayalisten.adapter.SingleAlbumEvaluationAdapter
-import com.yannis.mayalisten.base.BaseFragment
 import com.yannis.mayalisten.databinding.FragmentSingleAlbumEvaluationsBinding
 import com.yannis.mayalisten.view_mode.SingleAlbumEvaluationsMV
 

@@ -1,8 +1,8 @@
 package com.yannis.mayalisten.net
 
-import com.yannis.mayalisten.base.BaseResultBean
+import com.yannis.baselib.base.BaseResultBean
+import com.yannis.baselib.net.NetConstants.Companion.XIMALAY
 import com.yannis.mayalisten.bean.*
-import com.yannis.mayalisten.constant.NetConstants.Companion.XIMALAY
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Headers

@@ -4,6 +4,12 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    // 视图绑定与数据绑定
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
+
     signingConfigs {
 
         debug {
@@ -51,6 +57,10 @@ android {
             signingConfig signingConfigs.debug
             multiDexEnabled true
         }
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 

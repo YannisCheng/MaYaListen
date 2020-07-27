@@ -1,4 +1,4 @@
-package com.yannis.mayalisten.constant
+package com.yannis.baselib.net
 
 /**
  *

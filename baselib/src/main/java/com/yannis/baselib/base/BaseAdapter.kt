@@ -1,4 +1,4 @@
-package com.yannis.mayalisten.base
+package com.yannis.baselib.base
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.yannis.mayalisten.base
+package com.yannis.baselib.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yannis.mayalisten.BR
 
 /**
  *
@@ -48,12 +47,15 @@ abstract class BaseFragment<VM : ViewModel, VDB : ViewDataBinding> : Fragment() 
         if (ViewModel::class.java != setBindViewModel()) {
             viewModel = ViewModelProvider(this)[setBindViewModel()]
             // -- databinding --
-            inflaterLayout.setVariable(BR.itemMode, viewModel)
+            //inflaterLayout.setVariable(BR.itemMode, viewModel)
+            setVariables(inflaterLayout)
             inflaterLayout.lifecycleOwner = this
             // -- databinding --
         }
         binding = inflaterLayout as VDB
     }
+
+    fun setVariables(inflaterLayout: VDB) {}
 
     abstract fun setBindViewModel(): Class<VM>
 

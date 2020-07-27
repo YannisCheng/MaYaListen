@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.GridLayoutManager
-import com.yannis.mayalisten.R
+import com.yannis.baselib.widget.BasePopupWindow
 import com.yannis.mayalisten.adapter.IndexChooseAdapter
 import com.yannis.mayalisten.bean.AlbumItemBean
 import com.yannis.mayalisten.bean.IndexChooseBean
@@ -47,7 +47,7 @@ class IndexChoosePopupWindow(var context: Context, var beans: List<AlbumItemBean
 
         indexChooseAdapter.setOnItemChildClickListener { adapter, view, position ->
 
-            if (view.id == R.id.tv_index_show) {
+            if (view.id == com.yannis.mayalisten.R.id.tv_index_show) {
                 Log.e("TAG", "内容为：" + adapter.data[position].toString())
                 val bean = adapter.data[position] as IndexChooseBean
                 bean.isCheckEd = true

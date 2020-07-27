@@ -6,11 +6,11 @@ import android.view.View.VISIBLE
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yannis.baselib.base.BaseFragment
 import com.yannis.mayalisten.R
 import com.yannis.mayalisten.activity.SingleAlbumContentActivity
 import com.yannis.mayalisten.adapter.ConcreteRankListAdapter
 import com.yannis.mayalisten.adapter.RankOfItemTabAdapter
-import com.yannis.mayalisten.base.BaseFragment
 import com.yannis.mayalisten.bean.AggregateRankFirstPageBean
 import com.yannis.mayalisten.bean.AggregateRankListTabsBean
 import com.yannis.mayalisten.bean.ItemBean

@@ -1,4 +1,4 @@
-package com.yannis.mayalisten.utils
+package com.yannis.baselib.utils
 
 /**
  *

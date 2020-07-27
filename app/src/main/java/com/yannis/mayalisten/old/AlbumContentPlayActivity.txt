@@ -9,12 +9,12 @@ import android.widget.PopupWindow
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
-import com.yannis.mayalisten.base.BaseActivity
+import com.yannis.baselib.base.BaseActivity
 import com.yannis.mayalisten.bean.AlbumItemBean
 import com.yannis.mayalisten.databinding.ActivityAlbumContentPlayBinding
 import com.yannis.mayalisten.view_mode.AlbumPlayVoiceVM
-import com.yannis.mayalisten.widget.PlayListPopupWindow
-import com.yannis.mayalisten.widget.TimeClosePopupWindow
+import com.yannis.baselib.widget.PlayListPopupWindow
+import com.yannis.baselib.widget.TimeClosePopupWindow
 
 /**
  * 专辑->内容->播放界面

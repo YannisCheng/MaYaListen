@@ -6,13 +6,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import com.yannis.baselib.base.BaseActivity
+import com.yannis.baselib.widget.WebViewActivity
 import com.yannis.mayalisten.R
-import com.yannis.mayalisten.base.BaseActivity
 import com.yannis.mayalisten.bean.AggregateRankFirstPageBean
 import com.yannis.mayalisten.databinding.ActivityMainBinding
 import com.yannis.mayalisten.fragment.MainFragment
 import com.yannis.mayalisten.view_mode.AggregateRankFirstPageVM
-import com.yannis.mayalisten.widget.WebViewActivity
 
 /**
  * MainActivity 主页

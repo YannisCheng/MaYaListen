@@ -1,4 +1,4 @@
-package com.yannis.mayalisten.net
+package com.yannis.baselib.net
 
 import io.reactivex.Observable
 import io.reactivex.ObservableSource

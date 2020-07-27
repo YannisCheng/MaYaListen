@@ -1,4 +1,4 @@
-package com.yannis.mayalisten.base
+package com.yannis.baselib.base
 
 import android.app.Application
 import com.tencent.bugly.Bugly

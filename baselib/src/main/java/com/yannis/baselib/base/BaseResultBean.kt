@@ -1,4 +1,4 @@
-package com.yannis.mayalisten.base
+package com.yannis.baselib.base
 
 /**
  * 喜马拉雅接口返回值基础bean

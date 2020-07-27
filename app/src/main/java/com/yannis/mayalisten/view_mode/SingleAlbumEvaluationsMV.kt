@@ -3,11 +3,11 @@ package com.yannis.mayalisten.view_mode
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.yannis.mayalisten.base.BaseResultBean
+import com.yannis.baselib.base.BaseResultBean
+import com.yannis.baselib.net.RetrofitManager2
+import com.yannis.baselib.net.RunOn
 import com.yannis.mayalisten.bean.AlbumEvaluationsBean
 import com.yannis.mayalisten.net.MaYaApi
-import com.yannis.mayalisten.net.RetrofitManager2
-import com.yannis.mayalisten.net.RunOn
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 

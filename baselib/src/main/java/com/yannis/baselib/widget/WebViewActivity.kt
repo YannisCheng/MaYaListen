@@ -1,4 +1,4 @@
-package com.yannis.mayalisten.widget
+package com.yannis.baselib.widget
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
@@ -10,7 +10,7 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
-import com.yannis.mayalisten.databinding.ActivityWebViewBinding
+import com.yannis.baselib.databinding.ActivityWebViewBinding
 
 /**
  * WebViewActivity

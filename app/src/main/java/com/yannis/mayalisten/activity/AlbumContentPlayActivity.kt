@@ -7,8 +7,8 @@ import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.yannis.baselib.base.BaseActivity
 import com.yannis.mayalisten.R
-import com.yannis.mayalisten.base.BaseActivity
 import com.yannis.mayalisten.bean.AlbumItemBean
 import com.yannis.mayalisten.databinding.ActivityAlbumContentPlayBinding
 import com.yannis.mayalisten.view_mode.AlbumPlayVoiceVM

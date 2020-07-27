@@ -1,6 +1,5 @@
-package com.yannis.mayalisten.net
+package com.yannis.baselib.net
 
-import com.yannis.mayalisten.constant.NetConstants
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -56,7 +55,7 @@ class RetrofitManager2 private constructor() {
     /**
      * 设置不同的Service，调用不同模块的接口服务
      */
-    fun <T> getApi(service: Class<T>):  T {
+    fun <T> getApi(service: Class<T>): T {
         return retrofit.create(service)
     }
 

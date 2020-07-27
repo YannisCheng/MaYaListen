@@ -6,10 +6,10 @@ import android.view.Gravity
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yannis.baselib.base.BaseFragment
 import com.yannis.mayalisten.R
 import com.yannis.mayalisten.activity.AlbumContentPlayActivity
 import com.yannis.mayalisten.adapter.SingleAlbumItemAdapter
-import com.yannis.mayalisten.base.BaseFragment
 import com.yannis.mayalisten.bean.AlbumItemBean
 import com.yannis.mayalisten.databinding.SingleAlbumContentFragmentBinding
 import com.yannis.mayalisten.view_mode.SingleAlbumContentViewModel

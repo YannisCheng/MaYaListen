@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import com.yannis.baselib.base.BaseActivity
 import com.yannis.mayalisten.R
-import com.yannis.mayalisten.base.BaseActivity
 import com.yannis.mayalisten.bean.ItemBean
 import com.yannis.mayalisten.databinding.ActivitySingleAlbumContentBinding
 import com.yannis.mayalisten.fragment.SingleAlbumContentFragment

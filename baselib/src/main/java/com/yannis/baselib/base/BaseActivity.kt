@@ -1,4 +1,4 @@
-package com.yannis.mayalisten.base
+package com.yannis.baselib.base
 
 import android.content.pm.PackageManager
 import android.os.Build
@@ -11,8 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yannis.mayalisten.BR
-import com.yannis.mayalisten.widget.LoadingDialog
+import com.yannis.baselib.widget.LoadingDialog
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -83,13 +82,19 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
         if (ViewModel::class.java != setBindViewModel()) {
             viewModel = ViewModelProvider(this)[setBindViewModel()]
             // -- databinding --
-            inflater.setVariable(BR.itemMode, viewModel)
+            //inflater.setVariable(BR.itemMode, viewModel)
+            setVariables(inflater)
             inflater.lifecycleOwner = this
             // -- databinding --
         }
         binding = inflater as VDB
         setContentView(binding.root)
     }
+
+    /**
+     * 设置view中的绑定值
+     */
+    fun setVariables(inflater: VDB) {}
 
     abstract fun setBindViewModel(): Class<VM>
 

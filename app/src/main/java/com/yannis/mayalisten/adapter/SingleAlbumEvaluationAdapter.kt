@@ -7,9 +7,9 @@ import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.yannis.baselib.widget.TextShrinkExpansion
 import com.yannis.mayalisten.R
 import com.yannis.mayalisten.bean.Evaluation
-import com.yannis.mayalisten.widget.TextShrinkExpansion
 
 /**
  *

@@ -1,4 +1,4 @@
-package com.yannis.mayalisten.widget
+package com.yannis.baselib.widget
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View.GONE
 import android.widget.ProgressBar
 import android.widget.TextView
-import com.yannis.mayalisten.R
+import com.yannis.baselib.R
 
 /**
  * LoadingDialog 加载loading

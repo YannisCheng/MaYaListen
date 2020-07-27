@@ -1,10 +1,10 @@
-package com.yannis.mayalisten.net
+package com.yannis.baselib.net
 
 import android.util.Log
-import com.yannis.mayalisten.constant.NetConstants.Companion.BASE_URL_STR_BILIBILI
-import com.yannis.mayalisten.constant.NetConstants.Companion.BASE_URL_XIMALYA
-import com.yannis.mayalisten.constant.NetConstants.Companion.BILIBILI
-import com.yannis.mayalisten.constant.NetConstants.Companion.XIMALAY
+import com.yannis.baselib.net.NetConstants.Companion.BASE_URL_STR_BILIBILI
+import com.yannis.baselib.net.NetConstants.Companion.BASE_URL_XIMALYA
+import com.yannis.baselib.net.NetConstants.Companion.BILIBILI
+import com.yannis.baselib.net.NetConstants.Companion.XIMALAY
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.Interceptor
@@ -19,7 +19,7 @@ import okhttp3.Response
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/7/23
  */
-class BaseUrlInterceptor :Interceptor {
+class BaseUrlInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
 
         val request: Request = chain.request()
