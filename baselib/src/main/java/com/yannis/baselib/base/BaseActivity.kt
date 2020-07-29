@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.yannis.baselib.utils.status_bar.BarStatusAndStyleUtils
 import com.yannis.baselib.widget.LoadingDialog
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -89,6 +90,7 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
         }
         binding = inflater as VDB
         setContentView(binding.root)
+        BarStatusAndStyleUtils.setStatusBarDarkTheme(this@BaseActivity, true)
     }
 
     /**

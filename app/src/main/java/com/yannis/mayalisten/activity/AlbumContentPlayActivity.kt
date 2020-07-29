@@ -2,18 +2,26 @@ package com.yannis.mayalisten.activity
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.view.Gravity
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.yannis.baselib.base.BaseActivity
+import com.yannis.baselib.utils.status_bar.BarStatusAndStyleUtils
 import com.yannis.mayalisten.R
 import com.yannis.mayalisten.bean.AlbumItemBean
 import com.yannis.mayalisten.databinding.ActivityAlbumContentPlayBinding
 import com.yannis.mayalisten.view_mode.AlbumPlayVoiceVM
 import com.yannis.mayalisten.widget.PlayListPopupWindow
 import com.yannis.mayalisten.widget.TimeClosePopupWindow
+
 
 private const val BEAN = "track_id"
 private const val BEANS = "beans"
@@ -76,7 +84,55 @@ class AlbumContentPlayActivity : BaseActivity<AlbumPlayVoiceVM, ActivityAlbumCon
         viewModel.albumPlayVoiceBean.observe(this, Observer {
             binding.apply {
                 tvTitle.text = it.trackInfo.title
-                Glide.with(this@AlbumContentPlayActivity).load(it.trackInfo.images[0]).into(ivCover)
+                val submit = Glide.with(this@AlbumContentPlayActivity).asBitmap()
+                    .load(it.trackInfo.images[0]).submit()
+                Glide.with(this@AlbumContentPlayActivity).asBitmap()
+                    .load(it.trackInfo.images[0]).addListener(object : RequestListener<Bitmap> {
+                        override fun onLoadFailed(
+                            e: GlideException?,
+                            model: Any?,
+                            target: Target<Bitmap>?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            TODO("Not yet implemented")
+                        }
+
+                        override fun onResourceReady(
+                            resource: Bitmap?,
+                            model: Any?,
+                            target: Target<Bitmap>?,
+                            dataSource: DataSource?,
+                            isFirstResource: Boolean
+                        ): Boolean {
+                            val builder: Palette.Builder? =
+                                resource?.let { it1 -> Palette.from(it1) }
+                            if (builder != null) {
+                                builder.generate(object : Palette.PaletteAsyncListener {
+                                    override fun onGenerated(palette: Palette?) {
+                                        palette?.let {
+                                            val vibrantSwatch = it.vibrantSwatch
+                                            vibrantSwatch?.let {
+                                                BarStatusAndStyleUtils.setStatusBarColor(
+                                                    this@AlbumContentPlayActivity,
+                                                    vibrantSwatch.rgb
+                                                )
+                                                BarStatusAndStyleUtils.setStatusBarDarkTheme(
+                                                    this@AlbumContentPlayActivity,
+                                                    false
+                                                )
+
+                                            }
+                                        }
+                                    }
+
+                                })
+
+                            }
+                            return true
+                        }
+
+                    }).into(ivCover)
+
                 ivPreviousOne.setOnClickListener {
                     // 上一曲
                 }

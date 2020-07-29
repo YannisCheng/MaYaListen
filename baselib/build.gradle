@@ -140,4 +140,6 @@ dependencies {
     api "com.youth.banner:banner:$rootProject.bannerVersion"
     // 万能工具类
     api "com.blankj:utilcodex:$rootProject.utilcodexVersion"
+    // 调色板
+    api "androidx.palette:palette-ktx:$rootProject.palette_ktxVersion"
 }
