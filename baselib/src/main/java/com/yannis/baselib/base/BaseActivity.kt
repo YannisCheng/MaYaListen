@@ -4,7 +4,6 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
@@ -116,7 +115,7 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
         if (checkSelfPermission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE)
         } else {
-            Toast.makeText(this, "已获取文件权限", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "已获取文件权限", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -128,9 +127,9 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_EXTERNAL_STORAGE) {
             if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "已获取文件权限", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "已获取文件权限", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "未获取文件权限", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "未获取文件权限", Toast.LENGTH_SHORT).show();
             }
         }
     }
