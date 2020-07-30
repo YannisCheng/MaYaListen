@@ -9,11 +9,20 @@ import com.yannis.baselib.R
 
 /**
  * StatusBarHeightView: 状态栏高度View,用于沉浸占位
+ *
+ * 参考：https://www.jianshu.com/p/a8850bae0c66
+ * @JvmOverloads：如果你没有加上这个注解，它只能重载相匹配的的构造函数，而不是全部
+ *
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/7/29
  */
-open class StatusBarHeightView(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
+class StatusBarHeightView @JvmOverloads constructor(
+    context: Context?,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) :
     LinearLayout(context, attrs, defStyleAttr) {
+
     var statusBarHeight: Int = 0
     var type: Int = 0
 
@@ -27,7 +36,6 @@ open class StatusBarHeightView(context: Context?, attrs: AttributeSet?, defStyle
             //低版本 直接设置0
             statusBarHeight = 0;
         }
-
 
         if (context != null) {
             attrs?.let {
