@@ -45,7 +45,7 @@ class GlideX private constructor() {
         val requestOptions = RequestOptions()
         return requestOptions
             .placeholder(R.drawable.live_default_avatar_88)
-            .error(R.drawable.def_img_error)
+            .error(R.drawable.live_btn_host_panel_photo)
     }
 
     /**
@@ -135,7 +135,7 @@ class GlideX private constructor() {
                     target: Target<Bitmap>?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    iv.setImageDrawable(activity.resources.getDrawable(R.drawable.def_img_error))
+                    iv.setImageDrawable(activity.resources.getDrawable(R.drawable.live_btn_host_panel_photo))
                     return true
                 }
 
