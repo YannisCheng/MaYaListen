@@ -12,7 +12,7 @@ import com.yannis.baselib.R
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/7/29
  */
-class StatusBarHeightView(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
+open class StatusBarHeightView(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
     LinearLayout(context, attrs, defStyleAttr) {
     var statusBarHeight: Int = 0
     var type: Int = 0
