@@ -15,5 +15,10 @@
         </attr>
     </declare-styleable>
 
+    <style name="ClubToolbar" parent="Widget.AppCompat.Toolbar">
+        <!-- 设置该属性解决空白部分-->
+        <item name="contentInsetStart">0dp</item>
+    </style>
+
 
 </resources>

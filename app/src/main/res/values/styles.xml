@@ -7,6 +7,7 @@
         <item name="colorAccent">@color/maya_color_theme</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="toolbarStyle">@style/ClubToolbar</item>
     </style>
 
     <style name="TabLayoutStyle" parent="TextAppearance.Design.Tab">
