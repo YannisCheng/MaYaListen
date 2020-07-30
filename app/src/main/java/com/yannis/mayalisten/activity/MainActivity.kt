@@ -7,7 +7,6 @@ import androidx.lifecycle.Observer
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yannis.baselib.base.BaseActivity
-import com.yannis.baselib.utils.status_bar.BarStatusAndStyleUtils
 import com.yannis.baselib.widget.WebViewActivity
 import com.yannis.mayalisten.R
 import com.yannis.mayalisten.bean.AggregateRankFirstPageBean
@@ -77,7 +76,6 @@ class MainActivity : BaseActivity<AggregateRankFirstPageVM, ActivityMainBinding>
     }
 
     override fun initView() {
-        BarStatusAndStyleUtils.setTranslucentStatus(this)
         val mIvFrame: AnimationDrawable = binding.ivRotate.background as AnimationDrawable
         mIvFrame.start()
 

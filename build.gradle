@@ -34,8 +34,8 @@ buildscript {
         uiAutomatorVersion = '2.2.0'
         viewPagerVersion = '1.0.0'
         workVersion = '2.4.0'
-        rxjavaVersion = '2.1.13'
-        rxandroidVersion = '2.0.1'
+        rxjavaVersion = '2.2.19'
+        rxandroidVersion = '2.1.1'
         retrofitVersion = '2.9.0'
         converterGgsonVersion = '2.9.0'
         adapterRxjava2Version = '2.9.0'
@@ -47,7 +47,7 @@ buildscript {
         smartRefreshLayoutVersion = '2.0.1'
         lottieVersion = '3.4.1'
         pagingVersion = "2.1.2"
-        crashreportUpgrade = "1.4.2"
+        crashreportUpgrade = "1.4.5"
         bannerVersion = "2.0.12"
         utilcodexVersion = "1.29.0"
         palette_ktxVersion="1.0.0"
@@ -61,7 +61,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:4.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // tinkersupport插件
-        classpath "com.tencent.bugly:tinker-support:1.1.2"
+        classpath "com.tencent.bugly:tinker-support:1.2.0"
     }
 }
 
