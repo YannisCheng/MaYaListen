@@ -51,7 +51,7 @@ class ConcreteRankListAdapter(data: MutableList<ItemBean>?) :
             val albumInfoView = it.getView<TextView>(R.id.tv_title_second)
             //Glide.with(mContext).load(item?.coverMiddle).into(helper.getView(R.id.iv_album_img))
             item?.coverMiddle?.let { it1 ->
-                GlideX.rectF(mContext, it1, helper.getView(R.id.iv_album_img), 8)
+                GlideX.getInstance().rectF(mContext, it1, helper.getView(R.id.iv_album_img), 8)
                 //GlideX.roundLoader(mContext,it1,helper.getView(R.id.iv_album_img))
             }
             it.getView<TextView>(R.id.tv_rank)?.text = "${helper.adapterPosition + 1}"

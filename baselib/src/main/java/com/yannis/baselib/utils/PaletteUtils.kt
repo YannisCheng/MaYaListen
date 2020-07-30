@@ -9,6 +9,8 @@ import com.yannis.baselib.utils.status_bar.BarStatusAndStyleUtils
 /**
  * PaletteUtils 调色板工具类
  *
+ * 参考：https://www.jianshu.com/p/450c89bf9d38
+ *
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/7/29
  */
@@ -23,19 +25,15 @@ class PaletteUtils(bitmap: Bitmap, private val activity: Activity) {
                 if (palette == null) {
                     resultCallBack.paletteError(activity.resources.getColor(R.color.maya_color_white))
                 } else {
-                    resultCallBack.paletteSuccess(palette)
-                }
-                // TODO 2020-07-29 17:31:32 待继续做
-                palette?.let {
-                    val vibrantSwatch = it.vibrantSwatch
+                    val vibrantSwatch = palette.vibrantSwatch
                     vibrantSwatch?.let {
                         BarStatusAndStyleUtils.setStatusBarColor(activity, vibrantSwatch.rgb)
                         BarStatusAndStyleUtils.setStatusBarDarkTheme(activity, false)
 
                     }
+                    resultCallBack.paletteSuccess(palette)
                 }
             }
-
         })
     }
 
