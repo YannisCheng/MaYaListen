@@ -28,10 +28,11 @@ class SplashActivity : BaseActivity<ViewModel, ActivitySplashBinding>() {
         countDownTimer = object : CountDownTimer(4000, 1000) {
             override fun onFinish() {
                 startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                finish()
             }
 
             override fun onTick(millisUntilFinished: Long) {
-                //binding.fullscreenContent.text = "${millisUntilFinished / 1000}"
+                binding.fullscreenContent.text = "跳过广告(${(millisUntilFinished / 1000) + 1})"
             }
 
         }
@@ -49,8 +50,6 @@ class SplashActivity : BaseActivity<ViewModel, ActivitySplashBinding>() {
 
     override fun onDestroy() {
         super.onDestroy()
-
-        countDownTimer.onFinish()
     }
 
 
