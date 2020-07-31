@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rl_item"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_index_show"
-        android:layout_width="327px"
-        android:layout_height="104px"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="22px"
-        android:layout_marginTop="36px"
-        android:background="@drawable/bg_index_choose_item"
-        android:gravity="center"
-        android:textColor="@color/maya_color_black_text_main"
-        android:textSize="14sp" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
-        android:id="@+id/iv_play_tag"
-        android:layout_width="47px"
-        android:layout_height="32px"
-        android:layout_alignTop="@id/tv_index_show"
-        android:layout_alignRight="@id/tv_index_show" />
-</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_index_show"
+            android:layout_width="327px"
+            android:layout_height="104px"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="22px"
+            android:layout_marginTop="36px"
+            android:background="@drawable/bg_index_choose_item"
+            android:gravity="center"
+            android:textColor="@color/maya_color_black_text_main"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/iv_play_tag"
+            android:layout_width="47px"
+            android:layout_height="32px"
+            android:layout_alignTop="@id/tv_index_show"
+            android:layout_alignRight="@id/tv_index_show" />
+    </RelativeLayout>
+</layout>
+

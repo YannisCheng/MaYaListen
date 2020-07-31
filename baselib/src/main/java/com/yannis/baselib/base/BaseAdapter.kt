@@ -22,6 +22,7 @@ abstract class BaseAdapter<T, VDB : ViewDataBinding>(
 
     private lateinit var itemClickCallBack: OnItemClickCallBack<T>
     private lateinit var itemLongClickCallBack: OnItemLongClickCallBack<T>
+    private var viewId: Int = 0
 
 
     /**

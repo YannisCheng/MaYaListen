@@ -1,9 +1,9 @@
 package com.yannis.mayalisten.widget
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.GridLayoutManager
+import com.yannis.baselib.base.BaseAdapter
 import com.yannis.baselib.widget.BasePopupWindow
 import com.yannis.mayalisten.adapter.IndexChooseAdapter
 import com.yannis.mayalisten.bean.AlbumItemBean
@@ -39,28 +39,29 @@ class IndexChoosePopupWindow(var context: Context, var beans: List<AlbumItemBean
         arrayList.add(IndexChooseBean("21~40", false))
         arrayList.add(IndexChooseBean("41~60", false))
 
-        indexChooseAdapter = IndexChooseAdapter(arrayList)
+        indexChooseAdapter = IndexChooseAdapter(context, arrayList)
         binding.apply {
             recyclerView.layoutManager = GridLayoutManager(context, 4)
             recyclerView.adapter = indexChooseAdapter
         }
 
-        indexChooseAdapter.setOnItemChildClickListener { adapter, view, position ->
-
-            if (view.id == com.yannis.mayalisten.R.id.tv_index_show) {
-                Log.e("TAG", "内容为：" + adapter.data[position].toString())
-                val bean = adapter.data[position] as IndexChooseBean
-                bean.isCheckEd = true
-                (adapter.data as ArrayList<IndexChooseBean>).forEach {
-                    if (it.indexInterval != bean.indexInterval) {
+        indexChooseAdapter.setOnItemClickListener(object :
+            BaseAdapter.OnItemClickCallBack<IndexChooseBean> {
+            override fun onItemClickListener(
+                itemData: IndexChooseBean,
+                position: Int,
+                data: ArrayList<IndexChooseBean>
+            ) {
+                itemData.isCheckEd = true
+                (data as ArrayList<IndexChooseBean>).forEach {
+                    if (it.indexInterval != itemData.indexInterval) {
                         it.isCheckEd = false
                     }
                 }
                 indexChooseAdapter.notifyDataSetChanged()
-                this.dismiss()
+                this@IndexChoosePopupWindow.dismiss()
             }
-
-        }
+        })
 
         setBaseDialogSettingNoBg(binding)
     }
