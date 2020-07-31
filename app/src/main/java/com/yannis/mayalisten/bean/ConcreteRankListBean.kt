@@ -9,7 +9,7 @@ import java.io.Serializable
  * @date    2020/6/8
  */
 data class ConcreteRankListBean(
-    val list: List<ItemBean>,
+    val list: ArrayList<ItemBean>,
     val maxPageId: Int,
     val totalCount: Int
 ) : Serializable {

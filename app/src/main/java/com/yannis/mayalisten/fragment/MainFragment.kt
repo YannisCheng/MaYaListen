@@ -6,6 +6,7 @@ import android.view.View.VISIBLE
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.yannis.baselib.base.BaseAdapter
 import com.yannis.baselib.base.BaseFragment
 import com.yannis.mayalisten.R
 import com.yannis.mayalisten.activity.SingleAlbumContentActivity
@@ -29,7 +30,7 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
     private var itemBean: AggregateRankFirstPageBean? = null
     private lateinit var modeOfRankItem: ConcreteRankListVM
     private var rankOfItemTabAdapter: RankOfItemTabAdapter? = null
-    private var concreteRankListAdapter: ConcreteRankListAdapter? = null
+    private lateinit var concreteRankListAdapter: ConcreteRankListAdapter
 
     companion object {
         @JvmStatic
@@ -61,14 +62,16 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
             getRankListOfItemTab(itemBean)
         }
 
-        concreteRankListAdapter?.setOnItemClickListener { adapter, _, position ->
-            this@MainFragment.context?.let {
-                SingleAlbumContentActivity.start(
-                    it,
-                    adapter.data[position] as ItemBean
-                )
+        concreteRankListAdapter.setOnItemClickListener(object :
+            BaseAdapter.OnItemClickCallBack<ItemBean> {
+            override fun onItemClickListener(
+                itemData: ItemBean,
+                position: Int,
+                data: ArrayList<ItemBean>
+            ) {
+                SingleAlbumContentActivity.start(mActivity, data[position] as ItemBean)
             }
-        }
+        })
     }
 
     private fun setData2View() {
@@ -87,7 +90,7 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
     private fun getRankListOfItemTab(it: AggregateRankListTabsBean) {
         modeOfRankItem.getRequestData(it.categoryId, it.rankClusterId, 1, 20, it.rankingListId)
         modeOfRankItem.liveData.observe(viewLifecycleOwner, Observer {
-            concreteRankListAdapter?.setNewData(it.list)
+            concreteRankListAdapter.setNewData(it.list)
         })
     }
 
@@ -101,7 +104,7 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
 
     override fun initView() {
         rankOfItemTabAdapter = RankOfItemTabAdapter(null)
-        concreteRankListAdapter = ConcreteRankListAdapter(null)
+        concreteRankListAdapter = ConcreteRankListAdapter(mActivity, null)
         binding.apply {
             leftRecycler.layoutManager = LinearLayoutManager(this@MainFragment.activity)
             leftRecycler.adapter = rankOfItemTabAdapter

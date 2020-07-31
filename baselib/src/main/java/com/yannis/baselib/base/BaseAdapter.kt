@@ -14,19 +14,27 @@ import androidx.recyclerview.widget.RecyclerView
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/7/15
  */
-abstract class BaseAdapter<T, VDB : ViewDataBinding>(val context: Context, var data: ArrayList<T>) :
+abstract class BaseAdapter<T, VDB : ViewDataBinding>(
+    val mContext: Context,
+    var data: ArrayList<T>?
+) :
     RecyclerView.Adapter<BaseAdapter.BaseViewHolder>() {
 
-    private lateinit var singleClickListener: OnSingleClickListener<T>
-    private lateinit var longClickListener: OnRvLongClickListener<T>
-    private lateinit var removeListener: OnRemoveListener<T>
+    private lateinit var itemClickCallBack: OnItemClickCallBack<T>
+    private lateinit var itemLongClickCallBack: OnItemLongClickCallBack<T>
+
 
     /**
      * 创建ViewHolder
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val inflate =
-            DataBindingUtil.inflate<VDB>(LayoutInflater.from(context), getLayoutId(), parent, false)
+            DataBindingUtil.inflate<VDB>(
+                LayoutInflater.from(mContext),
+                getLayoutId(),
+                parent,
+                false
+            )
         return BaseViewHolder(inflate.root)
     }
 
@@ -39,7 +47,11 @@ abstract class BaseAdapter<T, VDB : ViewDataBinding>(val context: Context, var d
      * 数量
      */
     override fun getItemCount(): Int {
-        return data.size
+        if (data == null) {
+            return 0
+        } else {
+            return data!!.size
+        }
     }
 
     /**
@@ -47,10 +59,19 @@ abstract class BaseAdapter<T, VDB : ViewDataBinding>(val context: Context, var d
      */
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         val binding = DataBindingUtil.getBinding<VDB>(holder.itemView)
-        bindItemDataToView(binding, data[position])
-        singleClickListener.setOnSingleClickListener(data[position], position, data)
-        longClickListener.setOnLongClickListener(data[position], position, data)
-        removeListener.setOnRemoveListener(data[position], position, data)
+        data?.let {
+            binding?.let {
+                bindItemDataToView(it, data!![position], position)
+            }
+        }
+
+        holder.itemView.setOnLongClickListener {
+            itemLongClickCallBack.onItemLongClickListener(data!![position], position, data!!)
+        }
+
+        holder.itemView.setOnClickListener {
+            itemClickCallBack.onItemClickListener(data!![position], position, data!!)
+        }
     }
 
     /**
@@ -65,46 +86,36 @@ abstract class BaseAdapter<T, VDB : ViewDataBinding>(val context: Context, var d
      * 加载更多数据
      */
     fun addData(newData: ArrayList<T>) {
-        this.data.addAll(newData)
-        notifyItemRangeChanged(this.data.size - newData.size, newData.size)
+        this.data?.addAll(newData)
+        notifyItemRangeChanged((this.data?.size ?: 0) - newData.size, newData.size)
     }
 
     /**
      * 将itemData的值绑定至ItemView
      */
-    abstract fun bindItemDataToView(binding: VDB?, itemData: T)
+    abstract fun bindItemDataToView(binding: VDB, itemData: T, position: Int)
 
     /**
      * 设置layout
      */
     abstract fun getLayoutId(): Int
 
-    fun setOnSingleClickListener(onSingleClickListener: OnSingleClickListener<T>) {
-        this.singleClickListener = onSingleClickListener
+    fun setOnItemClickListener(onItemClickCallBack: OnItemClickCallBack<T>) {
+        this.itemClickCallBack = onItemClickCallBack
     }
 
-    fun setOnLongClickListener(onLongClickListener: OnRvLongClickListener<T>) {
-        this.longClickListener = onLongClickListener
+    fun setOnItemLongClickListener(onItemLongClickCallBack: OnItemLongClickCallBack<T>) {
+        this.itemLongClickCallBack = onItemLongClickCallBack
     }
 
-    fun setOnRemoveListener(onRemoveListener: OnRemoveListener<T>) {
-        this.removeListener = onRemoveListener
-    }
-
-    interface OnSingleClickListener<T> {
+    interface OnItemClickCallBack<T> {
         // 单击
-        fun setOnSingleClickListener(itemData: T, position: Int, data: ArrayList<T>): Void
+        fun onItemClickListener(itemData: T, position: Int, data: ArrayList<T>)
     }
 
-    interface OnRvLongClickListener<T> {
+    interface OnItemLongClickCallBack<T> {
         // 长按
-        fun setOnLongClickListener(itemData: T, position: Int, data: ArrayList<T>): Void
+        fun onItemLongClickListener(itemData: T, position: Int, data: ArrayList<T>): Boolean
     }
-
-    interface OnRemoveListener<T> {
-        // 删除item
-        fun setOnRemoveListener(itemData: T, position: Int, data: ArrayList<T>)
-    }
-
 
 }

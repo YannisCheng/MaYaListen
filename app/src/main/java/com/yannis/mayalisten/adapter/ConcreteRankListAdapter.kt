@@ -1,74 +1,34 @@
 package com.yannis.mayalisten.adapter
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.os.Build
 import android.view.View
 import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.yannis.baselib.base.BaseAdapter
 import com.yannis.baselib.utils.glidex.GlideX
 import com.yannis.mayalisten.R
 import com.yannis.mayalisten.bean.ItemBean
+import com.yannis.mayalisten.databinding.ItemConcreteRankListLayoutBinding
 
 /**
  *
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/6/8
  */
-class ConcreteRankListAdapter(data: MutableList<ItemBean>?) :
-    BaseQuickAdapter<ItemBean, BaseViewHolder>(data) {
-
-    init {
-        mLayoutResId = R.layout.item_concrete_rank_list_layout
-    }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    @SuppressLint("SetTextI18n")
-    override fun convert(helper: BaseViewHolder?, item: ItemBean?) {
-
-        helper?.let {
-            when (it.adapterPosition) {
-                0 -> setTopView(it, R.drawable.live_fanlist_top1)
-                1 -> setTopView(it, R.drawable.live_fanlist_top2)
-                2 -> setTopView(it, R.drawable.live_fanlist_top3)
-                else -> {
-                    it.getView<ImageView>(R.id.iv_fanlist).visibility = GONE
-                    it.getView<TextView>(R.id.tv_rank).visibility = View.VISIBLE
-                    val typeface: Typeface =
-                        Typeface.createFromAsset(mContext.assets, "fonts/futuraLT.ttf")
-                    it.getView<TextView>(R.id.tv_rank).typeface = typeface
-                    it.getView<TextView>(R.id.tv_rank).text =
-                        (it.adapterPosition + 1).toString()
-                    //setRankIndicator(it, item)
-                }
-            }
-
-            val albumInfoView = it.getView<TextView>(R.id.tv_title_second)
-            //Glide.with(mContext).load(item?.coverMiddle).into(helper.getView(R.id.iv_album_img))
-            item?.coverMiddle?.let { it1 ->
-                GlideX.getInstance().rectF(mContext, it1, helper.getView(R.id.iv_album_img), 8)
-                //GlideX.roundLoader(mContext,it1,helper.getView(R.id.iv_album_img))
-            }
-            it.getView<TextView>(R.id.tv_rank)?.text = "${helper.adapterPosition + 1}"
-            it.getView<TextView>(R.id.tv_content_title)?.text = item?.title ?: ""
-            if (item?.albumIntro.equals("")) albumInfoView.visibility =
-                GONE else albumInfoView.text = item?.albumIntro
-            it.getView<TextView>(R.id.tv_hot)?.text = item?.popularity ?: ""
-        }
-
-    }
+class ConcreteRankListAdapter(context: Context, data: ArrayList<ItemBean>?) :
+    BaseAdapter<ItemBean, ItemConcreteRankListLayoutBinding>(context, data) {
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setRankIndicator(
-        it: BaseViewHolder,
+        imageView: ImageView,
         item: ItemBean?
     ) {
-        val imageView = it.getView<ImageView>(R.id.iv_rank_notice) as ImageView
         when (item?.positionChange) {
             0 -> imageView.setImageDrawable(mContext.getDrawable(R.drawable.draw_shape_line))
             1 -> {
@@ -84,10 +44,48 @@ class ConcreteRankListAdapter(data: MutableList<ItemBean>?) :
         }
     }
 
-    private fun setTopView(it: BaseViewHolder, imgId: Int) {
-        it.getView<ImageView>(R.id.iv_fanlist).visibility = View.VISIBLE
-        it.getView<TextView>(R.id.tv_rank).visibility = GONE
-        it.getView<ImageView>(R.id.iv_fanlist)
-            .background = mContext.resources.getDrawable(imgId)
+    @RequiresApi(Build.VERSION_CODES.M)
+    override fun bindItemDataToView(
+        binding: ItemConcreteRankListLayoutBinding,
+        itemData: ItemBean,
+        position: Int
+    ) {
+        binding.apply {
+            when (position) {
+                0 -> setRankView(ivFanlist, tvRank, R.drawable.live_fanlist_top1)
+                1 -> setRankView(ivFanlist, tvRank, R.drawable.live_fanlist_top2)
+                2 -> setRankView(ivFanlist, tvRank, R.drawable.live_fanlist_top3)
+                else -> {
+                    ivFanlist.visibility = GONE
+                    tvRank.visibility = View.VISIBLE
+                    val typeface: Typeface =
+                        Typeface.createFromAsset(mContext.assets, "fonts/futuraLT.ttf")
+                    tvRank.typeface = typeface
+                    tvRank.text = (position + 1).toString()
+                    //setRankIndicator(ivRankNotice, itemData)
+                }
+            }
+
+            GlideX.getInstance().rectF(mContext, itemData.coverMiddle, ivAlbumImg, 8)
+            tvRank.text = "${position + 1}"
+            tvContentTitle.text = itemData.title ?: ""
+            if (itemData.albumIntro != null && itemData.albumIntro.equals("")) tvTitleSecond.visibility =
+                GONE else tvTitleSecond.text = itemData.albumIntro
+            tvHot.text = itemData.popularity ?: ""
+        }
+    }
+
+    private fun setRankView(
+        ivFan: ImageView,
+        tvRank: TextView,
+        topDraw: Int
+    ) {
+        ivFan.visibility = VISIBLE
+        tvRank.visibility = GONE
+        ivFan.background = mContext.resources.getDrawable(topDraw)
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.item_concrete_rank_list_layout
     }
 }

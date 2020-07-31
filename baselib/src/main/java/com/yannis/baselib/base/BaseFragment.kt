@@ -1,5 +1,7 @@
 package com.yannis.baselib.base
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +21,7 @@ abstract class BaseFragment<VM : ViewModel, VDB : ViewDataBinding> : Fragment() 
 
     lateinit var binding: VDB
     lateinit var viewModel: VM
+    lateinit var mActivity: Activity
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +35,12 @@ abstract class BaseFragment<VM : ViewModel, VDB : ViewDataBinding> : Fragment() 
         loadData()
         return binding.root
     }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mActivity = context as Activity
+    }
+
 
     open fun refreshData() {}
 
