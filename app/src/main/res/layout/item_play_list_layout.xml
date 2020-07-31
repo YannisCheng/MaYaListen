@@ -1,47 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="169px">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
-        android:id="@+id/iv_fang_status"
-        android:layout_width="62px"
-        android:layout_height="82px"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="50px"
-        android:background="@drawable/host_common_theme_loading"
-        android:visibility="gone" />
-
-
-    <ImageView
-        android:id="@+id/iv_download_left"
-        android:layout_width="210px"
-        android:layout_height="167px"
-        android:layout_alignParentRight="true"
-        android:padding="48px"
-        android:src="@drawable/host_community_track_download"
-        android:tint="@color/maya_color_black_text_second" />
-
-    <TextView
-        android:id="@+id/tv_title"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="167px"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="53px"
-        android:layout_toLeftOf="@id/iv_download_left"
-        android:layout_toRightOf="@id/iv_fang_status"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
-        android:maxLines="1"
-        android:text=""
-        android:textColor="#707788"
-        android:textSize="13sp" />
+        android:layout_height="169px">
+
+        <ImageView
+            android:id="@+id/iv_fang_status"
+            android:layout_width="62px"
+            android:layout_height="82px"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="50px"
+            android:background="@drawable/host_common_theme_loading"
+            android:visibility="gone" />
 
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2px"
-        android:layout_below="@id/iv_download_left"
-        android:background="@color/maya_color_line" />
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/iv_download_left"
+            android:layout_width="210px"
+            android:layout_height="167px"
+            android:layout_alignParentRight="true"
+            android:padding="48px"
+            android:src="@drawable/host_community_track_download"
+            android:tint="@color/maya_color_black_text_second" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="167px"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="53px"
+            android:layout_toLeftOf="@id/iv_download_left"
+            android:layout_toRightOf="@id/iv_fang_status"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text=""
+            android:textColor="#707788"
+            android:textSize="13sp" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_below="@id/iv_download_left"
+            android:background="@color/maya_color_line" />
+    </RelativeLayout>
+</layout>
+

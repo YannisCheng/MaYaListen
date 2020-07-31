@@ -7,8 +7,8 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.yannis.baselib.base.BaseAdapter
 import com.yannis.baselib.widget.BasePopupWindow
-import com.yannis.mayalisten.R
 import com.yannis.mayalisten.adapter.PlayListAdapter
 import com.yannis.mayalisten.bean.AlbumItemBean
 import com.yannis.mayalisten.databinding.PlayListLayoutBinding
@@ -24,7 +24,7 @@ import com.yannis.mayalisten.databinding.PlayListLayoutBinding
  * @author  yannischeng  cwj1714@163.com
  * @date    2020/6/11 - 14:21
  */
-class PlayListPopupWindow(mContext: Context, beans: List<AlbumItemBean>) :
+class PlayListPopupWindow(mContext: Context, beans: ArrayList<AlbumItemBean>) :
     BasePopupWindow(mContext) {
 
     private var playListAdapter: PlayListAdapter
@@ -32,7 +32,7 @@ class PlayListPopupWindow(mContext: Context, beans: List<AlbumItemBean>) :
 
     init {
         binding = PlayListLayoutBinding.inflate(LayoutInflater.from(mContext), null, false)
-        playListAdapter = PlayListAdapter(beans)
+        playListAdapter = PlayListAdapter(mContext, beans)
         binding.apply {
             root.measure(
                 View.MeasureSpec.UNSPECIFIED,
@@ -51,28 +51,35 @@ class PlayListPopupWindow(mContext: Context, beans: List<AlbumItemBean>) :
 
         setBaseDialogSetting(binding)
 
-        playListAdapter.setOnItemClickListener { adapter, _, position ->
-            changeState(adapter, position)
-        }
+        playListAdapter.setOnItemClickListener(object :
+            BaseAdapter.OnItemClickCallBack<AlbumItemBean> {
+            override fun onItemClickListener(
+                itemData: AlbumItemBean,
+                position: Int,
+                data: ArrayList<AlbumItemBean>
+            ) {
+                val timeCloseBean = data[position] as AlbumItemBean
+                timeCloseBean.isChecked = true
+                (data as List<AlbumItemBean>).forEach {
+                    if (timeCloseBean.trackId != it.trackId) {
+                        it.isChecked = false
+                    }
+                }
+                playListAdapter.notifyDataSetChanged()
+            }
+        })
 
-        playListAdapter.setOnItemChildClickListener { adapter, view, position ->
+        /*playListAdapter.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
                 R.id.iv_download_left -> Log.e("TAG", adapter.data[position].toString())
             }
-        }
+        }*/
     }
 
     private fun changeState(
         adapter: BaseQuickAdapter<Any, BaseViewHolder>,
         position: Int
     ) {
-        val timeCloseBean = adapter.data[position] as AlbumItemBean
-        timeCloseBean.isChecked = true
-        (adapter.data as List<AlbumItemBean>).forEach {
-            if (timeCloseBean.trackId != it.trackId) {
-                it.isChecked = false
-            }
-        }
-        adapter.notifyDataSetChanged()
+
     }
 }
