@@ -27,7 +27,6 @@
                 android:tint="@color/maya_color_black_text_main" />
 
             <ImageView
-                android:visibility="gone"
                 android:id="@+id/iv_rotate"
                 android:layout_width="140px"
                 android:layout_height="140px"
@@ -35,7 +34,8 @@
                 android:layout_marginRight="16px"
                 android:layout_toRightOf="@id/iv_back"
                 android:background="@drawable/host_common_theme_loading"
-                android:padding="30px" />
+                android:padding="30px"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/action_bar"
