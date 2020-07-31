@@ -11,10 +11,12 @@ import java.io.Serializable
 data class ConcreteRankListBean(
     val list: ArrayList<ItemBean>,
     val maxPageId: Int,
-    val totalCount: Int
+    val totalCount: Int,
+    val pageId: Int,
+    val pageSize: Int
 ) : Serializable {
     override fun toString(): String {
-        return "ConcreteRankListBean(list=$list, maxPageId=$maxPageId, totalCount=$totalCount)"
+        return "ConcreteRankListBean(list=$list, maxPageId=$maxPageId, totalCount=$totalCount, pageId=$pageId, pageSize=$pageSize)"
     }
 }
 

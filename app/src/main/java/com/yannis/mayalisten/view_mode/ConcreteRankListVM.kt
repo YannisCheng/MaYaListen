@@ -24,21 +24,20 @@ class ConcreteRankListVM : ViewModel() {
     fun getRequestData(
         categoryId: Int,
         clusterType: Int,
-        pageId: Int? = 1,
-        pageSize: Int? = 20,
+        pageId: Int = 1,
         rankingListId: Int
     ) {
         RetrofitManager2.getInstance().getApi(MaYaApi::class.java).getConcreteRankList(
             categoryId,
             clusterType,
-            1,
-            20,
+            pageId,
+            2,
             rankingListId
         )
             .compose(RunOn<BaseResultBean<ConcreteRankListBean>>())
             .subscribe(object : Observer<BaseResultBean<ConcreteRankListBean>> {
                 override fun onComplete() {
-                    Log.e("TAG", " requestConcreteRankList onComplete")
+                    //Log.e("TAG", " requestConcreteRankList onComplete")
                 }
 
                 override fun onSubscribe(d: Disposable) {
@@ -46,7 +45,7 @@ class ConcreteRankListVM : ViewModel() {
                 }
 
                 override fun onNext(t: BaseResultBean<ConcreteRankListBean>) {
-                    println(" index 0 item value is : ${t.data.list.get(0).toString()}")
+                    println(" index 0 item value is : ${t.toString()}")
                     //requestSingleAlbumContent(t)
                     liveData.value = t.data
                 }

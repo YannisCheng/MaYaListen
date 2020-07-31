@@ -88,7 +88,7 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
     }
 
     private fun getRankListOfItemTab(it: AggregateRankListTabsBean) {
-        modeOfRankItem.getRequestData(it.categoryId, it.rankClusterId, 1, 20, it.rankingListId)
+        modeOfRankItem.getRequestData(it.categoryId, it.rankClusterId, 1, it.rankingListId)
         modeOfRankItem.liveData.observe(viewLifecycleOwner, Observer {
             concreteRankListAdapter.setNewData(it.list)
         })
