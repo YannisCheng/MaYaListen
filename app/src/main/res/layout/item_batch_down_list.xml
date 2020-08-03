@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="itemMode"
+            type="com.yannis.mayalisten.bean.AggregateRankListTabsBean" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/cb_content"
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:layout_marginTop="60px"
+            android:background="@drawable/left_batch_down_selector"
+            android:button="@drawable/left_bg_selector"
+            android:checked="false"
+            android:gravity="center"
+            android:textColor="@color/maya_color_black_text_second"
+            android:textSize="13dp" />
+
+        <TextView
+            android:id="@+id/tv_number"
+            android:layout_width="120px"
+            android:layout_height="180px"
+            android:layout_toRightOf="@id/cb_content"
+            android:gravity="center"
+            android:text="32"
+            android:textColor="@color/maya_color_black_text_second"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_content_batch_down"
+            android:layout_width="match_parent"
+            android:layout_height="180px"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/tv_number"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:text="达克拉荆防颗粒阿里斯顿积分阿斯顿阿斯顿发阿斯顿发阿斯顿发阿的说法阿斯顿发阿斯顿发阿道夫阿斯顿发阿斯顿发阿斯顿发阿的说法阿的说法阿道夫"
+            android:textColor="@color/maya_color_black_text_main"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/iv_content_no"
+            android:layout_width="44px"
+            android:layout_height="44px"
+            android:layout_below="@id/tv_content_batch_down"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="-12dp"
+            android:layout_toRightOf="@id/tv_number"
+            android:background="@drawable/host_no_content"
+            android:backgroundTint="@color/maya_color_black_text_second" />
+
+        <TextView
+            android:id="@+id/tv_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_content_batch_down"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="-10dp"
+            android:layout_toRightOf="@id/iv_content_no"
+            android:text="470.795KB"
+            android:textColor="@color/maya_color_black_text_second"
+            android:textSize="10sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/tv_content_batch_down"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@id/tv_number"
+            android:background="@color/maya_color_line" />
+    </RelativeLayout>
+
+
+</layout>
