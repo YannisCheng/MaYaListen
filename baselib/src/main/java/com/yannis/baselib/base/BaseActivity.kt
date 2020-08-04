@@ -12,8 +12,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.yannis.baselib.utils.status_bar.BarStatusAndStyleUtils
 import com.yannis.baselib.widget.LoadingDialog
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 
 /**
  * BaseActivity 基类
@@ -32,7 +30,7 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
         "android.permission.WRITE_EXTERNAL_STORAGE",
         "android.Manifest.permission.CAMERA"
     )
-    var compositeDisposable: CompositeDisposable? = null
+
     private lateinit var loadingDialog: LoadingDialog
 
     fun showLoading(msg: String) {
@@ -51,9 +49,7 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
         }
     }
 
-    fun addDispose(disposable: Disposable) {
-        compositeDisposable?.add(disposable) ?: CompositeDisposable()
-    }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -138,9 +134,6 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
 
     override fun onDestroy() {
         super.onDestroy()
-        compositeDisposable.let {
-            compositeDisposable?.clear()
-        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
