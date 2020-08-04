@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.yannis.baselib.base.BaseFragment
 import com.yannis.mayalisten.R
 import com.yannis.mayalisten.activity.AlbumContentPlayActivity
+import com.yannis.mayalisten.activity.BatchDownloadActivity
 import com.yannis.mayalisten.adapter.SingleAlbumItemAdapter
 import com.yannis.mayalisten.bean.AlbumItemBean
 import com.yannis.mayalisten.databinding.SingleAlbumContentFragmentBinding
@@ -95,6 +96,8 @@ class SingleAlbumContentFragment :
                 )
             }
         }
+
+        binding.ivDownload.setOnClickListener { BatchDownloadActivity.start(mActivity) }
     }
 
     override fun initView() {

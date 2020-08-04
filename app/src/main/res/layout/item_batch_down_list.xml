@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginLeft="56px"
+        android:layout_marginRight="56px"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -28,23 +28,24 @@
             android:checked="false"
             android:gravity="center"
             android:textColor="@color/maya_color_black_text_second"
-            android:textSize="13dp" />
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/tv_number"
-            android:layout_width="120px"
+            android:layout_width="140px"
             android:layout_height="180px"
+            android:layout_marginLeft="32px"
             android:layout_toRightOf="@id/cb_content"
             android:gravity="center"
             android:text="32"
-            android:textColor="@color/maya_color_black_text_second"
+            android:textColor="@color/maya_black_999999"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tv_content_batch_down"
             android:layout_width="match_parent"
             android:layout_height="180px"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="32px"
             android:layout_toRightOf="@id/tv_number"
             android:ellipsize="end"
             android:gravity="center_vertical"
@@ -58,8 +59,8 @@
             android:layout_width="44px"
             android:layout_height="44px"
             android:layout_below="@id/tv_content_batch_down"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="-12dp"
+            android:layout_marginLeft="32px"
+            android:layout_marginTop="-12px"
             android:layout_toRightOf="@id/tv_number"
             android:background="@drawable/host_no_content"
             android:backgroundTint="@color/maya_color_black_text_second" />
@@ -69,19 +70,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_content_batch_down"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="-10dp"
+            android:layout_marginLeft="16px"
+            android:layout_marginTop="-12px"
             android:layout_toRightOf="@id/iv_content_no"
             android:text="470.795KB"
-            android:textColor="@color/maya_color_black_text_second"
+            android:textColor="@color/maya_black_999999"
             android:textSize="10sp" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@id/tv_content_batch_down"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="2px"
+            android:layout_below="@id/tv_size"
+            android:layout_marginLeft="16px"
+            android:layout_marginTop="32px"
             android:layout_toRightOf="@id/tv_number"
             android:background="@color/maya_color_line" />
     </RelativeLayout>
