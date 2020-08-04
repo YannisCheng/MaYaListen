@@ -15,10 +15,17 @@
         </attr>
     </declare-styleable>
 
+    <!--ToolBar左侧距离问题-->
     <style name="ClubToolbar" parent="Widget.AppCompat.Toolbar">
         <!-- 设置该属性解决空白部分-->
         <item name="contentInsetStart">0dp</item>
     </style>
+
+    <!--PageStatusView-->
+    <declare-styleable name="PageStatusView">
+        <!--背景色-->
+        <attr name="psv_background" format="reference|color" />
+    </declare-styleable>
 
 
 </resources>

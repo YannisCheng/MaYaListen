@@ -33,20 +33,22 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
         "android.Manifest.permission.CAMERA"
     )
     var compositeDisposable: CompositeDisposable? = null
-    val builder: LoadingDialog.Builder = LoadingDialog.Builder(this)
+    private lateinit var loadingDialog: LoadingDialog
 
     fun showLoading(msg: String) {
-        val create = LoadingDialog
+        loadingDialog = LoadingDialog
             .Builder(this)
             .setMsg(msg)
             .isCancelOutSide(false)
             .isCancelable(false)
             .create()
-        create.show()
+        loadingDialog.show()
     }
 
-    fun hidingLoding() {
-
+    fun hidingLoading() {
+        if (loadingDialog.isShowing) {
+            loadingDialog.dismiss()
+        }
     }
 
     fun addDispose(disposable: Disposable) {

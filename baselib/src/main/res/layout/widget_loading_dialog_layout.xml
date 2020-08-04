@@ -20,7 +20,7 @@
             android:layout_height="160px"
             android:layout_gravity="center_horizontal"
             android:indeterminateBehavior="repeat"
-            android:indeterminateDrawable="@drawable/host_common_theme_loading"
+            android:indeterminateDrawable="@drawable/loading_common_theme"
             android:indeterminateOnly="true" />
 
         <TextView

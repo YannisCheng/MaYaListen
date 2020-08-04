@@ -27,7 +27,7 @@ class SplashActivity : BaseActivity<ViewModel, ActivitySplashBinding>() {
     override fun initView() {
         countDownTimer = object : CountDownTimer(4000, 1000) {
             override fun onFinish() {
-                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                startActivity(Intent(this@SplashActivity, TestCaseActivity::class.java))
                 finish()
             }
 
@@ -39,7 +39,7 @@ class SplashActivity : BaseActivity<ViewModel, ActivitySplashBinding>() {
         countDownTimer.start()
         binding.fullscreenContent.setOnClickListener {
             countDownTimer.cancel()
-            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            startActivity(Intent(this@SplashActivity, TestCaseActivity::class.java))
             finish()
         }
     }

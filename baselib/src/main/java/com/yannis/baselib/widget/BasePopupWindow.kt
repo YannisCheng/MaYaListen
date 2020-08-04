@@ -38,6 +38,11 @@ open class BasePopupWindow(private val mContext: Context) : PopupWindow(),
         setWindowAlpha(0.6f)
     }
 
+    fun setBaseDialogSettingTransaction(binding: ViewBinding) {
+        setBaseDialogSettingNoBg(binding)
+        setWindowAlpha(1f)
+    }
+
     fun setWindowAlpha(fl: Float) {
         window.let {
             val lp = it.attributes

@@ -8,6 +8,7 @@ import android.view.View.GONE
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.yannis.baselib.R
+import com.yannis.baselib.databinding.WidgetLoadingDialogLayoutBinding
 
 /**
  * LoadingDialog 加载loading
@@ -17,9 +18,8 @@ import com.yannis.baselib.R
  */
 class LoadingDialog(context: Context) : Dialog(context) {
 
-    class Builder(mContext: Context) {
+    class Builder(private var mContext: Context) {
 
-        private var context: Context = mContext
         private lateinit var msg: String
         private var mIsCancelable: Boolean = false
         private var mIsCancelOutSide: Boolean = false
@@ -58,9 +58,13 @@ class LoadingDialog(context: Context) : Dialog(context) {
 
         @SuppressLint("InflateParams")
         fun create(): LoadingDialog {
-            val loadingDialog = LoadingDialog(context)
-            val layoutInflater: LayoutInflater = LayoutInflater.from(context)
-            val rootView = layoutInflater.inflate(R.layout.widget_loading_dialog_layout, null)
+            val loadingDialog = LoadingDialog(mContext)
+            // 去掉Dialog弹窗出现时，一层黑色半透明的背景遮罩
+            loadingDialog.window?.setDimAmount(0f);
+            // 去掉Dialog自身的白色背景色
+            loadingDialog.window?.decorView?.background = null;
+            val inflate = WidgetLoadingDialogLayoutBinding.inflate(LayoutInflater.from(mContext))
+            val rootView = inflate.root
             val progress = rootView.findViewById<ProgressBar>(R.id.progress) as ProgressBar
             val msgTv = rootView.findViewById<TextView>(R.id.tv_msg) as TextView
 

@@ -33,7 +33,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="16px"
                 android:layout_toRightOf="@id/iv_back"
-                android:background="@drawable/host_common_theme_loading"
+                android:background="@drawable/loading_common_theme"
                 android:padding="30px"
                 android:visibility="gone" />
 
