@@ -1,10 +1,15 @@
 package com.yannis.baselib.utils.net_status
 
+import android.app.Application
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
-import android.util.Log
 import com.blankj.utilcode.util.ToastUtils
+import java.lang.reflect.Method
 
 /**
  * NetStatusCallBack 网络状态回调
@@ -13,14 +18,27 @@ import com.blankj.utilcode.util.ToastUtils
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/8/5
  */
-class NetStatusCallBack : ConnectivityManager.NetworkCallback() {
+class NetStatusCallBack(application: Application) : ConnectivityManager.NetworkCallback() {
+    // 观察者，key=类、value=方法
+    private var registerMap = HashMap<Any, Method>()
 
-    private var requestMap = HashMap<Any, String>()
+    // 网络状态记录
+    @Volatile
     private var netType: @NetType String = NetType.NET_UNKNOWN
+
+    // 网络状态广播监听
+    private val receiver = NetStatusReceiver()
+
+    init {
+        val filter = IntentFilter()
+        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
+        application.registerReceiver(receiver, filter)
+        netType = NetTypeUtils.getNetStatus(application)
+    }
 
     override fun onLost(network: Network) {
         super.onLost(network)
-        ToastUtils.showShort("网络不可用")
+        postStatus(NetType.NONE)
     }
 
     override fun onAvailable(network: Network) {
@@ -33,17 +51,89 @@ class NetStatusCallBack : ConnectivityManager.NetworkCallback() {
         networkCapabilities: NetworkCapabilities
     ) {
         super.onCapabilitiesChanged(network, networkCapabilities)
-        if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)) {
-            if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                ToastUtils.showShort("wifi")
-                Log.e("TAG", "onCapabilitiesChanged: wifi")
-            } else if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                ToastUtils.showShort("蜂窝")
-                Log.e("TAG", "onCapabilitiesChanged: 蜂窝")
-            } else if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
-                ToastUtils.showShort("VPN")
-                Log.e("TAG", "onCapabilitiesChanged: VPN")
+        // 表明此网络连接成功验证
+        val type = NetTypeUtils.getNetStatus(networkCapabilities)
+        if (type == netType) return
+        postStatus(type)
+    }
+
+    /**
+     * 发送状态更新
+     */
+    private fun postStatus(status: @NetType String) {
+        netType = status
+        val set: Set<Any> = registerMap.keys
+        for (obj in set) {
+            val method: Method = registerMap[obj] ?: continue
+            invokePost(obj, method, status)
+        }
+    }
+
+    /**
+     * 通过反射执行观察者对应的方法
+     */
+    private fun invokePost(obj: Any, method: Method, status: @NetType String) {
+        method.invoke(obj, status)
+    }
+
+    /**
+     * 注册
+     */
+    fun register(obj: Any) {
+        val clazz = obj.javaClass
+        if (!registerMap.containsKey(clazz)) {
+            val method: Method = findAnnotationMethod(clazz) ?: return
+            registerMap[obj] = method
+        }
+    }
+
+    private fun findAnnotationMethod(clz: Class<*>) : Method? {
+        val method = clz.methods
+        for (m in method) {
+            // 看是否有注解
+            m.getAnnotation(DlNet::class.java) ?: continue
+            // 判断返回类型
+            val genericReturnType = m.genericReturnType.toString()
+            if ("void" != genericReturnType) {
+                // 方法的返回类型必须为void
+                throw RuntimeException("The return type of the method【${m.name}】 must be void!")
             }
+            // 检查参数，必须有一个String型的参数
+            val parameterTypes = m.genericParameterTypes
+            if (parameterTypes.size != 1 || parameterTypes[0].toString() != "class ${String::class.java.name}") {
+                throw RuntimeException("The parameter types size of the method【${m.name}】must be one (type name must be java.lang.String)!")
+            }
+            return m
+        }
+        return null
+    }
+
+    /**
+     * 取消单个注册
+     */
+    fun unRegister(obj: Any) {
+        registerMap.remove(obj)
+    }
+
+    /**
+     * 取消所有注册
+     */
+    fun unRegisterAll() {
+        registerMap.clear()
+    }
+
+    fun getStatus(): @NetType String {
+        return netType
+    }
+
+    inner class NetStatusReceiver : BroadcastReceiver() {
+
+        override fun onReceive(context: Context?, intent: Intent?) {
+            context ?: return
+            intent ?: return
+            val type = NetTypeUtils.getNetStatus(context)
+            if (type == netType) return
+            postStatus(type)
         }
     }
 }

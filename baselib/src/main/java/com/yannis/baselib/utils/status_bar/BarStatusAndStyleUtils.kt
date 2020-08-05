@@ -36,7 +36,7 @@ object BarStatusAndStyleUtils {
         val resources = context.resources
         val identifier = resources.getIdentifier("config_showNavigationBar", "bool", "android")
         if (identifier > 0) {
-            hasNavigationBar == resources.getBoolean(identifier)
+            hasNavigationBar = resources.getBoolean(identifier)
         }
 
         val forName = Class.forName("android.os.SystemProperties")
@@ -106,9 +106,7 @@ object BarStatusAndStyleUtils {
             val viewGroup = activity.findViewById<ViewGroup>(android.R.id.content)
             if (viewGroup.childCount > 0) {
                 val rootView: ViewGroup = viewGroup.getChildAt(0) as ViewGroup
-                if (rootView != null) {
-                    rootView.fitsSystemWindows = fitSystemWindows
-                }
+                rootView.fitsSystemWindows = fitSystemWindows
             }
         }
     }
@@ -119,18 +117,16 @@ object BarStatusAndStyleUtils {
     fun setStatusBarDarkTheme(activity: Activity, isDark: Boolean): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val decorView = activity.window.decorView
-            if (decorView != null) {
-                var vis = decorView.systemUiVisibility
-                vis = if (isDark) {
-                    vis or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                } else {
-                    vis and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-                }
-                if (decorView.systemUiVisibility != vis) {
-                    decorView.systemUiVisibility = vis
-                }
-                return true
+            var vis = decorView.systemUiVisibility
+            vis = if (isDark) {
+                vis or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            } else {
+                vis and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
             }
+            if (decorView.systemUiVisibility != vis) {
+                decorView.systemUiVisibility = vis
+            }
+            return true
         }
         return false
     }

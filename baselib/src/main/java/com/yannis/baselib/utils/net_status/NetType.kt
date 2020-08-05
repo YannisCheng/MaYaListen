@@ -18,5 +18,6 @@ annotation class NetType {
         const val WIFI = "WIFI"
         const val CELLULAR = "CELLULAR"
         const val NET_UNKNOWN = "NET_UNKNOWN"
+        const val NONE="NONE"
     }
 }

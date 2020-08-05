@@ -3,6 +3,7 @@ package com.yannis.baselib.base
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -10,6 +11,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.yannis.baselib.utils.net_status.DlNet
+import com.yannis.baselib.utils.net_status.NetManager
+import com.yannis.baselib.utils.net_status.NetType
+import com.yannis.baselib.utils.net_status.NetTypeUtils
 import com.yannis.baselib.utils.status_bar.BarStatusAndStyleUtils
 import com.yannis.baselib.widget.LoadingDialog
 
@@ -49,13 +54,13 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
         }
     }
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // 初始化 DataViewBInding、ViewBinding、ViewModel
         initBinding()
+        NetManager.getInstance(this.application).register(this)
+        val netType = NetManager.getInstance(this.application).getNetType()
+        Log.e("NetManager", "type is : $netType")
         initView();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             showFilePermission()
@@ -63,6 +68,19 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
         loadData()
         refreshData()
         dataToView()
+    }
+
+    @DlNet
+    fun onNetStatusChange(status: @NetType String){
+        Log.e("NetManager", "Main网络状态改变：${status}")
+        if (status == NetType.WIFI) {
+            if (NetTypeUtils.is5GWifiConnected(this)) {
+                Log.e("NetManager", "这是5G WI-FI")
+            } else{
+                Log.e("NetManager", "这是2.4G WI-FI")
+            }
+            Log.e("NetManager", "WI-FI名：${NetTypeUtils.getConnectedWifiSSID(this)}")
+        }
     }
 
     abstract fun dataToView()
@@ -134,6 +152,7 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
 
     override fun onDestroy() {
         super.onDestroy()
+        NetManager.getInstance(this.application).unRegister(this)
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
