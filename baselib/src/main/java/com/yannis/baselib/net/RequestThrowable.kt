@@ -1,4 +1,4 @@
 package com.yannis.baselib.net
 
-class RequestThrowable(private var errorCode:Int, private var errorMsg:String): Throwable()  {
+class RequestThrowable(var errorCode: Int, var errorMsg: String) : Throwable() {
 }
