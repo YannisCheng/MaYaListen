@@ -1,6 +1,5 @@
-package com.yannis.mayalisten.view_mode
+package com.yannis.mayalisten.model
 
-import com.yannis.baselib.base.BaseDepository
 import com.yannis.baselib.base.BaseResultBean
 import com.yannis.baselib.net.RetrofitManager2
 import com.yannis.baselib.net.RunOn
@@ -8,25 +7,23 @@ import com.yannis.mayalisten.bean.ConcreteRankListBean
 import com.yannis.mayalisten.net.MaYaApi
 import io.reactivex.Observer
 
-class DepositoryConcreteRankList: BaseDepository {
+class ConcreteRankModel {
 
-
-    fun  requestConcreteRankList(
+    fun requestConcreteRankList(
         categoryId: Int,
         clusterType: Int,
         pageId: Int,
         rankingListId: Int,
         observer: Observer<BaseResultBean<ConcreteRankListBean>>
     ) {
-      RetrofitManager2.getInstance().getApi(MaYaApi::class.java).getConcreteRankList(
+        RetrofitManager2.getInstance().getApi(MaYaApi::class.java).getConcreteRankList(
             categoryId,
             clusterType,
             pageId,
             2,
             rankingListId
         ).compose(RunOn<BaseResultBean<ConcreteRankListBean>>())
-          .subscribe(observer)
-
+            .subscribe(observer)
     }
 
 }

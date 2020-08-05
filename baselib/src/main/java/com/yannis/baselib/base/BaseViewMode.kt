@@ -12,12 +12,10 @@ import io.reactivex.disposables.Disposable
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/8/4 21:55
  */
-open class BaseViewMode<T:BaseDepository> : ViewModel() {
+open class BaseViewMode : ViewModel() {
 
     private var compositeDisposable: CompositeDisposable = CompositeDisposable()
-    var defThrowable: MutableLiveData<RequestThrowable> = MutableLiveData()
-
-     lateinit var depository: T
+    var throwable: MutableLiveData<RequestThrowable> = MutableLiveData()
 
     fun addDispose(disposable: Disposable) {
         compositeDisposable.add(disposable)
