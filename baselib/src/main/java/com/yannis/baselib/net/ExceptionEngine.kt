@@ -7,6 +7,7 @@ import com.yannis.baselib.net.NetErrorConstant.INTERRUPTED
 import com.yannis.baselib.net.NetErrorConstant.PARSE
 import com.yannis.baselib.net.NetErrorConstant.SOCKET_TIME_OUT
 import com.yannis.baselib.net.NetErrorConstant.SSL
+import com.yannis.baselib.net.NetErrorConstant.UN_KNOWN
 import com.yannis.baselib.net.NetErrorConstant.UN_KNOWN_HOST_NAME
 import org.json.JSONException
 import retrofit2.HttpException
@@ -31,7 +32,7 @@ object ExceptionEngine {
             requestThrowable = RequestThrowable(EOFE, "连接丢失")
         } else if (e is SocketTimeoutException) {
             // 请求超时
-            requestThrowable = RequestThrowable(SOCKET_TIME_OUT, "请求超时")
+            requestThrowable = RequestThrowable(SOCKET_TIME_OUT, "连接超时")
         } else if (e is SSLHandshakeException) {
             // 安全证书异常
             requestThrowable = RequestThrowable(SSL, "安全证书异常")
@@ -73,6 +74,7 @@ object ExceptionEngine {
             }
         } else {
             // 未知异常
+            requestThrowable = RequestThrowable(UN_KNOWN, "未知异常")
         }
         return requestThrowable
     }

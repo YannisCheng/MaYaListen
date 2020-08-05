@@ -8,4 +8,5 @@ object NetErrorConstant {
     const val UN_KNOWN_HOST_NAME: Int = 5
     const val PARSE: Int = 6
     const val INTERRUPTED: Int = 7
+    const val UN_KNOWN: Int = 8
 }
