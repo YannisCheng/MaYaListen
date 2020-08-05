@@ -1,4 +1,3 @@
-/*
 package com.yannis.baselib.utils.net_status
 
 import android.content.Context
@@ -12,41 +11,39 @@ import android.util.Log
 import com.blankj.utilcode.util.ToastUtils
 
 
-*/
 /**
  * NetBroadCastReceiver网络状态广播监听器
  *
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/8/5
- *//*
-
+ */
 const val TAG = "NetBroadCastReceiver"
 
-class NetBroadCastReceiver(context: Context) {
+class NetStatusCallBack(context: Context) {
     val connectivityManager: ConnectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     init {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            connectivityManager.registerDefaultNetworkCallback(NetworkCallbackImpl)
+            // Android7.0 SDK24 添加的API
+            connectivityManager.registerDefaultNetworkCallback(NetworkCallbackImpl())
         } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // Android5.0 SDK21 新添加的API
             connectivityManager.requestNetwork(
                 NetworkRequest.Builder().build(),
                 NetworkCallbackImpl()
             )
-        } else {
+        } /*else {
             isNetworkAvailable(context)
 
             isWifiConnected(context)
-        }
+        }*/
     }
 
-    */
-/**
- * 网络是否连接
- *//*
-
+    /**
+     * 网络是否连接
+     */
     fun isNetworkAvailable(context: Context): Boolean {
         val infos = connectivityManager.allNetworkInfo
         if (infos != null) {
@@ -60,33 +57,27 @@ class NetBroadCastReceiver(context: Context) {
         return false
     }
 
-    */
-/**
- * WiFi是否连接
- *//*
-
+    /**
+     * WiFi是否连接
+     */
     fun isWifiConnected(context: Context): Boolean {
         val mWiFiNetworkInfo =
             connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
         return mWiFiNetworkInfo?.isConnected ?: false
     }
 
-    */
-/**
- * 移动网络是否连接
- *//*
-
+    /**
+     * 移动网络是否连接
+     */
     fun isMobleConnected(context: Context): Boolean {
         val mMobleNetworkInfo =
             connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
         return mMobleNetworkInfo?.isConnected ?: false
     }
 
-    */
-/**
- * 获取当前连接网络类型
- *//*
-
+    /**
+     * 获取当前连接网络类型
+     */
     fun getType(context: Context) {
         val networkInfo = connectivityManager.activeNetworkInfo
         if (networkInfo != null) {
@@ -131,4 +122,4 @@ class NetBroadCastReceiver(context: Context) {
             }
         }
     }
-}*/
+}
