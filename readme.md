@@ -10,4 +10,7 @@
 
  ### 移除git中已将添加到版本控制中的文件
 >> git  rm  -rf  --cached .idea/
+
+ ### 在终端中查看具体的 Android编译问题
+>> gradlew clean build  --stacktrace
  
