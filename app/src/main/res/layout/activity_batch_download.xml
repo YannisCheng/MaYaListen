@@ -2,13 +2,6 @@
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-
-        <variable
-            name="total_num"
-            type="int" />
-    </data>
-
     <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -125,7 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text='@{"共"+total_num+"集"}'
+                android:text="共4567集"
                 android:textColor="@color/maya_color_black_text_second"
                 android:textSize="14sp" />
 
