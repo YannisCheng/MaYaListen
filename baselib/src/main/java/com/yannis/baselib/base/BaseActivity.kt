@@ -1,40 +1,54 @@
 package com.yannis.baselib.base
 
+import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.KeyEvent
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yannis.baselib.utils.net_status.DlNet
-import com.yannis.baselib.utils.net_status.NetManager
-import com.yannis.baselib.utils.net_status.NetType
-import com.yannis.baselib.utils.net_status.NetTypeUtils
-import com.yannis.baselib.utils.status_bar.BarStatusAndStyleUtils
+import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.ToastUtils
+import com.yannis.baselib.utils.net_status.NetStatus
+import com.yannis.baselib.utils.net_status.NetStatusChange
+import com.yannis.baselib.utils.net_status.NetStatusManager
+import com.yannis.baselib.utils.net_status.NetStatusUtils
+import com.yannis.baselib.utils.status_bar.StatusBarUtils
 import com.yannis.baselib.widget.LoadingDialog
 
+
 /**
- * BaseActivity 基类
+ * BaseActivity Activity基类
  *
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/6/8
  */
 abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatActivity() {
-    private val REQUEST_EXTERNAL_STORAGE: Int = 1
+    private val PERMISSION_REQUEST: Int = 1001
 
     lateinit var binding: VDB
     lateinit var viewModel: VM
 
-    private val PERMISSIONS_STORAGE = arrayOf(
+    private val PERMISSIONS = arrayOf(
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE",
-        "android.Manifest.permission.CAMERA"
+        "android.permission.CAMERA",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION"
     )
+
+    private val NO_PASS_PERMISSIONS: ArrayList<String> = ArrayList<String>()
+
+    var mPermissionDialog: AlertDialog? = null
 
     private lateinit var loadingDialog: LoadingDialog
 
@@ -58,28 +72,53 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
         super.onCreate(savedInstanceState)
         // 初始化 DataViewBInding、ViewBinding、ViewModel
         initBinding()
-        NetManager.getInstance(this.application).register(this)
-        val netType = NetManager.getInstance(this.application).getNetType()
-        Log.e("NetManager", "type is : $netType")
+        NetStatusManager.getInstance(this.application).register(this)
+        val netType = NetStatusManager.getInstance(this.application).getNetType()
+        initAppNetStatus(netType)
         initView();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            showFilePermission()
+            requestPermission()
         }
         loadData()
         refreshData()
         dataToView()
     }
 
-    @DlNet
-    fun onNetStatusChange(status: @NetType String){
-        Log.e("NetManager", "Main网络状态改变：${status}")
-        if (status == NetType.WIFI) {
-            if (NetTypeUtils.is5GWifiConnected(this)) {
+    private fun initAppNetStatus(netType: String) {
+        Log.e("NetManager", "type is : $netType")
+        if (netType != NetStatus.NONE) {
+            Log.e("NetManager", "初始：网络已经连接")
+        }
+        if (netType === NetStatus.WIFI) {
+            if (NetStatusUtils.is5GWifiConnected(this)) {
                 Log.e("NetManager", "这是5G WI-FI")
-            } else{
+            } else {
                 Log.e("NetManager", "这是2.4G WI-FI")
             }
-            Log.e("NetManager", "WI-FI名：${NetTypeUtils.getConnectedWifiSSID(this)}")
+            Log.e("NetManager", "WI-FI名：${NetStatusUtils.getConnectedWifiSSID(this)}")
+        }
+    }
+
+    @NetStatusChange
+    fun onNetStatusChange(status: @NetStatus String) {
+        Log.e("NetManager", "Main网络状态改变：${status}")
+        if (status === NetStatus.OK) {
+            ToastUtils.showShort("网络已经连接")
+        } else if (status === NetStatus.NONE) {
+            ToastUtils.showShort("网络已经断开")
+        }
+
+        if (status === NetStatus.WIFI) {
+            if (NetStatusUtils.is5GWifiConnected(this)) {
+                Log.e("NetManager", "这是5G WI-FI")
+            } else {
+                Log.e("NetManager", "这是2.4G WI-FI")
+            }
+            Log.e("NetManager", "WI-FI名：${NetStatusUtils.getConnectedWifiSSID(this)}")
+        } else if (status == NetStatus.CELLULAR) {
+            Log.e("NetManager", "这是 蜂窝网络")
+        } else if (status == NetStatus.NET_UNKNOWN) {
+            Log.e("NetManager", "这是 未知网络")
         }
     }
 
@@ -105,7 +144,7 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
         }
         binding = inflater as VDB
         setContentView(binding.root)
-        BarStatusAndStyleUtils.setStatusBarDarkTheme(this@BaseActivity, true)
+        StatusBarUtils.setStatusBarDarkTheme(this@BaseActivity, true)
     }
 
     /**
@@ -125,13 +164,28 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
      */
     abstract fun getLayoutId(): Int
 
-    private fun showFilePermission() {
-        val checkSelfPermission =
-            ActivityCompat.checkSelfPermission(this, "android.permission.WRITE_EXTERNAL_STORAGE")
-        if (checkSelfPermission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE)
-        } else {
-            //Toast.makeText(this, "已获取文件权限", Toast.LENGTH_SHORT).show();
+    private fun requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //清空已经允许的没有通过的权限
+            NO_PASS_PERMISSIONS.clear()
+
+            //逐个判断是否还有未通过的权限
+            for (item in PERMISSIONS) {
+                if (ActivityCompat.checkSelfPermission(
+                        this,
+                        item
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    NO_PASS_PERMISSIONS.add(item)
+                }
+            }
+            if (NO_PASS_PERMISSIONS.size > 0) {
+                //有权限没有通过，需要申请
+                ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_REQUEST)
+            } else {
+                // 权限已经通过
+                ToastUtils.showShort("权限ok")
+            }
         }
     }
 
@@ -141,18 +195,57 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_EXTERNAL_STORAGE) {
-            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //Toast.makeText(this, "已获取文件权限", Toast.LENGTH_SHORT).show();
-            } else {
-                //Toast.makeText(this, "未获取文件权限", Toast.LENGTH_SHORT).show();
+        //有权限没有通过
+        var hasPermissionDismiss = false
+
+        if (requestCode == PERMISSION_REQUEST) {
+            for (i in 0 until grantResults.size) {
+                if (grantResults[i] == -1) {
+                    hasPermissionDismiss = true
+                    break
+                }
             }
         }
+
+        if (hasPermissionDismiss) {
+            //如果有没有被允许的权限
+            showPermissionDialog()
+        } else {
+            //权限已经都通过了，可以将程序继续打开了
+            //init();
+        }
+    }
+
+    private fun showPermissionDialog() {
+        if (mPermissionDialog == null) {
+            mPermissionDialog = AlertDialog.Builder(this)
+                .setMessage("已禁用权限，请手动授予")
+                .setPositiveButton("设置",
+                    DialogInterface.OnClickListener { dialog, which ->
+                        cancelPermissionDialog()
+                        val packageURI: Uri = Uri.parse("package:${AppUtils.getAppPackageName()}")
+                        val intent =
+                            Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI)
+                        startActivity(intent)
+                    })
+                .setNegativeButton("取消",
+                    DialogInterface.OnClickListener { dialog, which ->
+                        //关闭页面或者做其他操作
+                        cancelPermissionDialog()
+                        this@BaseActivity.finish()
+                    })
+                .create()
+        }
+        mPermissionDialog!!.show()
+    }
+
+    private fun cancelPermissionDialog() {
+        mPermissionDialog!!.cancel()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        NetManager.getInstance(this.application).unRegister(this)
+        NetStatusManager.getInstance(this.application).unRegister(this)
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

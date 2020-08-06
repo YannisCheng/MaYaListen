@@ -97,7 +97,11 @@ class SingleAlbumContentFragment :
             }
         }
 
-        binding.ivDownload.setOnClickListener { BatchDownloadActivity.start(mActivity) }
+        binding.ivDownload.setOnClickListener {
+            mActivity?.let {
+                BatchDownloadActivity.start(it)
+            }
+        }
     }
 
     override fun initView() {

@@ -3,6 +3,7 @@ package com.yannis.baselib.base
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,14 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.blankj.utilcode.util.ToastUtils
+import com.yannis.baselib.utils.net_status.NetStatus
+import com.yannis.baselib.utils.net_status.NetStatusChange
+import com.yannis.baselib.utils.net_status.NetStatusManager
+import com.yannis.baselib.utils.net_status.NetStatusUtils
 
 /**
+ * BaseFragment Fragment基类
  *
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/6/8
@@ -21,7 +28,7 @@ abstract class BaseFragment<VM : ViewModel, VDB : ViewDataBinding> : Fragment() 
 
     lateinit var binding: VDB
     lateinit var viewModel: VM
-    lateinit var mActivity: Activity
+    var mActivity: Activity? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,15 +37,77 @@ abstract class BaseFragment<VM : ViewModel, VDB : ViewDataBinding> : Fragment() 
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         initBinding(inflater, container)
+        mActivity?.let {
+            NetStatusManager.getInstance(it.application).register(this)
+            val netType = NetStatusManager.getInstance(it.application).getNetType()
+            initAppNetStatus(netType)
+        }
+
         initView()
         refreshData()
         loadData()
         return binding.root
     }
 
+    private fun initAppNetStatus(netType: String) {
+        Log.e("NetManager", "type is : $netType")
+        if (netType != NetStatus.NONE) {
+            Log.e("NetManager", "初始：网络已经连接")
+        }
+        mActivity?.let {
+            if (netType === NetStatus.WIFI) {
+                if (NetStatusUtils.is5GWifiConnected(it)) {
+                    Log.e("NetManager", "这是5G WI-FI")
+                } else {
+                    Log.e("NetManager", "这是2.4G WI-FI")
+                }
+                Log.e("NetManager", "WI-FI名：${NetStatusUtils.getConnectedWifiSSID(it)}")
+            }
+        }
+
+    }
+
+    @NetStatusChange
+    fun onNetStatusChange(status: @NetStatus String) {
+        Log.e("NetManager", "Main网络状态改变：${status}")
+        if (status === NetStatus.OK) {
+            ToastUtils.showShort("网络已经连接")
+        } else if (status === NetStatus.NONE) {
+            ToastUtils.showShort("网络已经断开")
+        }
+
+        if (status === NetStatus.WIFI) {
+            mActivity?.let {
+                if (NetStatusUtils.is5GWifiConnected(it)) {
+                    Log.e("NetManager", "这是5G WI-FI")
+                } else {
+                    Log.e("NetManager", "这是2.4G WI-FI")
+                }
+                Log.e("NetManager", "WI-FI名：${NetStatusUtils.getConnectedWifiSSID(it)}")
+            }
+        } else if (status == NetStatus.CELLULAR) {
+            Log.e("NetManager", "这是 蜂窝网络")
+        } else if (status == NetStatus.NET_UNKNOWN) {
+            Log.e("NetManager", "这是 未知网络")
+        }
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mActivity = context as Activity
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        mActivity = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mActivity?.let {
+            NetStatusManager.getInstance(it.application).unRegister(this)
+        }
+
     }
 
 

@@ -4,7 +4,7 @@ import android.app.Activity
 import android.graphics.Bitmap
 import androidx.palette.graphics.Palette
 import com.yannis.baselib.R
-import com.yannis.baselib.utils.status_bar.BarStatusAndStyleUtils
+import com.yannis.baselib.utils.status_bar.StatusBarUtils
 
 /**
  * PaletteUtils 调色板工具类
@@ -27,8 +27,8 @@ class PaletteUtils(bitmap: Bitmap, private val activity: Activity) {
                 } else {
                     val vibrantSwatch = palette.vibrantSwatch
                     vibrantSwatch?.let {
-                        BarStatusAndStyleUtils.setStatusBarColor(activity, vibrantSwatch.rgb)
-                        BarStatusAndStyleUtils.setStatusBarDarkTheme(activity, false)
+                        StatusBarUtils.setStatusBarColor(activity, vibrantSwatch.rgb)
+                        StatusBarUtils.setStatusBarDarkTheme(activity, false)
 
                     }
                     resultCallBack.paletteSuccess(palette)

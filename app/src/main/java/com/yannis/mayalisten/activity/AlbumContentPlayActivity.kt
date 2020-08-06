@@ -10,7 +10,7 @@ import androidx.palette.graphics.Palette
 import com.yannis.baselib.base.BaseActivity
 import com.yannis.baselib.utils.PaletteUtils
 import com.yannis.baselib.utils.glidex.GlideX
-import com.yannis.baselib.utils.status_bar.BarStatusAndStyleUtils
+import com.yannis.baselib.utils.status_bar.StatusBarUtils
 import com.yannis.mayalisten.R
 import com.yannis.mayalisten.bean.AlbumItemBean
 import com.yannis.mayalisten.bean.AlbumPlayVoiceBean
@@ -126,12 +126,12 @@ class AlbumContentPlayActivity : BaseActivity<AlbumPlayVoiceVM, ActivityAlbumCon
                     override fun paletteSuccess(palette: Palette) {
                         val mutedSwatch = palette.mutedSwatch
                         mutedSwatch?.let {
-                            BarStatusAndStyleUtils.setStatusBarColor(
+                            StatusBarUtils.setStatusBarColor(
                                 this@AlbumContentPlayActivity,
                                 it.rgb
                             )
 
-                            BarStatusAndStyleUtils.setStatusBarDarkTheme(
+                            StatusBarUtils.setStatusBarDarkTheme(
                                 this@AlbumContentPlayActivity,
                                 false
                             )

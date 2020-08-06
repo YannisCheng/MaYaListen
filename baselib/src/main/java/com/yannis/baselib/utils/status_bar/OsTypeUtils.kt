@@ -10,13 +10,13 @@ import java.util.*
 
 
 /**
- * OSUtils Rom类型判断的工具类
+ * OsTypeUtils Rom类型判断的工具类
  *
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/7/29
  */
 
-object OSUtils {
+object OsTypeUtils {
     const val ROM_MIUI = "MIUI"
     const val ROM_EMUI = "EMUI"
     const val ROM_FLYME = "FLYME"

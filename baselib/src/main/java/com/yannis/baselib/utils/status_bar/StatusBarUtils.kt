@@ -11,7 +11,7 @@ import android.view.WindowManager
 
 
 /**
- * BarStatusAndStyleUtils： 顶部状态栏设置与底部导航栏设置
+ * StatusBarUtils： 顶部状态栏设置与底部导航栏设置
  *
  * fitSystemWindows属性：
  * 用于根据系统窗口（例如状态栏）调整视图布局。
@@ -24,7 +24,7 @@ import android.view.WindowManager
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/7/29
  */
-object BarStatusAndStyleUtils {
+object StatusBarUtils {
 
 
     /**

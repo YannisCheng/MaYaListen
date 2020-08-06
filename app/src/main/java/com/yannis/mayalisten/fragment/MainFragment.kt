@@ -69,7 +69,10 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
                 position: Int,
                 data: ArrayList<ItemBean>
             ) {
-                SingleAlbumContentActivity.start(mActivity, data[position] as ItemBean)
+                mActivity?.let {
+                    SingleAlbumContentActivity.start(it, data[position])
+                }
+
             }
         })
     }
@@ -104,7 +107,9 @@ class MainFragment : BaseFragment<MainViewModel, MainFragmentBinding>() {
 
     override fun initView() {
         rankOfItemTabAdapter = RankOfItemTabAdapter(null)
-        concreteRankListAdapter = ConcreteRankListAdapter(mActivity, null)
+        mActivity?.let {
+            concreteRankListAdapter = ConcreteRankListAdapter(it, null)
+        }
         binding.apply {
             leftRecycler.layoutManager = LinearLayoutManager(this@MainFragment.activity)
             leftRecycler.adapter = rankOfItemTabAdapter

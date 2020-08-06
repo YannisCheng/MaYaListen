@@ -4,15 +4,13 @@ import android.app.Application
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
-import com.blankj.utilcode.util.ToastUtils
 import java.lang.reflect.Method
 
 /**
- * NetStatusCallBack 网络状态回调
+ * NetStatusCallBack 网络回调
  *
  * 参考：https://blog.csdn.net/sinat_38184748/article/details/102684881?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase
  * @author  wenjia.Cheng  cwj1714@163.com
@@ -24,26 +22,26 @@ class NetStatusCallBack(application: Application) : ConnectivityManager.NetworkC
 
     // 网络状态记录
     @Volatile
-    private var netType: @NetType String = NetType.NET_UNKNOWN
+    private var netStatus: @NetStatus String = NetStatus.NET_UNKNOWN
 
     // 网络状态广播监听
     private val receiver = NetStatusReceiver()
 
     init {
-        val filter = IntentFilter()
-        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
-        application.registerReceiver(receiver, filter)
-        netType = NetTypeUtils.getNetStatus(application)
+        //val filter = IntentFilter()
+        //filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
+        //application.registerReceiver(receiver, filter)
+        netStatus = NetStatusUtils.getNetStatus(application)
     }
 
     override fun onLost(network: Network) {
         super.onLost(network)
-        postStatus(NetType.NONE)
+        postStatus(NetStatus.NONE)
     }
 
     override fun onAvailable(network: Network) {
         super.onAvailable(network)
-        ToastUtils.showShort("网络可用")
+        postStatus(NetStatus.OK)
     }
 
     override fun onCapabilitiesChanged(
@@ -52,27 +50,29 @@ class NetStatusCallBack(application: Application) : ConnectivityManager.NetworkC
     ) {
         super.onCapabilitiesChanged(network, networkCapabilities)
         // 表明此网络连接成功验证
-        val type = NetTypeUtils.getNetStatus(networkCapabilities)
-        if (type == netType) return
+        val type = NetStatusUtils.getNetType(networkCapabilities)
+        if (type == netStatus) return
         postStatus(type)
     }
 
     /**
-     * 发送状态更新
+     * 向观察者的订阅方法 发送状态更新
      */
-    private fun postStatus(status: @NetType String) {
-        netType = status
+    private fun postStatus(status: @NetStatus String) {
+        netStatus = status
         val set: Set<Any> = registerMap.keys
-        for (obj in set) {
-            val method: Method = registerMap[obj] ?: continue
-            invokePost(obj, method, status)
+        if (set.isNotEmpty()) {
+            for (obj in set) {
+                val method: Method = registerMap[obj] ?: continue
+                invokePost(obj, method, status)
+            }
         }
     }
 
     /**
      * 通过反射执行观察者对应的方法
      */
-    private fun invokePost(obj: Any, method: Method, status: @NetType String) {
+    private fun invokePost(obj: Any, method: Method, status: @NetStatus String) {
         method.invoke(obj, status)
     }
 
@@ -87,11 +87,11 @@ class NetStatusCallBack(application: Application) : ConnectivityManager.NetworkC
         }
     }
 
-    private fun findAnnotationMethod(clz: Class<*>) : Method? {
+    private fun findAnnotationMethod(clz: Class<*>): Method? {
         val method = clz.methods
         for (m in method) {
             // 看是否有注解
-            m.getAnnotation(DlNet::class.java) ?: continue
+            m.getAnnotation(NetStatusChange::class.java) ?: continue
             // 判断返回类型
             val genericReturnType = m.genericReturnType.toString()
             if ("void" != genericReturnType) {
@@ -122,8 +122,8 @@ class NetStatusCallBack(application: Application) : ConnectivityManager.NetworkC
         registerMap.clear()
     }
 
-    fun getStatus(): @NetType String {
-        return netType
+    fun getStatus(): @NetStatus String {
+        return netStatus
     }
 
     inner class NetStatusReceiver : BroadcastReceiver() {
@@ -131,8 +131,8 @@ class NetStatusCallBack(application: Application) : ConnectivityManager.NetworkC
         override fun onReceive(context: Context?, intent: Intent?) {
             context ?: return
             intent ?: return
-            val type = NetTypeUtils.getNetStatus(context)
-            if (type == netType) return
+            val type = NetStatusUtils.getNetStatus(context)
+            if (type == netStatus) return
             postStatus(type)
         }
     }

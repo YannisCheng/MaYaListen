@@ -7,29 +7,31 @@ import android.net.NetworkCapabilities
 import android.net.wifi.WifiManager
 import android.os.Build
 
-object NetTypeUtils {
+/**
+ * NetStatusUtils 网络类型、具体连接信息
+ *
+ * @author  yannischeng  cwj1714@163.com
+ * @date    2020/8/6 - 09:45
+ */
+object NetStatusUtils {
 
     /**
-     * 获取网络名称
+     * 获取网络类型名称
      */
-    fun getNetStatus(ties: NetworkCapabilities): @NetType String {
-        return if (!ties.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)) {
-            NetType.NONE
+    fun getNetType(ties: NetworkCapabilities): @NetStatus String {
+        return if (ties.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+            ties.hasTransport(NetworkCapabilities.TRANSPORT_WIFI_AWARE)
+        ) {
+            // 使用WI-FI
+            NetStatus.WIFI
+        } else if (ties.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+            ties.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+        ) {
+            // 使用蜂窝网络
+            NetStatus.CELLULAR
         } else {
-            if (ties.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                ties.hasTransport(NetworkCapabilities.TRANSPORT_WIFI_AWARE)
-            ) {
-                // 使用WI-FI
-                NetType.WIFI
-            } else if (ties.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-                ties.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
-            ) {
-                // 使用蜂窝网络
-                NetType.CELLULAR
-            } else {
-                // 未知网络，包括蓝牙、VPN、LoWPAN
-                NetType.NET_UNKNOWN
-            }
+            // 未知网络，包括蓝牙、VPN、LoWPAN
+            NetStatus.NET_UNKNOWN
         }
     }
 
@@ -48,22 +50,22 @@ object NetTypeUtils {
     /**
      * 获取网络状态
      */
-    fun getNetStatus(context: Context): @NetType String {
+    fun getNetStatus(context: Context): @NetStatus String {
         val manager =
             context.applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val net = manager.activeNetwork
-            val ties = manager.getNetworkCapabilities(net) ?: return NetType.NONE
-            return getNetStatus(ties)
+            val ties = manager.getNetworkCapabilities(net) ?: return NetStatus.NONE
+            return getNetType(ties)
         } else {
             val netInfo = manager.activeNetworkInfo
             if (netInfo == null || !netInfo.isAvailable) {
-                return NetType.NONE
+                return NetStatus.NONE
             }
             return when (netInfo.type) {
-                ConnectivityManager.TYPE_MOBILE -> NetType.CELLULAR
-                ConnectivityManager.TYPE_WIFI -> NetType.WIFI
-                else -> NetType.NET_UNKNOWN
+                ConnectivityManager.TYPE_MOBILE -> NetStatus.CELLULAR
+                ConnectivityManager.TYPE_WIFI -> NetStatus.WIFI
+                else -> NetStatus.NET_UNKNOWN
             }
         }
     }
@@ -95,7 +97,7 @@ object NetTypeUtils {
 
     /**
      * 获取当前连接Wi-Fi名
-     * # 如果没有定位权限，获取到的名字将为  unknown ssid
+     * 如果没有定位权限，获取到的名字将为  unknown ssid
      */
     fun getConnectedWifiSSID(context: Context): String {
         val wifiManager =

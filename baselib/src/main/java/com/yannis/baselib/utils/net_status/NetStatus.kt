@@ -3,7 +3,8 @@ package com.yannis.baselib.utils.net_status
 import androidx.annotation.StringDef
 
 /**
- * 注解代替枚举
+ * NetStatus 网络类型、状态 注解代替枚举
+ *
  * 参考：https://blog.csdn.net/sinat_31057219/article/details/103912499
  *
  * @author  wenjia.Cheng  cwj1714@163.com
@@ -13,11 +14,20 @@ import androidx.annotation.StringDef
 @Retention(AnnotationRetention.SOURCE)
 @StringDef()
 @MustBeDocumented
-annotation class NetType {
+annotation class NetStatus {
     companion object {
         const val WIFI = "WIFI"
         const val CELLULAR = "CELLULAR"
         const val NET_UNKNOWN = "NET_UNKNOWN"
-        const val NONE="NONE"
+
+        /**
+         * 未连接
+         */
+        const val NONE = "NONE"
+
+        /**
+         * 已连接
+         */
+        const val OK = "OK"
     }
 }
