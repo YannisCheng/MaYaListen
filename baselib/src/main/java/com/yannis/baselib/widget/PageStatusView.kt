@@ -18,6 +18,9 @@ import com.yannis.baselib.databinding.PageStatusLayoutBinding
 class PageStatusView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : RelativeLayout(context, attrs, defStyleAttr) {
+
+    private lateinit var clickCallBack: ClickCallBack
+
     // 在自定义view中使用ViewBinding时，需要在inflate()中设置this、true。否则自定义view不会显示。
     private var binding: PageStatusLayoutBinding =
         PageStatusLayoutBinding.inflate(LayoutInflater.from(context), this, true)
@@ -32,6 +35,7 @@ class PageStatusView @JvmOverloads constructor(
             )
         binding.rlLyout.setBackgroundColor(color)
         typedArray.recycle()
+        binding.tvShowMsg.setOnClickListener { v -> { clickCallBack.tvClickListener() } }
     }
 
     /**
@@ -90,5 +94,13 @@ class PageStatusView @JvmOverloads constructor(
     private fun showText(showText: String) {
         binding.tvShowMsg.text = showText
         binding.tvShowMsg.visibility = View.VISIBLE
+    }
+
+    fun setTvCallListener(mClickCallBack: ClickCallBack) {
+        this.clickCallBack = mClickCallBack
+    }
+
+    interface ClickCallBack {
+        fun tvClickListener()
     }
 }
