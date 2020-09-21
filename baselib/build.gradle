@@ -50,6 +50,8 @@ android {
             zipAlignEnabled true
             minifyEnabled true
             multiDexEnabled true
+            // Resource shrinker cannot be used for libraries.
+            //shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }

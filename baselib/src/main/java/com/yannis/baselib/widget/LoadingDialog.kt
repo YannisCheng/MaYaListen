@@ -58,7 +58,8 @@ class LoadingDialog(context: Context) : Dialog(context) {
 
         @SuppressLint("InflateParams")
         fun create(): LoadingDialog {
-            val loadingDialog = LoadingDialog(mContext)
+            val loadingDialog =
+                LoadingDialog(mContext)
             // 去掉Dialog弹窗出现时，一层黑色半透明的背景遮罩
             loadingDialog.window?.setDimAmount(0f);
             // 去掉Dialog自身的白色背景色
