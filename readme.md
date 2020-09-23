@@ -31,4 +31,11 @@
     * [ ] google
     * [ ] 高德
     * [ ] 百度
+    
+### maven搭建本地私有库
+地址：http://localhost:8082/
+用户名：admin
+密码：admin123
+服务开启：stanex
+服务关闭：stonex
  
