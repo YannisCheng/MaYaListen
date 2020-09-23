@@ -18,7 +18,7 @@ android {
         }
 
         release {
-            storeFile file('/Users/yannischeng/Project_Android_New/XiMaWithNewApi/app/KeyStore')
+            storeFile file('/Users/yannischeng/Android_Project_Store/Android_MySelf_Project/MaYaListen/app/KeyStore')
             storePassword proStorePassword
             keyPassword proKeyPassword
             keyAlias proKeyAlias
