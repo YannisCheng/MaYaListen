@@ -71,5 +71,5 @@ android {
 dependencies {
     implementation project(path: ':baselib')
     // 本地私有maven库引用测试
-    implementation "com.cwj:baselib:1.0.0@aar"
+    //implementation "com.cwj:baselib:1.0.0@aar"
 }
