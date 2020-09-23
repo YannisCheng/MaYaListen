@@ -69,6 +69,8 @@ allprojects {
     repositories {
         google()
         jcenter()
+        // 本地私有maven库引用测试
+        maven { url 'http://127.0.0.1:8082/repository/cwj_group/' }
     }
 }
 
