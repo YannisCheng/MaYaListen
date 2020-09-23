@@ -145,4 +145,6 @@ dependencies {
     api "com.blankj:utilcodex:$rootProject.utilcodexVersion"
     // 调色板
     api "androidx.palette:palette-ktx:$rootProject.palette_ktxVersion"
+    // qmui https://qmuiteam.com/android/get-started
+    api "com.qmuiteam:qmui:$rootProject.qmuiVersion"
 }

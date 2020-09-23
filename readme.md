@@ -27,15 +27,15 @@
     * [ ] 微信
     * [ ] 支付宝
     
-* [ ] 地图
+### 地图
     * [ ] google
-    * [ ] 高德
-    * [ ] 百度
+[百度-我的应用](http://lbsyun.baidu.com/apiconsole/key#/home)
+[高德-我的应用](https://console.amap.com/dev/key/app)
     
 ### maven搭建本地私有库
-地址：http://localhost:8082/
-用户名：admin
-密码：admin123
-服务开启：stanex
-服务关闭：stonex
+ - 地址：http://localhost:8082/
+ - 用户名：admin
+ - 密码：admin123
+ - 服务开启：stanex
+ - 服务关闭：stonex
  

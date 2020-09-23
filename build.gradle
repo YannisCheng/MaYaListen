@@ -51,6 +51,7 @@ buildscript {
         bannerVersion = "2.0.12"
         utilcodexVersion = "1.29.0"
         palette_ktxVersion="1.0.0"
+        qmuiVersion="2.0.0-alpha10"
     }
 
     repositories {

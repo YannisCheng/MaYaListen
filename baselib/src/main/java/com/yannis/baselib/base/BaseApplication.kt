@@ -9,7 +9,7 @@ import com.tencent.bugly.Bugly
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/7/9
  */
-class BaseApplication : Application() {
+open class BaseApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
