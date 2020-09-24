@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--控件间的间距-->
+    <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin_medium">8dp</dimen>
+    <dimen name="margin_medium_X">12dp</dimen>
+    <dimen name="margin_large">16dp</dimen>
+    <dimen name="margin_large_X">24dp</dimen>
+
+    <!--标题栏高度-->
+    <dimen name="bar_toolbar_second_height">48dp</dimen>
+    <dimen name="bar_second_height">40dp</dimen>
+
+
+    <!--字号大小-->
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_small_X">16sp</dimen>
+    <dimen name="text_size_medium">18sp</dimen>
+
+
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_toolbar_layout" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bar_second_height"
+        android:background="@color/colorPrimaryDark">
+
+        <EditText
+            android:id="@+id/ed_input_public"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:background="@drawable/sug_search_map_stroke_bg"
+            android:gravity="center_vertical"
+            android:hint="请输入搜索关键子"
+            android:paddingLeft="@dimen/margin_large"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/text_size_small_X" />
+
+        <ImageView
+            android:id="@+id/iv_cancel_search_input_public"
+            android:layout_width="@dimen/bar_second_height"
+            android:layout_height="@dimen/bar_second_height"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="4dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_cancel_grey_400_24dp"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_public"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white" />
+</LinearLayout>

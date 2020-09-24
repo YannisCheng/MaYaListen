@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TestMainActivity">
+
+    <TextView
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bar_second_height"
+        android:layout_marginTop="@dimen/margin_large_X"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:text="点击"
+        android:textColor="@color/white" />
+
+    <FrameLayout
+        android:id="@+id/fl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_show"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

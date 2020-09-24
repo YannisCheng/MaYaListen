@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginLeft="@dimen/margin_large"
+        android:layout_marginRight="@dimen/margin_large"
+        android:background="@color/Gray_300" />
+
+    <LinearLayout
+        android:id="@+id/ll_address_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:layout_toRightOf="@id/rb_baidu_item_tag"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_medium">
+
+        <TextView
+            android:id="@+id/tv_baidu_item_title_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="北京市"
+            android:textColor="@color/Black"
+            android:textSize="@dimen/text_size_small_X" />
+
+        <TextView
+            android:id="@+id/tv_baidu_item_title_second"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:text="北京市"
+            android:textColor="@color/Gray_900"
+            android:textSize="@dimen/text_size_small" />
+    </LinearLayout>
+
+    <RadioButton
+        android:id="@+id/rb_baidu_item_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/margin_large"
+        android:background="@drawable/marker_point_style_selectort"
+        android:button="@null"
+        android:gravity="center_vertical" />
+
+
+</RelativeLayout>

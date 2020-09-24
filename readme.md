@@ -27,6 +27,10 @@
     * [ ] 微信
     * [ ] 支付宝
     
+* [ ] 换肤
+    * [ ] Android10夜间模式
+    * [ ] [QMUI](https://github.com/Tencent/QMUI_Android/wiki/QMUI-%E6%8D%A2%E8%82%A4)
+    
 ### 地图
     * [ ] google
 [百度-我的应用](http://lbsyun.baidu.com/apiconsole/key#/home)
@@ -39,3 +43,6 @@
  - 服务开启：stanex
  - 服务关闭：stonex
  
+ ### 获取签名文件密钥信息
+ 
+ keytool -list -v -keystore key路径

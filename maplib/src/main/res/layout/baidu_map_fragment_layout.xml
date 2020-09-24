@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_chat_group_address"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/base_toolbar_layout" />
+
+    <RelativeLayout
+        android:id="@+id/ll_layout_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bar_second_height"
+            android:background="@color/colorPrimaryDark">
+
+            <TextView
+                android:id="@+id/ed_input_baidu_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:background="@drawable/sug_search_map_stroke_bg"
+                android:gravity="center_vertical"
+                android:hint="请输入搜索关键子"
+                android:paddingLeft="@dimen/margin_large"
+                android:textColor="@color/Black"
+                android:textSize="@dimen/text_size_small_X" />
+
+            <ImageView
+                android:id="@+id/iv_cancel_search_input_baidu_fragment"
+                android:layout_width="@dimen/bar_second_height"
+                android:layout_height="@dimen/bar_second_height"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="4dp"
+                android:padding="10dp"
+                android:src="@drawable/ic_cancel_grey_400_24dp"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/map_baidu_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_below="@id/rl" />
+
+        <ImageView
+            android:id="@+id/iv_my_location"
+            android:layout_width="@dimen/bar_second_height"
+            android:layout_height="@dimen/bar_second_height"
+            android:layout_below="@id/rl"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
+            android:background="@color/maya_color_white"
+            android:padding="@dimen/margin_medium"
+            android:src="@drawable/ic_my_location_teal_700_24dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv__baidu_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/map_baidu_fragment"
+            android:background="@color/maya_color_white" />
+    </RelativeLayout>
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/map_baidu_fragment_large"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+</LinearLayout>

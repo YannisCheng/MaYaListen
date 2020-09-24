@@ -1,0 +1,27 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yannis.maplib">
+
+    <application>
+
+        <!--百度 地图key配置-->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="WmLmAGvA9qfRM9hcHeRk0w3m6DEbWzry" />
+
+        <!--高德 地图key配置-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="36397474cacdb46c14ec5540b94283cd	" />
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+
+        <activity android:name=".baidu.BaiduMapMultiTaskActivity" />
+        <activity android:name=".baidu.BaiduSugSearchActivity" />
+        <activity android:name=".gaode.GaoDe2DMapActivity" />
+        <activity android:name=".gaode.Gaode2dSugSearchActivity" />
+        <activity android:name=".TestMainActivity" />
+    </application>
+</manifest>

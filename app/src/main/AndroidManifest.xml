@@ -3,7 +3,7 @@
     package="com.yannis.mayalisten">
 
     <application
-        android:name="com.yannis.baselib.base.BaseApplication"
+        android:name="com.yannis.maplib.base.BaseMapApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
