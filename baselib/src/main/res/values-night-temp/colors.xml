@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--DayNight主题是不能对这些硬编码颜色进行动态转换的-->
+    <color name="maya_color_white">#666666</color>
+    <color name="maya_color_black_text_main">#dddddd</color>
+    <color name="maya_color_black">#ffffff</color>
+    <color name="maya_color_black_text_second">#cccccc</color>
+    <color name="maya_color_line">#eeeeee</color>
+    <color name="maya_black_999999">#eeeeee</color>
+    <color name="maya_black_bbbbbb">#bbbbbb</color>
+    <color name="maya_grey_bar">#DADFE4</color>
+    <color name="maya_color_theme">#aaf86442</color>
+    <color name="maya_color_gray_bg">#555555</color>
+    <color name="ic_launcher_background">#aaDC0F16</color>
+
+
+    <color name="maya_transparent_half">#80000000</color>
+    <color name="maya_transparent">@android:color/transparent</color>
+    <color name="maya_green">#aa4ed957</color>
+    <color name="maya_play_list_item_text">#aa707788</color>
+    <color name="maya_play_list_item_bg">#aa707788</color>
+
+
+</resources>
