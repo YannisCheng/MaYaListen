@@ -1,4 +1,4 @@
-package com.yannis.maplib.baidu;
+package com.yannis.mayalisten.map.baidu;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.yannis.maplib.baidu;
+package com.yannis.mayalisten.map.baidu;
 
 import android.os.Parcel;
 import android.os.Parcelable;

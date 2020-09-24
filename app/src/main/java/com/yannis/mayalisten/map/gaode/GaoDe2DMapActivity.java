@@ -1,4 +1,4 @@
-package com.yannis.maplib.gaode;
+package com.yannis.mayalisten.map.gaode;
 
 import android.app.Activity;
 import android.content.Intent;

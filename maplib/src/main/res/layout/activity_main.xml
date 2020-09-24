@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".TestMainActivity">
+    tools:context="com.yannis.mayalisten.map.TestMainActivity">
 
     <TextView
         android:id="@+id/btn"

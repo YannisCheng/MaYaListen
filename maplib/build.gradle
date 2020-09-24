@@ -3,15 +3,19 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
         consumerProguardFiles "consumer-rules.pro"
+
+        // 仅保留中文资源
+        resConfigs 'zh'
     }
 
     signingConfigs {
@@ -52,8 +56,6 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-
     // 高德地图
     // 3D地图
     api 'com.amap.api:3dmap:6.9.2'
@@ -65,7 +67,6 @@ dependencies {
     api 'com.amap.api:search:6.9.0'
     // 定位
     api 'com.amap.api:location:4.6.0'
-    api project(path: ':baselib')
     // 百度地图
     api files('libs/BaiduLBS_Android.jar')
 

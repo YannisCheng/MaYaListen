@@ -42,6 +42,7 @@ android {
 
         // 仅保留中文资源
         resConfigs 'zh'
+        manifestPlaceholders = [qqappid:"aaa123456"]
     }
 
     buildTypes {
@@ -73,7 +74,5 @@ android {
 }
 
 dependencies {
-    //implementation project(path: ':baselib')
-    // maplib已经包含baselib
-    implementation project(path: ':maplib')
+    implementation project(path: ':baselib')
 }

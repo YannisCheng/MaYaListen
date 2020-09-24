@@ -1,20 +1,17 @@
-package com.yannis.maplib.baidu;
+package com.yannis.mayalisten.map.baidu;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,6 +40,7 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.baidu.mapapi.search.sug.SuggestionResult;
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yannis.maplib.R;
 
@@ -50,23 +48,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.blankj.utilcode.util.SizeUtils.dp2px;
-import static com.yannis.maplib.utils.ThirdMapConstants.TASK_TYPE_CHOOSE_POINT;
-import static com.yannis.maplib.utils.ThirdMapConstants.TASK_TYPE_DRAW_LINE;
-import static com.yannis.maplib.utils.ThirdMapConstants.TASK_TYPE_MARKER_POINT;
+import static com.yannis.mayalisten.map.utils.ThirdMapConstants.TASK_TYPE_CHOOSE_POINT;
+import static com.yannis.mayalisten.map.utils.ThirdMapConstants.TASK_TYPE_DRAW_LINE;
+import static com.yannis.mayalisten.map.utils.ThirdMapConstants.TASK_TYPE_MARKER_POINT;
 
 /**
- * BaiduMapMultiTaskFragment 百度地图
+ * BaiduMapMultiTaskActivity 百度地图
  * 基本功能：定位；
  * 可选功能：选点（TASK_TYPE_CHOOSE_POINT）、描点（TASK_TYPE_MARKER_POINT）、画线（TASK_TYPE_DRAW_LINE）
  *
  * @author wenjia.Cheng  cwj1714@163.com
  * @date 2019-07-29
  */
-public class BaiduMapMultiTaskFragment extends Fragment {
+public class BaiduMapMultiTaskActivity extends AppCompatActivity {
 
     public static final int SEARCH_SUG_REQUEST_CODE = 11;
     public static final int LOCATION_RESULT_CODE = 41;
-    private static final String TAG = "MuleBaiduMapMultiTaskFr";
     /**
      * 国家
      */
@@ -112,7 +109,6 @@ public class BaiduMapMultiTaskFragment extends Fragment {
     private TextView confirmBtn = null;
     private TextView toSearchActivity = null;
     private ImageView myLocation = null;
-    private RecyclerView mRecyclerView = null;
     private BaiduMarkerPointAdapter mMarkerPointAdapter = null;
     private List<PoiInfoWrap> poiOfMarkerPointList = new ArrayList<>();
     /**
@@ -159,8 +155,6 @@ public class BaiduMapMultiTaskFragment extends Fragment {
             }
         }
     };
-    private Activity mActivity = null;
-    private View rootView = null;
     /**
      * 地理信息
      */
@@ -218,7 +212,7 @@ public class BaiduMapMultiTaskFragment extends Fragment {
      * 当前定位的经纬度
      */
     private LatLng currentLatLng = null;
-    private ArrayList<MapMarkersData> getLl = new ArrayList<>();
+    private ArrayList<MapMarkersData> getLl = null;
     /**
      * 定位监听
      */
@@ -251,45 +245,25 @@ public class BaiduMapMultiTaskFragment extends Fragment {
     };
     private boolean isFromDetail = false;
 
-    /**
-     * 单例
-     *
-     * @param taskType    任务类型
-     * @param latLonBeans 描点坐标数组
-     */
-    public static BaiduMapMultiTaskFragment getInstance(int taskType, ArrayList<MapMarkersData> latLonBeans, boolean isFromDetail) {
-        BaiduMapMultiTaskFragment muleBaiduMapMultiTaskFragment = new BaiduMapMultiTaskFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("task_type", taskType);
-        bundle.putSerializable("latlng", latLonBeans);
-        bundle.putBoolean("detail", isFromDetail);
-        muleBaiduMapMultiTaskFragment.setArguments(bundle);
-        return muleBaiduMapMultiTaskFragment;
+    public static void start(Activity context, int taskType, ArrayList<MapMarkersData> latLonBeans, boolean isFromDetail) {
+        Intent intent = new Intent(context, BaiduMapMultiTaskActivity.class);
+        intent.putExtra("task_type", taskType);
+        intent.putExtra("latlng", latLonBeans);
+        intent.putExtra("detail", isFromDetail);
+        context.startActivityForResult(intent, SEARCH_SUG_REQUEST_CODE);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            getTaskType = getArguments().getInt("task_type", -1);
-            getLl = (ArrayList<MapMarkersData>) getArguments().getSerializable("latlng");
-            isFromDetail = getArguments().getBoolean("detail");
-        }
-    }
+        setContentView(R.layout.baidu_map_activity_layout);
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mActivity = (Activity) context;
-    }
+        getTaskType = getIntent().getIntExtra("task_type", -1);
+        getLl = (ArrayList<MapMarkersData>) getIntent().getSerializableExtra("latlng");
+        isFromDetail = getIntent().getBooleanExtra("detail", false);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        rootView = inflater.inflate(R.layout.baidu_map_fragment_layout, container, false);
         initView();
         allClick();
-        return rootView;
     }
 
     private void allClick() {
@@ -302,19 +276,18 @@ public class BaiduMapMultiTaskFragment extends Fragment {
     }
 
     private void initView() {
-        myLocation = rootView.findViewById(R.id.iv_my_location);
+        myLocation = findViewById(R.id.iv_my_location);
         if (getTaskType == TASK_TYPE_CHOOSE_POINT) {
             // 选点操作
-            TextView title = rootView.findViewById(R.id.tv_title);
+            TextView title = findViewById(R.id.tv_title);
             title.setText("地点选择");
-            mRecyclerView = rootView.findViewById(R.id.rv__baidu_fragment);
-            mMapView = rootView.findViewById(R.id.map_baidu_fragment);
+            mMapView = findViewById(R.id.map_baidu_activity);
             mBaiduMap = mMapView.getMap();
         } else {
             // 非选点操作
-            LinearLayout linearLayout = rootView.findViewById(R.id.ll_layout_fragment);
+            LinearLayout linearLayout = findViewById(R.id.ll_layout_activity);
             linearLayout.setVisibility(View.GONE);
-            mMapViewLarge = rootView.findViewById(R.id.map_baidu_fragment_large);
+            mMapViewLarge = findViewById(R.id.map_baidu_activity_large);
             mMapViewLarge.setVisibility(View.VISIBLE);
             mBaiduMap = mMapViewLarge.getMap();
             if (isFromDetail) {
@@ -340,7 +313,7 @@ public class BaiduMapMultiTaskFragment extends Fragment {
     private void initLocation() {
         mBaiduMap.setMyLocationEnabled(true);
         // 定位初始化
-        mLocationClient = new LocationClient(mActivity);
+        mLocationClient = new LocationClient(this);
         // 通过LocationClientOption设置LocationClient相关参数
         LocationClientOption option = new LocationClientOption();
         // 打开gps
@@ -380,9 +353,9 @@ public class BaiduMapMultiTaskFragment extends Fragment {
     }
 
     private void taskChoosePoint(BDLocation location) {
-        backBtn = rootView.findViewById(R.id.tv_cancel);
-        confirmBtn = rootView.findViewById(R.id.tv_confirm);
-        toSearchActivity = rootView.findViewById(R.id.ed_input_baidu_fragment);
+        backBtn = findViewById(R.id.tv_cancel);
+        confirmBtn = findViewById(R.id.tv_confirm);
+        toSearchActivity = findViewById(R.id.ed_input_baidu_activity);
         dealChoosePointClick();
         initRecyclerWithAdapter();
         // 添加 - 地图状态改变-监听器
@@ -408,8 +381,8 @@ public class BaiduMapMultiTaskFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // 取消
-                mActivity.setResult(LOCATION_RESULT_CODE, null);
-                mActivity.finish();
+                setResult(LOCATION_RESULT_CODE, null);
+                finish();
                 // mActivity.overridePendingTransition(R.anim.push_top_in, R.anim.push_bottom_out);
             }
         });
@@ -418,11 +391,11 @@ public class BaiduMapMultiTaskFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!"".equals(getCity)) {
-                    Intent data = new Intent(mActivity, BaiduSugSearchActivity.class);
+                    Intent data = new Intent(BaiduMapMultiTaskActivity.this, BaiduSugSearchActivity.class);
                     data.putExtra("search_city", getCity);
                     startActivityForResult(data, SEARCH_SUG_REQUEST_CODE);
                 } else {
-                    // ToastUtil.showToast(mActivity, R.string.md_city_get_error);
+                    ToastUtils.showShort("未获取到当前'城市'参数");
                 }
             }
         });
@@ -442,8 +415,8 @@ public class BaiduMapMultiTaskFragment extends Fragment {
                 );
                 Intent intent = new Intent();
                 intent.putExtra("content", transferBean);
-                mActivity.setResult(LOCATION_RESULT_CODE, intent);
-                mActivity.finish();
+                setResult(LOCATION_RESULT_CODE, intent);
+                finish();
             }
         });
     }
@@ -452,11 +425,12 @@ public class BaiduMapMultiTaskFragment extends Fragment {
      * 初始化 RecyclerView
      */
     private void initRecyclerWithAdapter() {
+        RecyclerView recyclerView = findViewById(R.id.rv_baidu_activity);
         mMarkerPointAdapter = new BaiduMarkerPointAdapter(R.layout.baidu_marker_point_list_item_layout, poiOfMarkerPointList);
-        LinearLayoutManager manager = new LinearLayoutManager(mActivity);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(mMarkerPointAdapter);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(mMarkerPointAdapter);
         doAdapterItemClick();
     }
 
@@ -520,7 +494,6 @@ public class BaiduMapMultiTaskFragment extends Fragment {
             getDistrict = reverseGeoCodeResult.getAddressDetail().district;
         }
     }
-
 
     private void getItemChooseData(int i) {
         getAddressName = poiOfMarkerPointList.get(i).getPoiInfo().getName();
@@ -592,13 +565,6 @@ public class BaiduMapMultiTaskFragment extends Fragment {
         mBaiduMap.addOverlay(mOverlayOptions);
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        if (mActivity != null) {
-            mActivity = null;
-        }
-    }
 
     @Override
     public void onResume() {

@@ -1,4 +1,4 @@
-package com.yannis.maplib.gaode;
+package com.yannis.mayalisten.map.gaode;
 
 import com.amap.api.services.core.PoiItem;
 

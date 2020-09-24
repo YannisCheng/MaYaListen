@@ -1,4 +1,4 @@
-package com.yannis.maplib.utils;
+package com.yannis.mayalisten.map.utils;
 
 /**
  * LatLonBean： 坐标系"经度、纬度"bean类

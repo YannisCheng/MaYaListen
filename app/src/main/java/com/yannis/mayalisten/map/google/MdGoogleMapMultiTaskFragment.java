@@ -1,4 +1,4 @@
-package com.yannis.maplib.google;
+package com.yannis.mayalisten.map.google;
 
 /**
  * MdGoogleMapMultiTaskFragment google地图

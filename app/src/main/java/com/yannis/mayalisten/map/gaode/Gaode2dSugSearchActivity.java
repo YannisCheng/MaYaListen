@@ -1,4 +1,4 @@
-package com.yannis.maplib.gaode;
+package com.yannis.mayalisten.map.gaode;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +23,7 @@ import com.yannis.maplib.R;
 import java.util.Iterator;
 import java.util.List;
 
-import static com.yannis.maplib.gaode.GaoDe2DMapActivity.LOCATION_RESULT_CODE;
+import static com.yannis.mayalisten.map.gaode.GaoDe2DMapActivity.LOCATION_RESULT_CODE;
 
 /**
  * Gaode2dSugSearchActivity  高德地图地点搜索

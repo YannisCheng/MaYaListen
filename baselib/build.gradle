@@ -72,6 +72,8 @@ android {
 }
 
 dependencies {
+    //api project(path: ':sociallib')
+    api project(path: ':maplib')
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
     api fileTree(dir: "libs", include: ["*.jar"])

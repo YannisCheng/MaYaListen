@@ -1,3 +1,4 @@
+include ':sociallib'
 include ':maplib'
 include ':baselib'
 include ':app'

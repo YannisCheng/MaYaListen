@@ -13,10 +13,6 @@
 
  ### 在终端中查看具体的 Android编译问题
 >> gradlew clean build  --stacktrace
-
-* [ ] 社会化
-    * [ ] 登录
-    * [ ] 分享
     
 * [ ] 手机号
     * [ ] 登录
@@ -27,19 +23,22 @@
     * [ ] 微信
     * [ ] 支付宝
     
-* [ ] 换肤
-
-    * [ ] [Android10夜间模式](https://juejin.im/post/6844904173788463112，https://www.jianshu.com/p/b34ee4e75c53)
-    * [ ] [QMUI](https://github.com/Tencent/QMUI_Android/wiki/QMUI-%E6%8D%A2%E8%82%A4)
+### 换肤
     
-    从API23后，Android就有自带的api能够实现夜间模式与白天模式的切换，用到的就是AppCompatDelegate.setDefaultNightMode。当然这种只能实现白天与黑夜的切换
-    #### 官方切换：
-    方式1：Force Dark方式
-    1. style设置'<item name="android:forceDarkAllowed">true</item>'时，配合使用'android:configChanges="uiMode"'可以不走onCreate()方法，同时目录下不能有'res/values-night'文件；
-    2. 手动调用：AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)，需要配合重写：onConfigurationChanged()。
+   #### 官方   
+   [Android10黑暗模式](https://juejin.im/post/6844904173788463112，https://www.jianshu.com/p/b34ee4e75c53)
     
-    方式2：DayNight方式
+   **方式1：Force Dark方式**
+   从API23后，Android就有自带的api能够实现夜间模式与白天模式的切换，用到的就是AppCompatDelegate.setDefaultNightMode。当然这种只能实现白天与黑夜的切换
+   
+   1. style设置'<item name="android:forceDarkAllowed">true</item>'时，配合使用'android:configChanges="uiMode"'可以不走onCreate()方法，同时目录下不能有'res/values-night'文件；
+   2. 手动调用：AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)，需要配合重写：onConfigurationChanged()。
+    
+   **方式2：DayNight方式**
     设置：'res/values-night'文件及对应资源。
+    
+   #### QMUI
+   [QMUI](https://github.com/Tencent/QMUI_Android/wiki/QMUI-%E6%8D%A2%E8%82%A4)
     
 ### 地图
     * [ ] google
@@ -62,3 +61,13 @@
  ### 获取签名文件密钥信息
  
  keytool -list -v -keystore key路径
+ 
+ 
+ ### 社会化
+ 
+ [友盟](https://www.umeng.com/)
+ 
+ 1. [统计SDK](https://developer.umeng.com/docs/119267/detail/182050)
+ 2. [推送SDK](https://developer.umeng.com/docs/67966/detail/179087)
+ 3. [分享SDK](https://developer.umeng.com/docs/128606/detail/182094)
+ 4. [智能认证SDK](https://developer.umeng.com/docs/143070/detail/182078)

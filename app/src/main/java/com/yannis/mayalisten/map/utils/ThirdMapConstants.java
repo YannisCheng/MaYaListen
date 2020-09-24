@@ -1,4 +1,4 @@
-package com.yannis.maplib.utils;
+package com.yannis.mayalisten.map.utils;
 
 /**
  * @author wenjia.Cheng  cwj1714@163.com

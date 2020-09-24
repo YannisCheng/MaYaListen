@@ -1,5 +1,6 @@
 package com.yannis.baselib.base
 
+import android.Manifest
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -40,11 +41,16 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
     lateinit var viewModel: VM
 
     private val PERMISSIONS = arrayOf(
-        "android.permission.READ_EXTERNAL_STORAGE",
-        "android.permission.WRITE_EXTERNAL_STORAGE",
-        "android.permission.CAMERA",
-        "android.permission.ACCESS_FINE_LOCATION",
-        "android.permission.ACCESS_COARSE_LOCATION"
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.CALL_PHONE,
+        Manifest.permission.READ_LOGS,
+        Manifest.permission.READ_PHONE_STATE,
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.SET_DEBUG_APP,
+        Manifest.permission.SYSTEM_ALERT_WINDOW,
+        Manifest.permission.GET_ACCOUNTS,
+        Manifest.permission.WRITE_APN_SETTINGS
     )
 
     private val NO_PASS_PERMISSIONS: ArrayList<String> = ArrayList<String>()
@@ -283,5 +289,10 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
 
     private fun backClickListener() {
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        //UmengInit.QQCallBack(this, requestCode, resultCode, data!!)
     }
 }

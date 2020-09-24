@@ -1,4 +1,4 @@
-package com.yannis.maplib.baidu;
+package com.yannis.mayalisten.map.baidu;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +23,7 @@ import com.yannis.maplib.R;
 
 import java.util.List;
 
-import static com.yannis.maplib.baidu.BaiduMapMultiTaskActivity.SEARCH_SUG_REQUEST_CODE;
+import static com.yannis.mayalisten.map.baidu.BaiduMapMultiTaskActivity.SEARCH_SUG_REQUEST_CODE;
 
 
 /**
