@@ -74,5 +74,6 @@ android {
 
 dependencies {
     //implementation project(path: ':baselib')
+    // maplib已经包含baselib
     implementation project(path: ':maplib')
 }

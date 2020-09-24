@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yannis.mayalisten">
 
+    <!-- BaseMapApplication 继承自 BaseApplication-->
     <application
         android:name="com.yannis.maplib.base.BaseMapApplication"
         android:allowBackup="true"

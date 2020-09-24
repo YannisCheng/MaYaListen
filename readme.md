@@ -35,6 +35,12 @@
     * [ ] google
 [百度-我的应用](http://lbsyun.baidu.com/apiconsole/key#/home)
 [高德-我的应用](https://console.amap.com/dev/key/app)
+
+存在问题：
+1、百度地图
+    ----------------- 鉴权错误信息 ------------
+    sha1;package:32:38:F4:8D:9C:29:E2:5D:EB:75:1A:20:22:78:94:DE:4B:67:23:E1;com.yannis.mayalisten
+    key:WmLmAGvA9qfRM9hcHeRk0w3m6DEbWzry
     
 ### maven搭建本地私有库
  - 地址：http://localhost:8082/
