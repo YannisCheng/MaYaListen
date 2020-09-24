@@ -28,8 +28,18 @@
     * [ ] 支付宝
     
 * [ ] 换肤
-    * [ ] Android10夜间模式
+
+    * [ ] [Android10夜间模式](https://juejin.im/post/6844904173788463112，https://www.jianshu.com/p/b34ee4e75c53)
     * [ ] [QMUI](https://github.com/Tencent/QMUI_Android/wiki/QMUI-%E6%8D%A2%E8%82%A4)
+    
+    从API23后，Android就有自带的api能够实现夜间模式与白天模式的切换，用到的就是AppCompatDelegate.setDefaultNightMode。当然这种只能实现白天与黑夜的切换
+    #### 官方切换：
+    方式1：Force Dark方式
+    1. style设置'<item name="android:forceDarkAllowed">true</item>'时，配合使用'android:configChanges="uiMode"'可以不走onCreate()方法，同时目录下不能有'res/values-night'文件；
+    2. 手动调用：AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)，需要配合重写：onConfigurationChanged()。
+    
+    方式2：DayNight方式
+    设置：'res/values-night'文件及对应资源。
     
 ### 地图
     * [ ] google

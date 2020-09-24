@@ -27,7 +27,11 @@
         <activity android:name="com.yannis.baselib.widget.WebViewActivity" /> <!-- 文件 FileProvider -->
         <activity android:name=".activity.AlbumContentPlayActivity" />
         <activity android:name=".activity.SingleAlbumContentActivity" />
-        <activity android:name=".activity.MainActivity" /> <!-- Bugly升级功能 -->
+        <activity
+            android:name=".activity.MainActivity"
+            android:configChanges="uiMode" />
+        <!--android:configChanges="uiMode" 切换主题时不重新创建Activity-->
+        <!-- Bugly升级功能 -->
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"

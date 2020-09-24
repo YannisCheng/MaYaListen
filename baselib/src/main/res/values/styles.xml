@@ -1,6 +1,17 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="QMUI.Compat.NoActionBar">
+    <!--QMUI主题：QMUI.Compat.NoActionBar-->
+    <!--<style name="AppTheme" parent="QMUI.Compat.NoActionBar">
+        <item name="colorPrimary">@color/maya_color_white</item>
+        <item name="colorPrimaryDark">@color/maya_color_white</item>
+        <item name="colorAccent">@color/maya_color_theme</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="toolbarStyle">@style/ClubToolbar</item>
+    </style>-->
+
+    <!--适配黑暗主题方式1：Force Dark方式，当使用此方式时，应该屏蔽目录：res/values-night,否则会使用其资源文件-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/maya_color_white</item>
         <item name="colorPrimaryDark">@color/maya_color_white</item>
@@ -8,7 +19,19 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="toolbarStyle">@style/ClubToolbar</item>
+        <item name="android:forceDarkAllowed">true</item>
     </style>
+
+    <!--适配黑暗主题方式2：DayNight方式-->
+    <!--<style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        &lt;!&ndash; Customize your theme here. &ndash;&gt;
+        <item name="colorPrimary">@color/maya_color_white</item>
+        <item name="colorPrimaryDark">@color/maya_color_white</item>
+        <item name="colorAccent">@color/maya_color_theme</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="toolbarStyle">@style/ClubToolbar</item>
+    </style>-->
 
     <!--StatusBar是否显示高度-->
     <declare-styleable name="StatusBarHeightView">

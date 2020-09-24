@@ -3,6 +3,7 @@ package com.yannis.baselib.base
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -66,6 +67,24 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
         if (loadingDialog.isShowing) {
             loadingDialog.dismiss()
         }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        // 当在调用 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)时，
+        // 此时需要在此回调方法中进行设置，否则当前activity会重建。
+        val currentNightMode = newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        /*when(currentNightMode) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                Log.e("TAG", "onConfigurationChanged: MODE_NIGHT_NO")
+            }
+
+            Configuration.UI_MODE_NIGHT_YES -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                Log.e("TAG", "onConfigurationChanged: MODE_NIGHT_YES")
+            }
+        }*/
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

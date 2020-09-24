@@ -6,8 +6,6 @@ import androidx.lifecycle.Observer
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yannis.baselib.base.BaseActivity
-import com.yannis.maplib.baidu.BaiduMapMultiTaskActivity
-import com.yannis.maplib.utils.ThirdMapConstants
 import com.yannis.mayalisten.R
 import com.yannis.mayalisten.bean.AggregateRankFirstPageBean
 import com.yannis.mayalisten.databinding.ActivityMainBinding
@@ -88,12 +86,26 @@ class MainActivity : BaseActivity<AggregateRankFirstPageVM, ActivityMainBinding>
         binding.ivShare.setOnClickListener {
             /*val intent: Intent = Intent(this, TestMainActivity::class.java)
             startActivity(intent)*/
-            BaiduMapMultiTaskActivity.start(
+            /*BaiduMapMultiTaskActivity.start(
                 this,
                 ThirdMapConstants.TASK_TYPE_CHOOSE_POINT,
                 null,
                 false
-            )
+            )*/
+            // 让自己的应用程序独立控制使用浅色主题还是深色主题
+            // 注意1：手动动态开启/关闭暗黑模式，此时需要搭配 onConfigurationChanged（）
+            // 注意2：手动动态开启/关闭暗黑模式，此时需要 移除 android:configChanges="uiMode" 设置
+            /*if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+                // 关闭暗黑模式
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            } else {
+                // 开启暗黑模式
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                // 动画
+                //getWindow().setWindowAnimations(R.style.OutInAnimation);
+                // 只作用于当前组件
+                //delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+            }*/
         }
     }
 }
