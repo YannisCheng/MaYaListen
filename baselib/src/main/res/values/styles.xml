@@ -1,11 +1,14 @@
 <resources>
     <!-- Base application theme. -->
-    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        &lt;!&ndash; Customize your theme here. &ndash;&gt;
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>-->
+    <style name="AppTheme" parent="QMUI.Compat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/maya_color_white</item>
+        <item name="colorPrimaryDark">@color/maya_color_white</item>
+        <item name="colorAccent">@color/maya_color_theme</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="toolbarStyle">@style/ClubToolbar</item>
+    </style>
 
     <!--StatusBar是否显示高度-->
     <declare-styleable name="StatusBarHeightView">
