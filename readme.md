@@ -57,9 +57,9 @@
  
  ### 开放平台
   
-  - [支付宝开放平台](https://openhome.alipay.com/platform/home.htm)
-  - [腾讯开放平台](https://open.tencent.com/)
-  - [友盟](https://www.umeng.com/)
+ - [支付宝开放平台](https://openhome.alipay.com/platform/home.htm)
+ - [腾讯开放平台](https://open.tencent.com/)
+ - [友盟](https://www.umeng.com/)
  
  ### 统计、分享
   
@@ -85,8 +85,8 @@
  
  ### 地图
  
-  - [百度-我的应用](http://lbsyun.baidu.com/apiconsole/key#/home)
-  - [高德-我的应用](https://console.amap.com/dev/key/app)
+ - [百度-我的应用](http://lbsyun.baidu.com/apiconsole/key#/home)
+ - [高德-我的应用](https://console.amap.com/dev/key/app)
   
  ### 应用上架/App市场
  
@@ -105,11 +105,16 @@
  
  ### 语音
    
-   - [科大讯飞-语音听写](https://www.xfyun.cn/doc/asr/voicedictation/Android-SDK.html)
+ - [科大讯飞-语音听写](https://www.xfyun.cn/doc/asr/voicedictation/Android-SDK.html)
    
  ### 即时通信
    
-   - [网易云信](https://app.yunxin.163.com/index?#/)
+ - [网易云信](https://app.yunxin.163.com/index?#/)
+   
+ ### 云存储
+          
+ - [阿里对象存储](https://www.aliyun.com/product/oss?spm=5176.12825654.eofdhaal5.100.24d22c4a0vRi31)
+ - [七牛对象存储](https://www.qiniu.com/products/kodo)
  
  * [ ] 支付
      * [ ] 微信
@@ -118,14 +123,61 @@
  * [ ] 性能检测
      * [ ] 
      
-  * [ ] 广告平台
-      * [ ]
+ * [ ] 广告平台
+     * [ ]
      
  * [ ] 安全加密、加固
      * [ ] 360
+     
+ ### 耗时环节：
+ 
+ #### 第三方平台接入   
+ 
+ **平台认证、审核，App注册**
+ 
+ - 实名认证（针对公司认证）
+  - 公司本身的各种证件（如果没有，注册）
+  - 特殊App业务需求，需要特殊的资格证书、资质（如果没有，注册）
+  - 实控人认证（公司领导、法人）
+  
+ - 审核（资质、证书、信息） 
+ 
+ - App平台注册
+  - App SHA1值
+  - icon
+  - App网站地址Url
+  - App流程、运行的"图+文"资料
+  
+ **App接入SDK**
+  
+ - 初始化
+  - 依赖导入
+  - 权限处理
 
- * [ ] 云服务器
-     * [ ] 阿里云、七牛
+ - 流程梳理（本身调用流程，前台、后台流程梳理）
+ 
+ #### App各个应用市场发布
+ 
+ - 资质审核
+  - 公司
+   - 营业执照
+   - ICP备案
+   - 计算机软件著作权登记证书
+   - 电子软著
+   - 承诺（免责）书
+   - App安全审核书
+   
+  - 个人
+ 
+ - 图片资料整理、准备
+  - icon
+  - 截图
+  
+ - 文字资料整理、准备
+ 
+ - 各个平台自身审核特点（严厉程度）
+ 
+ 
      
 
      
