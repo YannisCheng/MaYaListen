@@ -1,4 +1,5 @@
-include ':sociallib'
+include ':pushlib'
+include ':umenglib'
 include ':maplib'
 include ':baselib'
 include ':app'

@@ -44,13 +44,10 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.CALL_PHONE,
-        Manifest.permission.READ_LOGS,
+        // 如果您的App需要上传到google play store，您需要将READ_PHONE_STATE权限屏蔽掉或者移除，否则可能会被下架
         Manifest.permission.READ_PHONE_STATE,
         Manifest.permission.READ_EXTERNAL_STORAGE,
-        Manifest.permission.SET_DEBUG_APP,
-        Manifest.permission.SYSTEM_ALERT_WINDOW,
-        Manifest.permission.GET_ACCOUNTS,
-        Manifest.permission.WRITE_APN_SETTINGS
+        Manifest.permission.GET_ACCOUNTS
     )
 
     private val NO_PASS_PERMISSIONS: ArrayList<String> = ArrayList<String>()
@@ -101,9 +98,10 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
         val netType = NetStatusManager.getInstance(this.application).getNetType()
         initAppNetStatus(netType)
         initView();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        // 权限处理
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermission()
-        }
+        }*/
         loadData()
         refreshData()
         dataToView()
@@ -189,7 +187,7 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
      */
     abstract fun getLayoutId(): Int
 
-    private fun requestPermission() {
+    public fun requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //清空已经允许的没有通过的权限
             NO_PASS_PERMISSIONS.clear()
@@ -209,10 +207,12 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
                 ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_REQUEST)
             } else {
                 // 权限已经通过
-                ToastUtils.showShort("权限ok")
+                permissionOk()
             }
         }
     }
+
+    abstract fun permissionOk()
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -237,7 +237,7 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
             showPermissionDialog()
         } else {
             //权限已经都通过了，可以将程序继续打开了
-            //init();
+            permissionOk()
         }
     }
 

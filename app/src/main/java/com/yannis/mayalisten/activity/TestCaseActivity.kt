@@ -30,4 +30,8 @@ class TestCaseActivity : BaseActivity<ViewModel, ActivityTestCaseBinding>() {
     override fun getLayoutId(): Int {
         return R.layout.activity_test_case
     }
+
+    override fun permissionOk() {
+        TODO("Not yet implemented")
+    }
 }

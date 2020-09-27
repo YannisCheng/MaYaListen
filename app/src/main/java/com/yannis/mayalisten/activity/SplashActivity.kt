@@ -1,6 +1,7 @@
 package com.yannis.mayalisten.activity
 
 import android.content.Intent
+import android.os.Build
 import android.os.CountDownTimer
 import androidx.lifecycle.ViewModel
 import com.yannis.baselib.base.BaseActivity
@@ -25,6 +26,20 @@ class SplashActivity : BaseActivity<ViewModel, ActivitySplashBinding>() {
     }
 
     override fun initView() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermission()
+        }
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_splash
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    override fun permissionOk() {
         countDownTimer = object : CountDownTimer(4000, 1000) {
             override fun onFinish() {
                 startActivity(Intent(this@SplashActivity, MainActivity::class.java))
@@ -42,14 +57,6 @@ class SplashActivity : BaseActivity<ViewModel, ActivitySplashBinding>() {
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             finish()
         }
-    }
-
-    override fun getLayoutId(): Int {
-        return R.layout.activity_splash
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
 

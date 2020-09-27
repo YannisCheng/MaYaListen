@@ -151,4 +151,8 @@ class AlbumContentPlayActivity : BaseActivity<AlbumPlayVoiceVM, ActivityAlbumCon
             beans = it.getSerializableExtra(BEANS) as ArrayList<AlbumItemBean>
         }
     }
+
+    override fun permissionOk() {
+        TODO("Not yet implemented")
+    }
 }

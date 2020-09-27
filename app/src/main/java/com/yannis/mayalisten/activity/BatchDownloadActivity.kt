@@ -39,4 +39,8 @@ class BatchDownloadActivity : BaseActivity<ViewModel, ActivityBatchDownloadBindi
     override fun getLayoutId(): Int {
         return R.layout.activity_batch_download
     }
+
+    override fun permissionOk() {
+        TODO("Not yet implemented")
+    }
 }

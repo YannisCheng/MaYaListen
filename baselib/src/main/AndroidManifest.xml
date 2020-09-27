@@ -19,6 +19,15 @@
     <!--位置-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--全局弹出对话框-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!--打电话-->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!--用户访问联系人-->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!--APN设置-->
+    <uses-permission android:name="android.permission.WRITE_APN_SETTINGS" />
+    <uses-permission android:name="android.permission.SET_DEBUG_APP" />
 
     <application>
         <provider

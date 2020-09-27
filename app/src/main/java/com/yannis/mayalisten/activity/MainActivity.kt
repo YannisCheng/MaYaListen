@@ -2,6 +2,8 @@ package com.yannis.mayalisten.activity
 
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -42,6 +44,7 @@ class MainActivity : BaseActivity<AggregateRankFirstPageVM, ActivityMainBinding>
         viewModel.getLoadData()
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun dataToView() {
         viewModel.listBean.observe(this, Observer { it ->
             tabsTitle.addAll(it)
@@ -109,5 +112,9 @@ class MainActivity : BaseActivity<AggregateRankFirstPageVM, ActivityMainBinding>
                 //delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
             }*/
         }
+    }
+
+    override fun permissionOk() {
+        TODO("Not yet implemented")
     }
 }

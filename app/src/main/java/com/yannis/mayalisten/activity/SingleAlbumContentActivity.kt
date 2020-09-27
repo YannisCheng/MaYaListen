@@ -89,4 +89,8 @@ class SingleAlbumContentActivity : BaseActivity<ViewModel, ActivitySingleAlbumCo
             })
         mdiator.attach()
     }
+
+    override fun permissionOk() {
+        TODO("Not yet implemented")
+    }
 }
