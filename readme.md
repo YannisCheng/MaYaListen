@@ -105,7 +105,11 @@
  
  ### 语音
    
-   - [科大讯飞-语音听写](https://www.xfyun.cn/doc/asr/voicedictation/Android-SDK.html) Cwj271714
+   - [科大讯飞-语音听写](https://www.xfyun.cn/doc/asr/voicedictation/Android-SDK.html)
+   
+ ### 即时通信
+   
+   - [网易云信](https://app.yunxin.163.com/index?#/)
  
  * [ ] 支付
      * [ ] 微信
@@ -114,13 +118,8 @@
  * [ ] 性能检测
      * [ ] 
      
-
-     
   * [ ] 广告平台
       * [ ]
-     
- * [ ] 即时通信
-     * [ ] 
      
  * [ ] 安全加密、加固
      * [ ] 360
