@@ -116,6 +116,10 @@
  - [阿里对象存储](https://www.aliyun.com/product/oss?spm=5176.12825654.eofdhaal5.100.24d22c4a0vRi31)
  - [七牛对象存储](https://www.qiniu.com/products/kodo)
  
+ ### 文件下载
+ 
+ [liulishuo-FileDownloader](https://github.com/lingochamp/FileDownloader)
+ 
  * [ ] 支付
      * [ ] 微信
      * [ ] 支付宝

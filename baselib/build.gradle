@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply from: '../aar_upload.gradle'
 
 android {
     // 视图绑定与数据绑定
@@ -72,31 +71,17 @@ android {
 }
 
 dependencies {
-    //api project(path: ':sociallib')
+    // 友盟：分享、智能认证、推送、统计、多渠道
+    //api project(path: ':umenglib')
+    // 地图
     api project(path: ':maplib')
-    kapt "androidx.room:room-compiler:$rootProject.roomVersion"
-    kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
-    api fileTree(dir: "libs", include: ["*.jar"])
-    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    api "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
-    api "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
-    api "androidx.core:core-ktx:$rootProject.ktxVersion"
-    api "androidx.fragment:fragment-ktx:$rootProject.fragmentVersion"
-    api "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
-    api "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
-    //noinspection GradleDependency
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
-    api "androidx.recyclerview:recyclerview:1.1.0"
-    api "androidx.room:room-runtime:$rootProject.roomVersion"
-    api "androidx.room:room-ktx:$rootProject.roomVersion"
-    api "androidx.viewpager2:viewpager2:$rootProject.viewPagerVersion"
-    api "androidx.work:work-runtime-ktx:$rootProject.workVersion"
-    // 分页库
-    //api "androidx.paging:paging-runtime-ktx:$rootProject.pagingVersion"
-    // 分页库+rxjava2
-    //api "androidx.paging:paging-rxjava2:$rootProject.pagingVersion"
+    // 推送
+    api project(path: ':pushlib')
+    // 文件处理
+    api project(path: ':filedownloadlib')
 
     // 第三方依赖
+    kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
     /*api "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"

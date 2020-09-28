@@ -1,3 +1,4 @@
+include ':filedownloadlib'
 include ':pushlib'
 include ':umenglib'
 include ':maplib'

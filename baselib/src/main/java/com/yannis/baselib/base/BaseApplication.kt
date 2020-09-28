@@ -2,6 +2,7 @@ package com.yannis.baselib.base
 
 import android.app.Application
 import com.tencent.bugly.Bugly
+import com.yannis.filedownloadlib.FileDownloadInit
 import com.yannis.maplib.MapInit
 
 /**
@@ -19,5 +20,6 @@ open class BaseApplication : Application() {
         // App安装后首次冷启动时调用预初始化函数
         //UmengInit.preInit(this)
         //UmengInit.initSetting(this)
+        FileDownloadInit(this)
     }
 }

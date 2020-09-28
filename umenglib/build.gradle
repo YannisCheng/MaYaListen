@@ -22,6 +22,7 @@ android {
     }
 
     signingConfigs {
+
         debug {
             storeFile file('/Users/yannischeng/Android_Project_Store/Android_MySelf_Project/MaYaListen/app/KeyStore2')
             storePassword '111111'
@@ -35,6 +36,7 @@ android {
             keyPassword '111111'
             keyAlias 'key2'
         }
+
     }
 
     buildTypes {
@@ -51,29 +53,38 @@ android {
             multiDexEnabled true
         }
     }
-
-    compileOptions {
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
-    }
 }
 
 dependencies {
-    // 高德地图
-    // 3D地图
-    api 'com.amap.api:3dmap:6.9.2'
-    // 2D地图
-    api 'com.amap.api:map2d:5.2.0'
-    // 导航
-    // api 'com.amap.api:navi-3dmap:latest.integration'
-    // 搜索
-    api 'com.amap.api:search:6.9.0'
-    // 定位
-    api 'com.amap.api:location:4.6.0'
-    // 百度地图
-    api files('libs/BaiduLBS_Android.jar')
+
+    // 下面各SDK根据宿主App是否使用相关业务按需引入。
+    // OAID目前为目前国内市场主流的Android Q设备标识，可根据需要选择。
+    // 友盟统计SDK
+    api 'com.umeng.umsdk:common:9.1.6' // (必选)版本号
+    api 'com.umeng.umsdk:asms:1.1.3' // asms包依赖(必选)
+    api 'com.umeng.umsdk:crash:0.0.5' // native crash包依赖(必选)
+
+    api 'com.umeng.umsdk:oaid_mi:1.0.0' // (可选)
+    api 'com.umeng.umsdk:oaid_oppo:1.0.4' // (可选)
+    api 'com.umeng.umsdk:oaid_vivo:1.0.0.1' // (可选)
+
+    // 友盟分享SDK
+    // 基础组件库和分享核心库
+    api 'com.umeng.umsdk:common:2.2.5'
+    api 'com.umeng.umsdk:share-core:7.0.2'
+    api 'com.umeng.umsdk:share-board:7.0.2'
+    // 三方分享平台库
+    api  'com.umeng.umsdk:share-qq:7.0.2'
+    api  'com.umeng.umsdk:share-wx:7.0.2'
+    api  'com.umeng.umsdk:share-sina:7.0.2'
+    api  'com.umeng.umsdk:share-alipay:7.0.2'
+    api  'com.umeng.umsdk:share-dingding:7.0.2'
+
+    // Android Q OAID库接入说明
+    implementation files('libs/mi-deviceid.jar')
+    implementation files('libs/oppo-openid-sdk-1.0.4.jar')
+    implementation files('libs/vivoId-1.0.0.1.jar')
 
     // 文件处理
     api project(path: ':filedownloadlib')
-
 }
