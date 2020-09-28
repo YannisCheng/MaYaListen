@@ -14,16 +14,16 @@ android {
 
         debug {
             storeFile file('/Users/yannischeng/Android_Project_Store/Android_MySelf_Project/MaYaListen/app/KeyStore2')
-            storePassword '111111'
-            keyPassword '111111'
-            keyAlias 'key2'
+            storePassword proStorePassword
+            keyPassword proKeyPassword
+            keyAlias proKeyAlias
         }
 
         release {
             storeFile file('/Users/yannischeng/Android_Project_Store/Android_MySelf_Project/MaYaListen/app/KeyStore2')
-            storePassword '111111'
-            keyPassword '111111'
-            keyAlias 'key2'
+            storePassword proStorePassword
+            keyPassword proKeyPassword
+            keyAlias proKeyAlias
         }
 
     }

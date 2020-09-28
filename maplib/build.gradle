@@ -22,19 +22,21 @@ android {
     }
 
     signingConfigs {
+
         debug {
             storeFile file('/Users/yannischeng/Android_Project_Store/Android_MySelf_Project/MaYaListen/app/KeyStore2')
-            storePassword '111111'
-            keyPassword '111111'
-            keyAlias 'key2'
+            storePassword proStorePassword
+            keyPassword proKeyPassword
+            keyAlias proKeyAlias
         }
 
         release {
             storeFile file('/Users/yannischeng/Android_Project_Store/Android_MySelf_Project/MaYaListen/app/KeyStore2')
-            storePassword '111111'
-            keyPassword '111111'
-            keyAlias 'key2'
+            storePassword proStorePassword
+            keyPassword proKeyPassword
+            keyAlias proKeyAlias
         }
+
     }
 
     buildTypes {
@@ -50,11 +52,6 @@ android {
             signingConfig signingConfigs.debug
             multiDexEnabled true
         }
-    }
-
-    compileOptions {
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
     }
 }
 
