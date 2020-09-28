@@ -10,24 +10,6 @@ android {
         viewBinding = true
     }
 
-    signingConfigs {
-
-        debug {
-            storeFile file('/Users/yannischeng/Android_Project_Store/Android_MySelf_Project/MaYaListen/app/KeyStore2')
-            storePassword proStorePassword
-            keyPassword proKeyPassword
-            keyAlias proKeyAlias
-        }
-
-        release {
-            storeFile file('/Users/yannischeng/Android_Project_Store/Android_MySelf_Project/MaYaListen/app/KeyStore2')
-            storePassword proStorePassword
-            keyPassword proKeyPassword
-            keyAlias proKeyAlias
-        }
-
-    }
-
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion rootProject.buildToolsVersion
 
@@ -57,10 +39,8 @@ android {
             // Resource shrinker cannot be used for libraries.
             //shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
         }
         debug {
-            signingConfig signingConfigs.debug
             multiDexEnabled true
         }
     }
@@ -74,11 +54,13 @@ dependencies {
     // 友盟：分享、智能认证、推送、统计、多渠道
     //api project(path: ':umenglib')
     // 地图
-    api project(path: ':maplib')
+    api project(path: ':MapLib')
     // 推送
-    api project(path: ':pushlib')
+    api project(path: ':PushLib')
     // 文件处理
-    api project(path: ':filedownloadlib')
+    api project(path: ':FileDownloadLib')
+    // 图片上传处理
+    api project(path: ':ImageUploadLib')
 
     // 第三方依赖
     kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"

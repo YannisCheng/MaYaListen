@@ -6,12 +6,12 @@ apply plugin: 'kotlin-kapt'
 apply from: '../aar_upload.gradle'
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
-        minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
+        minSdkVersion 21
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
@@ -24,17 +24,17 @@ android {
     signingConfigs {
 
         debug {
-            storeFile file('/Users/yannischeng/Android_Project_Store/Android_MySelf_Project/MaYaListen/app/KeyStore2')
-            storePassword proStorePassword
-            keyPassword proKeyPassword
-            keyAlias proKeyAlias
+            storeFile file('/Users/yannischeng/Android_Project_Store/Android_MySelf_Project/MaYaListen/PushLib/KeyStore2')
+            storePassword "111111"
+            keyPassword "111111"
+            keyAlias "key2"
         }
 
         release {
-            storeFile file('/Users/yannischeng/Android_Project_Store/Android_MySelf_Project/MaYaListen/app/KeyStore2')
-            storePassword proStorePassword
-            keyPassword proKeyPassword
-            keyAlias proKeyAlias
+            storeFile file('/Users/yannischeng/Android_Project_Store/Android_MySelf_Project/MaYaListen/PushLib/KeyStore2')
+            storePassword "111111"
+            keyPassword "111111"
+            keyAlias "key2"
         }
 
     }
@@ -58,5 +58,5 @@ android {
 dependencies {
 
     // 文件处理
-    api project(path: ':filedownloadlib')
+    api project(path: ':FileDownloadLib')
 }

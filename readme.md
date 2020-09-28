@@ -115,6 +115,7 @@
           
  - [阿里对象存储](https://www.aliyun.com/product/oss?spm=5176.12825654.eofdhaal5.100.24d22c4a0vRi31)
  - [七牛对象存储](https://www.qiniu.com/products/kodo)
+ - [七牛-对象存储-空间管理](https://portal.qiniu.com/kodo/bucket/overview?bucketName=mayalisten)
  
  ### 文件下载
  

@@ -76,5 +76,5 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':baselib')
+    implementation project(path: ':BaseLib')
 }

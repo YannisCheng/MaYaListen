@@ -1,7 +1,8 @@
-include ':filedownloadlib'
-include ':pushlib'
-include ':umenglib'
-include ':maplib'
-include ':baselib'
+include ':ImageUploadLib'
+include ':FileDownloadLib'
+include ':PushLib'
+include ':UMengLib'
+include ':MapLib'
+include ':BaseLib'
 include ':app'
 rootProject.name = "MaYaListen"
