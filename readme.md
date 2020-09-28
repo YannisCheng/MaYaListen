@@ -113,9 +113,13 @@
    
  ### 云存储
           
- - [阿里对象存储](https://www.aliyun.com/product/oss?spm=5176.12825654.eofdhaal5.100.24d22c4a0vRi31)
- - [七牛对象存储](https://www.qiniu.com/products/kodo)
+ - [阿里云-对象存储](https://www.aliyun.com/product/oss?spm=5176.12825654.eofdhaal5.100.24d22c4a0vRi31)
+ - [阿里云-域名解析](https://dns.console.aliyun.com/?spm=5176.100251.111252.22.e86c4f15ZFpIoq#/dns/domainList)
+ - [阿里云-域名-列表](https://dc.console.aliyun.com/next/index?spm=5176.100251.recommends.ddomain.32614f153Kxuap#/domain/list/all-domain)
+ 
+ - [七牛-对象存储](https://www.qiniu.com/products/kodo)
  - [七牛-对象存储-空间管理](https://portal.qiniu.com/kodo/bucket/overview?bucketName=mayalisten)
+ - [七牛-cdn-域名管理-列表](https://portal.qiniu.com/cdn/domain)
  
  ### 文件下载
  
