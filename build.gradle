@@ -64,6 +64,8 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // tinkersupport插件
         classpath "com.tencent.bugly:tinker-support:1.2.0"
+        // 美团打包
+        classpath 'com.meituan.android.walle:plugin:1.1.7'
     }
 }
 

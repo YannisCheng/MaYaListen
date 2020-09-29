@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 // 依赖插件脚本
 //apply from: 'tinker-support.gradle'
+// 美团多渠道打包
+apply plugin: 'walle'
 
 android {
 
@@ -77,4 +79,14 @@ android {
 
 dependencies {
     implementation project(path: ':BaseLib')
+    // 美团多渠道打包
+    api 'com.meituan.android.walle:library:1.1.7'
+}
+
+walle {
+    apkOutputFolder = new File("${project.buildDir}/outputs/channels")
+    apkFileNameFormat = '${appName}-${channel}-${buildType}-v${versionName}-${buildTime}-${flavorName}.apk'
+    //configFile与channelFile两者必须存在一个，否则无法生成渠道包。两者都存在时优先执行configFile
+    channelFile = new File("${project.getProjectDir()}/channel")
+    //configFile = new File("${project.getProjectDir()}/config.json")
 }
