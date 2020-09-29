@@ -103,6 +103,13 @@
  - [百度开放平台-百度手机助手](https://app.baidu.com/)
  - [三星开发者平台-三星应用商店](https://developer.samsung.com/galaxy-store)
  
+ ### 美团多渠道打包
+ >> https://blog.csdn.net/u014449096/article/details/89338517
+ 运行位置：Gradle/MaYaListen/app/Tasks/package/
+
+ 命令 assembleReleaseChannels 
+ 
+ 
  ### 语音
    
  - [科大讯飞-语音听写](https://www.xfyun.cn/doc/asr/voicedictation/Android-SDK.html)
@@ -120,6 +127,7 @@
  - [七牛-对象存储](https://www.qiniu.com/products/kodo)
  - [七牛-对象存储-空间管理](https://portal.qiniu.com/kodo/bucket/overview?bucketName=mayalisten)
  - [七牛-cdn-域名管理-列表](https://portal.qiniu.com/cdn/domain)
+ - [七牛-token认证实现-Java版](https://github.com/qiniu/java-sdk/blob/master/src/main/java/com/qiniu/util/Auth.java)
  
  ### 文件下载
  
@@ -138,6 +146,9 @@
  * [ ] 安全加密、加固
      * [ ] 360
      
+ * [ ] 视频播放
+     * [ ] ijkplayer
+     
  ### 耗时环节：
  
  #### 第三方平台接入   
@@ -155,7 +166,7 @@
   - App SHA1值
   - icon
   - App网站地址Url
-  - App流程、运行的"图+文"资料
+  - App流程、运行的"图+文"资料（各种声明、隐私html）
   
  **App接入SDK**
   
