@@ -18,6 +18,6 @@
     <color name="maya_green">#4ed957</color>
     <color name="maya_play_list_item_text">#707788</color>
     <color name="maya_play_list_item_bg">#707788</color>
-
+    <color name="maya_skeleton_color_shimmer">#1A5C5C5C</color>
 
 </resources>

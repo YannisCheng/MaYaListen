@@ -18,8 +18,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.ethanhua.skeleton.Skeleton
+import com.ethanhua.skeleton.SkeletonScreen
+import com.yannis.baselib.R
 import com.yannis.baselib.utils.net_status.NetStatus
 import com.yannis.baselib.utils.net_status.NetStatusChange
 import com.yannis.baselib.utils.net_status.NetStatusManager
@@ -39,6 +43,7 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
 
     lateinit var binding: VDB
     lateinit var viewModel: VM
+    lateinit var skeletonScreen: SkeletonScreen
 
     private val PERMISSIONS = arrayOf(
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -70,6 +75,34 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
         if (loadingDialog.isShowing) {
             loadingDialog.dismiss()
         }
+    }
+
+    /**
+     * 默认动画显示
+     * @param recyclerView recyclerView
+     * @param adapter adapter
+     * @param layout 骨架layout
+     */
+    open fun showRecycleSkeleton(
+        recyclerView: RecyclerView?,
+        adapter: RecyclerView.Adapter<*>?,
+        layout: Int
+    ) {
+        skeletonScreen =
+                //绑定当前列表
+            Skeleton.bind(recyclerView)
+                //设置加载列表适配器 ，并且开启动画 设置光晕动画角度等 最后显示
+                .adapter(adapter).shimmer(true).angle(0)
+                .frozen(false)
+                .duration(1200)
+                .count(5)
+                .color(R.color.maya_skeleton_color_shimmer)
+                .load(layout)
+                .show()
+    }
+
+    open fun hideSkeleton() {
+        skeletonScreen.hide()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
