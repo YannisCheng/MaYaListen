@@ -121,6 +121,7 @@ dependencies {
     // qmui https://qmuiteam.com/android/get-started
     api "com.qmuiteam:qmui:$rootProject.qmuiVersion"
     // 骨架屏 https://github.com/ethanhua/Skeleton
+    // 使用说明：https://blog.csdn.net/qq_36573702/article/details/106108731
     api 'com.ethanhua:skeleton:1.1.2'
     api 'io.supercharge:shimmerlayout:2.1.0'
 }
