@@ -6,6 +6,8 @@ apply plugin: 'kotlin-kapt'
 //apply from: 'tinker-support.gradle'
 // 美团多渠道打包
 apply plugin: 'walle'
+//配置jenkins与本地打包的输出路径
+apply from:"../apk_output_path.gradle"
 
 android {
 
@@ -18,14 +20,14 @@ android {
     signingConfigs {
 
         debug {
-            storeFile file('/Users/yannischeng/Android_Project_Store/Android_MySelf_Project/MaYaListen/app/KeyStore2')
+            storeFile file('/Users/yannischeng/Android_MySelf/MaYaListen/app/KeyStore2')
             storePassword proStorePassword
             keyPassword proKeyPassword
             keyAlias proKeyAlias
         }
 
         release {
-            storeFile file('/Users/yannischeng/Android_Project_Store/Android_MySelf_Project/MaYaListen/app/KeyStore2')
+            storeFile file('/Users/yannischeng/Android_MySelf/MaYaListen/app/KeyStore2')
             storePassword proStorePassword
             keyPassword proKeyPassword
             keyAlias proKeyAlias
@@ -41,12 +43,20 @@ android {
 
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
 
         // 仅保留中文资源
         resConfigs 'zh'
         manifestPlaceholders = [qqappid:"aaa123456"]
+
+        if (IS_JENKINS.toBoolean()) {
+            // 通过jenkins打包
+            versionCode = VERSION_CODE.toInteger();
+            versionName = VERSION_NAME
+        } else {
+            // 使用本地打包
+            versionCode 1
+            versionName "1.0"
+        }
     }
 
     buildTypes {

@@ -24,14 +24,14 @@ android {
     signingConfigs {
 
         debug {
-            storeFile file('/Users/yannischeng/Android_Project_Store/Android_MySelf_Project/MaYaListen/ImageUploadLib/KeyStore2')
+            storeFile file('/Users/yannischeng/Android_MySelf/MaYaListen/ImageUploadLib/KeyStore2')
             storePassword "111111"
             keyPassword "111111"
             keyAlias "key2"
         }
 
         release {
-            storeFile file('/Users/yannischeng/Android_Project_Store/Android_MySelf_Project/MaYaListen/ImageUploadLib/KeyStore2')
+            storeFile file('/Users/yannischeng/Android_MySelf/MaYaListen/ImageUploadLib/KeyStore2')
             storePassword "111111"
             keyPassword "111111"
             keyAlias "key2"
@@ -60,6 +60,7 @@ dependencies {
     // 文件处理
     api project(path: ':FileDownloadLib')
     // 七牛图片上传依赖
-    implementation 'com.qiniu:qiniu-android-sdk:8.0.+'
+    api 'com.qiniu:qiniu-android-sdk:8.0.+'
+    api 'com.google.code.gson:gson:2.8.6'
 
 }

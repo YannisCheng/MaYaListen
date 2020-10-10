@@ -47,6 +47,8 @@ keytool -list -v -keystore key 路径
  - 密码：admin123
  - 服务开启：stanex
  - 服务关闭：stonex
+ 
+### 2. Jenkins配置 
 
     
 ## 换肤
@@ -178,7 +180,20 @@ assembleReleaseChannels
 ### 1. 文件下载
  
  [liulishuo-FileDownloader](https://github.com/lingochamp/FileDownloader)
-
+ 
+### 2. 原生折线绘制
+    
+ [官方文档](https://weeklycoding.com/mpandroidchart-documentation/)
+ [MPAndroid使用文档](https://www.jianshu.com/p/fc73b490edd5)   
+ [使用基础概念总结](https://www.jianshu.com/p/cef974ae463c)
+   
+ - 对于图表关键需要知道并理解的是：图、数据（LineData）、数据集（LineDataSet）以及 Entry，这是定义并显示图表的关键概念。它们的关系是：Entry -> 数据集 -> 数据 -> 图表。
+   
+ - 如果要对 X 轴和 Y 轴进行设置可分别通过 XAxis 和 YAxis 进行设置
+   
+ - 如果要对数据进行设置，则通过 DataSet 进行设置
+   
+ - 如果要设置手势等，可通过图表 Chart 进行设置
      
 ## 正常开发流程外的耗时环节总结：
  

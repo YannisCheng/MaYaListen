@@ -1,0 +1,30 @@
+// 获取时间
+static def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMddHHmm')
+    return formattedDate
+}
+
+// 定义编译生成的apk名格式
+android.applicationVariants.all { variant ->
+    variant.outputs.each { output ->
+        def apkName
+        def date = new Date()
+        def formattedDate = date.format('yyyyMMdd')
+        def timeNow = getDate()
+        def dirName = VERSION_NAME + File.separator + formattedDate;
+
+        // 区分是jenkins打包还是本地打包
+        if (IS_JENKINS.toBoolean()) {
+            println("jenkins build ==> $timeNow")
+            apkName = "$APK_NAME"+"_v$VERSION_NAME"+"_c$VERSION_CODE"+"_$BUILD_TIME"+"_${variant.buildType.name}.apk"
+        } else {
+            println("local build ==> ${variant.buildType.name}-$timeNow")
+            apkName = "$APK_NAME"+"_v$VERSION_NAME"+"_c$VERSION_CODE"+"_$timeNow"+"_${variant.buildType.name}.apk"
+        }
+
+        // 打包后放到 app/build/release/时间戳下 包下
+        output.outputFileName = new File("../../../../buildApk/${dirName}", apkName)
+    }
+
+}

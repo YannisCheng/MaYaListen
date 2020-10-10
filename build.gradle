@@ -2,6 +2,8 @@
 buildscript {
 
     ext {
+        versionName="1.0.0"
+        versionCode=1
         kotlin_version = "1.4.10"
         // Sdk and tools
         compileSdkVersion = 29
@@ -50,13 +52,18 @@ buildscript {
         crashreportUpgrade = "1.4.5"
         bannerVersion = "2.0.12"
         utilcodexVersion = "1.29.0"
-        palette_ktxVersion="1.0.0"
-        qmuiVersion="2.0.0-alpha10"
+        palette_ktxVersion = "1.0.0"
+        qmuiVersion = "2.0.0-alpha10"
+        MPAndroidChartVersion = "v3.1.0"
+        skeletonVersion = "1.1.2"
+        skeletonShimmerlayoutVersion = "2.1.0"
+        flexboxVersion = "2.0.1"
     }
 
     repositories {
         google()
         jcenter()
+        // 友盟
         maven { url 'https://dl.bintray.com/umsdk/release' }
     }
     dependencies {
@@ -75,7 +82,10 @@ allprojects {
         jcenter()
         // 本地私有maven库引用测试
         maven { url 'http://127.0.0.1:8082/repository/cwj_group/' }
+        // 友盟
         maven { url 'https://dl.bintray.com/umsdk/release' }
+        // MPAndroidChart
+        maven { url 'https://jitpack.io' }
     }
 }
 

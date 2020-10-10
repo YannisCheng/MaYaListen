@@ -51,6 +51,7 @@ android {
 }
 
 dependencies {
+    //  = = = = = = = lib  = = = = = = =
     // 友盟：分享、智能认证、推送、统计、多渠道
     //api project(path: ':umenglib')
     // 地图
@@ -62,7 +63,7 @@ dependencies {
     // 图片上传处理
     api project(path: ':ImageUploadLib')
 
-    // 第三方依赖
+    // = = = = = = = 第三方依赖 = = = = = = =
     kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
@@ -122,6 +123,12 @@ dependencies {
     api "com.qmuiteam:qmui:$rootProject.qmuiVersion"
     // 骨架屏 https://github.com/ethanhua/Skeleton
     // 使用说明：https://blog.csdn.net/qq_36573702/article/details/106108731
-    api 'com.ethanhua:skeleton:1.1.2'
-    api 'io.supercharge:shimmerlayout:2.1.0'
+    api "com.ethanhua:skeleton:$rootProject.skeletonVersion"
+    api "io.supercharge:shimmerlayout:$rootProject.skeletonShimmerlayoutVersion"
+    // Android原生多功能线图绘制 https://github.com/PhilJay/MPAndroidChart
+    api "com.github.PhilJay:MPAndroidChart:$rootProject.MPAndroidChartVersion"
+    // google官方流式布局：https://github.com/google/flexbox-layout
+    // 使用参考：https://www.jianshu.com/p/5ec4350d2258，
+    // https://blog.csdn.net/weixin_39397471/article/details/90212231
+    api "com.google.android:flexbox:$rootProject.flexboxVersion"
 }

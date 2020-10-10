@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.yannis.mayalisten.R;
 import com.yannis.mayalisten.map.baidu.BaiduMapMultiTaskActivity;
 import com.yannis.mayalisten.map.baidu.BaiduTransferBean;
 
@@ -24,7 +25,7 @@ public class TestMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.yannis.maplib.R.layout.activity_main);
+        setContentView(R.layout.map_activity_main);
 
         // 百度地图
         /*FragmentManager manager = getSupportFragmentManager();
@@ -36,7 +37,7 @@ public class TestMainActivity extends AppCompatActivity {
         //BaiduMapMultiTaskActivity.start(TestMainActivity.this, TASK_TYPE_CHOOSE_POINT, null, false);
 
         // 高德地图
-        findViewById(com.yannis.maplib.R.id.btn).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BaiduMapMultiTaskActivity.start(TestMainActivity.this, TASK_TYPE_CHOOSE_POINT, null, false);
@@ -50,7 +51,7 @@ public class TestMainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == LOCATION_RESULT_CODE && data != null) {
             BaiduTransferBean transferContent = (BaiduTransferBean) data.getSerializableExtra("content");
-            TextView show = findViewById(com.yannis.maplib.R.id.tv_show);
+            TextView show = findViewById(R.id.tv_show);
             show.setText(transferContent.toString());
         }
     }
