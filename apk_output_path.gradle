@@ -12,7 +12,7 @@ android.applicationVariants.all { variant ->
         def date = new Date()
         def formattedDate = date.format('yyyyMMdd')
         def timeNow = getDate()
-        def dirName = VERSION_NAME + File.separator + formattedDate;
+        def dirName=""
 
         // 区分是jenkins打包还是本地打包
         if (IS_JENKINS.toBoolean()) {
@@ -20,6 +20,7 @@ android.applicationVariants.all { variant ->
             apkName = "$APK_NAME"+"_v$VERSION_NAME"+"_c$VERSION_CODE"+"_$BUILD_TIME"+"_${variant.buildType.name}.apk"
         } else {
             println("local build ==> ${variant.buildType.name}-$timeNow")
+            dirName = VERSION_NAME + File.separator + formattedDate;
             apkName = "$APK_NAME"+"_v$VERSION_NAME"+"_c$VERSION_CODE"+"_$timeNow"+"_${variant.buildType.name}.apk"
         }
 
