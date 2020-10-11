@@ -50,6 +50,7 @@ keytool -list -v -keystore key 路径
  
 ### 2. Jenkins配置 
 
+ [报错：Can't retrieve the Gradle executable 解决](https://blog.csdn.net/lamar_quin/article/details/96129427)
     
 ## 换肤
     
