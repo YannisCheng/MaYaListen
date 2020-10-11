@@ -95,7 +95,8 @@ dependencies {
 
 walle {
     apkOutputFolder = new File("${project.buildDir}/outputs/channels")
-    apkFileNameFormat = '${appName}-${channel}-${buildType}-v${versionName}-${buildTime}-${flavorName}.apk'
+    //apkFileNameFormat = '${appName}-${channel}-${buildType}-v${versionName}-${buildTime}-${flavorName}.apk'
+    apkFileNameFormat = '${appName}_${channel}_v${versionName}_${buildTime}_${buildType}.apk'
     //configFile与channelFile两者必须存在一个，否则无法生成渠道包。两者都存在时优先执行configFile
     channelFile = new File("${project.getProjectDir()}/channel")
     //configFile = new File("${project.getProjectDir()}/config.json")

@@ -249,4 +249,8 @@ assembleReleaseChannels
  
  - 各个平台自身审核特点（严厉程度）
  
+ ### 问题
+ 
+ - [x] 多渠道打包、jenkins打包区分
+ 
  
