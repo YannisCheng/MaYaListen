@@ -111,6 +111,9 @@ class MainActivity : BaseActivity<AggregateRankFirstPageVM, ActivityMainBinding>
                 // 只作用于当前组件
                 //delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
             }*/
+
+            // 进入测试用例界面
+            TestCaseActivity.start(this)
         }
     }
 

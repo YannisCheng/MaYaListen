@@ -5,8 +5,20 @@
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         tools:context=".activity.TestCaseActivity">
+
+        <Button
+            android:id="@+id/btn_chat"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="信息" />
+
+        <Button
+            android:id="@+id/btn_subscribe"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="订阅" />
 
         <com.yannis.baselib.widget.PageStatusView
             android:id="@+id/psv"
