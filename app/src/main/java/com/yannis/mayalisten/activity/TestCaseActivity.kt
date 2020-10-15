@@ -49,9 +49,11 @@ class TestCaseActivity : BaseActivity<ViewModel, ActivityTestCaseBinding>() {
         notificationCompatUtil.createNotification()
         // 显示通知
         binding.btnChat.setOnClickListener {
+            notificationCompatUtil.openChannelNotification("chat")
             notificationCompatUtil.sendChatMsg()
         }
         binding.btnSubscribe.setOnClickListener {
+            notificationCompatUtil.openChannelNotification("subscribe")
             notificationCompatUtil.sendSubscribeMsg()
         }
     }

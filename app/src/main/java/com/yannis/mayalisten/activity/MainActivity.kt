@@ -1,6 +1,5 @@
 package com.yannis.mayalisten.activity
 
-import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -13,7 +12,6 @@ import com.yannis.mayalisten.R
 import com.yannis.mayalisten.bean.AggregateRankFirstPageBean
 import com.yannis.mayalisten.databinding.ActivityMainBinding
 import com.yannis.mayalisten.fragment.MainFragment
-import com.yannis.mayalisten.map.TestMainActivity
 import com.yannis.mayalisten.view_mode.AggregateRankFirstPageVM
 
 /**
@@ -89,8 +87,8 @@ class MainActivity : BaseActivity<AggregateRankFirstPageVM, ActivityMainBinding>
         //showLoading("")
 
         binding.ivShare.setOnClickListener {
-            val intent: Intent = Intent(this, TestMainActivity::class.java)
-            startActivity(intent)
+            /*val intent: Intent = Intent(this, TestMainActivity::class.java)
+            startActivity(intent)*/
             /*BaiduMapMultiTaskActivity.start(
                 this,
                 ThirdMapConstants.TASK_TYPE_CHOOSE_POINT,

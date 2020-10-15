@@ -28,6 +28,8 @@
     <!--APN设置-->
     <uses-permission android:name="android.permission.WRITE_APN_SETTINGS" />
     <uses-permission android:name="android.permission.SET_DEBUG_APP" />
+    <!--设置手机振动-->
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application>
         <provider
