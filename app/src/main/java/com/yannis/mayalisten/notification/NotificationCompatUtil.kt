@@ -8,6 +8,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Build
 import android.os.Build.VERSION_CODES.O
 import android.provider.Settings
@@ -55,6 +56,16 @@ class NotificationCompatUtil(val context: Context, val notificationManager: Noti
         val notificationChannel = NotificationChannel(channelId, channelName, importanceHigh)
         // 在App图标右上角允许这个渠道下的通知显示角标
         notificationChannel.setShowBadge(true)
+        notificationChannel.enableLights(true)
+        notificationChannel.enableVibration(true)
+
+        notificationChannel.lightColor = Color.RED
+        notificationChannel.lockscreenVisibility = Notification.VISIBILITY_PRIVATE
+        notificationChannel.setShowBadge(true)
+        notificationChannel.setBypassDnd(true)
+        notificationChannel.vibrationPattern = longArrayOf(100, 200, 300, 400)
+        notificationChannel.description = channelId
+        //notificationChannel.group = "groupId"
         notificationManager.createNotificationChannel(notificationChannel)
         /*notificationManager.createNotificationChannels(
             listOf(
@@ -83,58 +94,74 @@ class NotificationCompatUtil(val context: Context, val notificationManager: Noti
     /**
      * 显示通知
      */
-    fun sendChatMsg() {
-        val notification = NotificationCompat.Builder(context, "chat")
-            .setContentTitle("收到一条聊天消息")
-            .setContentText("今天中午吃什么？")
-            .setWhen(System.currentTimeMillis())
-            .setSmallIcon(R.drawable.btn_default)
-            .setLargeIcon(
-                BitmapFactory.decodeResource(
-                    context.getResources(),
-                    R.drawable.dialog_holo_dark_frame
+    fun sendChatMsg(msg: String) {
+        if (Build.VERSION.SDK_INT >= O) {
+            var channelId = "chat"
+            var channelName = "聊天消息"
+            // 等级
+            var importanceHigh = NotificationManager.IMPORTANCE_HIGH
+            createNotificationChannel(channelId, channelName, importanceHigh)
+
+            val notification = NotificationCompat.Builder(context, channelId)
+                .setContentTitle("收到一条聊天消息")
+                .setContentText("今天中午吃什么？${msg}")
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.drawable.btn_default)
+                .setLargeIcon(
+                    BitmapFactory.decodeResource(
+                        context.getResources(),
+                        R.drawable.dialog_holo_dark_frame
+                    )
                 )
-            )
-            .setAutoCancel(true)
-            .setContentIntent(pendingIntent())
-            .build()
-        notificationManager.notify(1, notification)
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent())
+                .build()
+            notificationManager.notify(1, notification)
+        }
     }
 
     fun sendSubscribeMsg() {
-        val notification: Notification = NotificationCompat.Builder(context, "subscribe")
-            // 标题
-            .setContentTitle("收到一条订阅消息")
-            // 通知内容
-            .setContentText("地铁沿线30万商铺抢购中！")
-            .setWhen(System.currentTimeMillis())
-            .setSmallIcon(R.drawable.btn_star)
-            .setLargeIcon(
-                BitmapFactory.decodeResource(
-                    context.getResources(),
-                    R.drawable.alert_dark_frame
+        if (Build.VERSION.SDK_INT >= O) {
+            val channelId = "subscribe"
+            val channelName = "订阅消息"
+            // 等级
+            val importanceHigh = NotificationManager.IMPORTANCE_DEFAULT
+            createNotificationChannel(channelId, channelName, importanceHigh)
+
+            val notification: Notification = NotificationCompat.Builder(context, "subscribe")
+                // 标题
+                .setContentTitle("收到一条订阅消息")
+                // 通知内容
+                .setContentText("地铁沿线30万商铺抢购中！")
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.drawable.btn_star)
+                .setLargeIcon(
+                    BitmapFactory.decodeResource(
+                        context.getResources(),
+                        R.drawable.alert_dark_frame
+                    )
                 )
-            )
-            .setAutoCancel(true)
-            // 显示未读角标数量
-            // 未读数量怎么没有显示出来呢？这个功能还需要我们对着图标进行长按才行
-            .setNumber(4)
-            // 自定义通知音效
-            //.setSound()
-            // 使用默认音效
-            //.setDefaults(NotificationCompat.DEFAULT_SOUND)
-            // 自定义振动效果
-            //.setVibrate(longArrayOf(0,1000,1000))
-            // 默认振动效果
-            //.setDefaults(NotificationCompat.DEFAULT_VIBRATE)
-            // 设置默认全部通知效果
-            .setDefaults(NotificationCompat.DEFAULT_ALL)
-            //.setColor(R.color.holo_orange_dark)
-            .build().apply {
-                // 是否锁屏显示
-                visibility = Notification.VISIBILITY_PUBLIC
-            }
-        notificationManager.notify(2, notification)
+                .setAutoCancel(true)
+                // 显示未读角标数量
+                // 未读数量怎么没有显示出来呢？这个功能还需要我们对着图标进行长按才行
+                .setNumber(4)
+                // 自定义通知音效
+                //.setSound()
+                // 使用默认音效
+                //.setDefaults(NotificationCompat.DEFAULT_SOUND)
+                // 自定义振动效果
+                //.setVibrate(longArrayOf(0,1000,1000))
+                // 默认振动效果
+                //.setDefaults(NotificationCompat.DEFAULT_VIBRATE)
+                // 设置默认全部通知效果
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                //.setColor(R.color.holo_orange_dark)
+                .build().apply {
+                    // 是否锁屏显示
+                    visibility = Notification.VISIBILITY_PUBLIC
+                }
+            notificationManager.notify(2, notification)
+        }
     }
 
     /**

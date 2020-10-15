@@ -31,31 +31,45 @@ class TestCaseActivity : BaseActivity<ViewModel, ActivityTestCaseBinding>() {
 
     }
 
+    lateinit var notificationCompatUtil: NotificationCompatUtil
+    var index: Int = 0
+
     override fun setBindViewModel(): Class<ViewModel> {
         return ViewModel::class.java
     }
 
     override fun initView() {
+
         //showLoading("")
         //binding.psv.loadingTheme()
         //binding.psv.serverErrorImg()
 
-        val notificationCompatUtil =
+        notificationCompatUtil =
             NotificationCompatUtil(
                 this,
                 getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             )
         // 创建2个不同渠道的通知
-        notificationCompatUtil.createNotification()
+        //notificationCompatUtil.createNotification()
         // 显示通知
         binding.btnChat.setOnClickListener {
             notificationCompatUtil.openChannelNotification("chat")
-            notificationCompatUtil.sendChatMsg()
+            index++
+            notificationCompatUtil.sendChatMsg(index.toString())
         }
         binding.btnSubscribe.setOnClickListener {
             notificationCompatUtil.openChannelNotification("subscribe")
             notificationCompatUtil.sendSubscribeMsg()
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        notificationCompatUtil.openChannelNotification("chat")
+        notificationCompatUtil.sendChatMsg(index.toString())
+
+        notificationCompatUtil.openChannelNotification("subscribe")
+        notificationCompatUtil.sendSubscribeMsg()
     }
 
     override fun getLayoutId(): Int {
