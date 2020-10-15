@@ -15,6 +15,7 @@ import android.provider.Settings
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationCompat.VISIBILITY_PUBLIC
 import com.yannis.mayalisten.activity.SplashActivity
 
 
@@ -115,6 +116,7 @@ class NotificationCompatUtil(val context: Context, val notificationManager: Noti
                 )
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent())
+                .setVisibility(VISIBILITY_PUBLIC)
                 .build()
             notificationManager.notify(1, notification)
         }
