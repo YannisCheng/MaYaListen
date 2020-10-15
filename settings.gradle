@@ -1,3 +1,4 @@
+include ':IjkplayerLib'
 include ':ImageUploadLib'
 include ':FileDownloadLib'
 include ':PushLib'

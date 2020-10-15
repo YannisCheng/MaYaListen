@@ -127,6 +127,26 @@ keytool -list -v -keystore key 路径
  - [七牛-对象存储-空间管理](https://portal.qiniu.com/kodo/bucket/overview?bucketName=mayalisten)
  - [七牛-cdn-域名管理-列表](https://portal.qiniu.com/cdn/domain)
  - [七牛-token认证实现-Java版](https://github.com/qiniu/java-sdk/blob/master/src/main/java/com/qiniu/util/Auth.java)
+ 
+ ### 9. 视频播放
+ 
+ **编译过程参考**
+ 
+ - [ijkplayer官方地址](https://github.com/bilibili/ijkplayer)
+ - [Android编译ijkplayer参考](https://www.jianshu.com/p/6a28067dde32)
+ - [Ubuntu编译ijkplayer](https://www.jianshu.com/p/44e52b308434)
+ 
+ **编译后产物使用参考**
+ 
+ - [ijkplayer编译后使用参考1-独立项目搭建](https://www.jb51.net/article/125657.htm)
+ - [ijkplayer编译后使用参考2-部分API使用](https://www.jianshu.com/p/c5d972ab0309)
+ - [ijkplayer编译后使用参考3-部分API使用](https://www.cnblogs.com/zhujiabin/p/7211983.html)
+ 
+ **本地项目`ijkplayerLib`搭建组合过程：**
+    
+   1. 为 `原始ijkplayer项目` 中的 `ijkplayer-java`添加 `上传nexus配置`，然后在本地项目的搭建中直接通过`gradle`引用nexus上的`aar包`；
+   2. 本地项目中目前仅使用了`armeabi-v7a`包下的`so`文件；
+   3. 引用 `原始ijkplayer项目` 中的 `ijkplayer-example`项目中的 `widget` 包下的文件。
 
   
  * [ ] 支付
@@ -138,9 +158,6 @@ keytool -list -v -keystore key 路径
      
  * [ ] 广告平台
      * [ ]
-     
- * [ ] 视频播放
-     * [ ] ijkplayer
   
 ## App后续流程
 
