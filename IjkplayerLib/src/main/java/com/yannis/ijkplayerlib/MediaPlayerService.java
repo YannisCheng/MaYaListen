@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.yannis.ijkplayerlib.widget;
+package com.yannis.ijkplayerlib;
 
 import android.app.Service;
 import android.content.Context;
