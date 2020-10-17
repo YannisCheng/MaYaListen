@@ -40,9 +40,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
+import com.yannis.ijkplayerlib.MediaPlayerService;
 import com.yannis.ijkplayerlib.R;
-import com.yannis.ijkplayerlib.widget.MediaPlayerService;
-import com.yannis.ijkplayerlib.widget.Settings;
+import com.yannis.ijkplayerlib.Settings;
 
 import java.io.File;
 import java.io.IOException;
@@ -1131,8 +1131,9 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     // Extend: Background
     //-------------------------
     public void showMediaInfo() {
-        if (mMediaPlayer == null)
+        if (mMediaPlayer == null) {
             return;
+        }
 
         int selectedVideoTrack = MediaPlayerCompat.getSelectedTrack(mMediaPlayer, ITrackInfo.MEDIA_TRACK_TYPE_VIDEO);
         int selectedAudioTrack = MediaPlayerCompat.getSelectedTrack(mMediaPlayer, ITrackInfo.MEDIA_TRACK_TYPE_AUDIO);

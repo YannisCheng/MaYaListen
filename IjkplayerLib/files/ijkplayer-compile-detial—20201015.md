@@ -71,7 +71,7 @@ makeinfo supports HTML    no
 External libraries:
 xlib			   zlib
 
-External libraries providing hardware acceleration:
+External libraries providing hardware acceleration（提供硬件加速的外部库）:
 
 Libraries:
 avcodec			   avformat		      swresample
@@ -79,37 +79,37 @@ avfilter		   avutil		      swscale
 
 Programs:
 
-Enabled decoders:
+Enabled decoders（启用的解码器）:
 aac			       h263			      mp3adu			 mp3on4float		    vp9
 aac_latm		   h264			      mp3adufloat		 vp6
 flac			   hevc			      mp3float			 vp6f
 flv			       mp3			      mp3on4			 vp8
 
-Enabled encoders:
+Enabled encoders（启用的编码器）:
 png
 
 Enabled hwaccels:
 
-Enabled parsers:
+Enabled parsers（启用的解析器）:
 aac			       flac			      h264			 mpegaudio
 aac_latm		   h263			      hevc			 vp9
 
-Enabled demuxers:
+Enabled demuxers（启用的多路分配器）:
 aac			       flac			      hls			 mov			    mpegts
 concat			   flv			      live_flv			 mp3			    mpegvideo
 data			   hevc			      matroska			 mpegps			    webm_dash_manifest
 
-Enabled muxers:
+Enabled muxers（启用的多路复用器）:
 mov			       mp4
 
-Enabled protocols:
+Enabled protocols（启用的协议）:
 async			   ftp			          ijkio			         pipe			    tee
 cache			   hls			          ijklongurl		     prompeg		    udp
 data			   http			          ijkmediadatasource	 rtmp			    udplite
 ffrtmphttp		   httpproxy		      ijksegment		     rtmpt
 file			   ijkhttphook		      ijktcphook		     tcp
 
-Enabled filters:
+Enabled filters（启用的过滤器）:
 
 Enabled bsfs:
 aac_adtstoasc		   h264_mp4toannexb	      vp9_raw_reorder

@@ -15,13 +15,11 @@
  * limitations under the License.
  */
 
-package com.yannis.ijkplayerlib.widget;
+package com.yannis.ijkplayerlib;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-
-import com.yannis.ijkplayerlib.R;
 
 
 public class Settings {

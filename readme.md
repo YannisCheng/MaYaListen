@@ -158,6 +158,12 @@ keytool -list -v -keystore key 路径
      
  * [ ] 广告平台
      * [ ]
+
+ * [ ] 沉浸式bar
+     * [ ] https://github.com/gyf-dev/ImmersionBar
+
+ * [ ] vLayout
+     * [ ]
   
 ## App后续流程
 
