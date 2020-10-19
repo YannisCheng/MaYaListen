@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yannis.baselib.base.BaseActivity
+import com.yannis.ijkplayerlib.ui.IjkPlayerActivity
 import com.yannis.mayalisten.R
 import com.yannis.mayalisten.bean.AggregateRankFirstPageBean
 import com.yannis.mayalisten.databinding.ActivityMainBinding
@@ -111,7 +112,9 @@ class MainActivity : BaseActivity<AggregateRankFirstPageVM, ActivityMainBinding>
             }*/
 
             // 进入测试用例界面
-            TestCaseActivity.start(this)
+            //TestCaseActivity.start(this)
+
+            IjkPlayerActivity.start(this)
         }
     }
 

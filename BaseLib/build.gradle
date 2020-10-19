@@ -62,6 +62,8 @@ dependencies {
     api project(path: ':FileDownloadLib')
     // 图片上传处理
     api project(path: ':ImageUploadLib')
+    // ijkplayer播放器
+    api project(path: ':IjkplayerLib')
 
     // = = = = = = = 第三方依赖 = = = = = = =
     kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"

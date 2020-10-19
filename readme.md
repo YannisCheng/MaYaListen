@@ -147,6 +147,7 @@ keytool -list -v -keystore key 路径
    1. 为 `原始ijkplayer项目` 中的 `ijkplayer-java`添加 `上传nexus配置`，然后在本地项目的搭建中直接通过`gradle`引用nexus上的`aar包`；
    2. 本地项目中目前仅使用了`armeabi-v7a`包下的`so`文件；
    3. 引用 `原始ijkplayer项目` 中的 `ijkplayer-example`项目中的 `widget` 包下的文件。
+   4. 添加 https 协议支持：./init-android-openssl.sh
 
   
  * [ ] 支付

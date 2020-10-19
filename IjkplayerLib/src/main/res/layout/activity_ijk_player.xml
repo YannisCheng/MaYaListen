@@ -5,4 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.IjkPlayerActivity">
 
+    <com.yannis.ijkplayerlib.widget.media.IjkVideoView
+        android:id="@+id/ijk_player"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

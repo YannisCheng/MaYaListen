@@ -53,10 +53,6 @@ android {
             multiDexEnabled true
         }
     }
-
-    sourceSets.main {
-        jniLibs.srcDir 'src/main/java/jniLibs'
-    }
 }
 
 dependencies {

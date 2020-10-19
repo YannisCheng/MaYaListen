@@ -51,7 +51,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import tv.danmaku.ijk.media.player.AndroidMediaPlayer;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkTimedText;
@@ -147,15 +146,11 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
                     }
                 }
             };
-    private InfoHudViewHolder mHudViewHolder;
-    private long mPrepareStartTime = 0;
-    private long mPrepareEndTime = 0;
-    private long mSeekStartTime = 0;
     IMediaPlayer.OnPreparedListener mPreparedListener = new IMediaPlayer.OnPreparedListener() {
         @Override
         public void onPrepared(IMediaPlayer mp) {
             mPrepareEndTime = System.currentTimeMillis();
-            mHudViewHolder.updateLoadCost(mPrepareEndTime - mPrepareStartTime);
+            //mHudViewHolder.updateLoadCost(mPrepareEndTime - mPrepareStartTime);
             mCurrentState = STATE_PREPARED;
 
             // Get the capabilities of the player for this stream
@@ -207,6 +202,10 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
             }
         }
     };
+    private long mPrepareEndTime = 0;
+    private long mSeekStartTime = 0;
+    //private InfoHudViewHolder mHudViewHolder;
+    private long mPrepareStartTime = 0;
 
     // REMOVED: onMeasure
     // REMOVED: onInitializeAccessibilityEvent
@@ -345,7 +344,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
         @Override
         public void onSeekComplete(IMediaPlayer mp) {
             mSeekEndTime = System.currentTimeMillis();
-            mHudViewHolder.updateSeekCost(mSeekEndTime - mSeekStartTime);
+            //mHudViewHolder.updateSeekCost(mSeekEndTime - mSeekStartTime);
         }
     };
 
@@ -569,7 +568,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     }
 
     public void setHudView(TableLayout tableLayout) {
-        mHudViewHolder = new InfoHudViewHolder(getContext(), tableLayout);
+        //mHudViewHolder = new InfoHudViewHolder(getContext(), tableLayout);
     }
 
     /**
@@ -619,9 +618,9 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
             mMediaPlayer.stop();
             mMediaPlayer.release();
             mMediaPlayer = null;
-            if (mHudViewHolder != null) {
-                mHudViewHolder.setMediaPlayer(null);
-            }
+//            if (mHudViewHolder != null) {
+//                mHudViewHolder.setMediaPlayer(null);
+//            }
             mCurrentState = STATE_IDLE;
             mTargetState = STATE_IDLE;
             AudioManager am = (AudioManager) mAppContext.getSystemService(Context.AUDIO_SERVICE);
@@ -676,9 +675,9 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
             mMediaPlayer.setScreenOnWhilePlaying(true);
             mPrepareStartTime = System.currentTimeMillis();
             mMediaPlayer.prepareAsync();
-            if (mHudViewHolder != null) {
-                mHudViewHolder.setMediaPlayer(mMediaPlayer);
-            }
+//            if (mHudViewHolder != null) {
+//                mHudViewHolder.setMediaPlayer(mMediaPlayer);
+//            }
 
             // REMOVED: mPendingSubtitleTracks
 
@@ -1036,16 +1035,16 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
         IMediaPlayer mediaPlayer = null;
 
         switch (playerType) {
-            case Settings.PV_PLAYER__IjkExoMediaPlayer: {
-                /*IjkExoMediaPlayer IjkExoMediaPlayer = new IjkExoMediaPlayer(mAppContext);
-                mediaPlayer = IjkExoMediaPlayer;*/
+            /*case Settings.PV_PLAYER__IjkExoMediaPlayer: {
+             *//*IjkExoMediaPlayer IjkExoMediaPlayer = new IjkExoMediaPlayer(mAppContext);
+                mediaPlayer = IjkExoMediaPlayer;*//*
             }
             break;
             case Settings.PV_PLAYER__AndroidMediaPlayer: {
                 AndroidMediaPlayer androidMediaPlayer = new AndroidMediaPlayer();
                 mediaPlayer = androidMediaPlayer;
             }
-            break;
+            break;*/
             case Settings.PV_PLAYER__IjkMediaPlayer:
             default: {
                 IjkMediaPlayer ijkMediaPlayer = null;
@@ -1109,9 +1108,9 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
         if (mEnableBackgroundPlay) {
             MediaPlayerService.intentToStart(getContext());
             mMediaPlayer = MediaPlayerService.getMediaPlayer();
-            if (mHudViewHolder != null) {
-                mHudViewHolder.setMediaPlayer(mMediaPlayer);
-            }
+//            if (mHudViewHolder != null) {
+//                mHudViewHolder.setMediaPlayer(mMediaPlayer);
+//            }
         }
     }
 
