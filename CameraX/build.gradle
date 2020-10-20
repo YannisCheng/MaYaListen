@@ -35,10 +35,12 @@ dependencies {
 
     def camerax_version = "1.0.0-beta11"
     // CameraX core library using camera2 implementation
-    implementation "androidx.camera:camera-camera2:$camerax_version"
+    api "androidx.camera:camera-camera2:$camerax_version"
     // CameraX Lifecycle Library
-    implementation "androidx.camera:camera-lifecycle:$camerax_version"
+    api "androidx.camera:camera-lifecycle:$camerax_version"
     // CameraX View class
-    implementation "androidx.camera:camera-view:1.0.0-alpha18"
+    api "androidx.camera:camera-view:1.0.0-alpha18"
+    // CameraX Extensions library 首批可用功能包括人像、HDR、夜间模式和美颜
+    api "androidx.camera:camera-extensions:1.0.0-alpha18"
 
 }
