@@ -149,7 +149,13 @@ keytool -list -v -keystore key 路径
    3. 引用 `原始ijkplayer项目` 中的 `ijkplayer-example`项目中的 `widget` 包下的文件。
    4. 添加 https 协议支持：./init-android-openssl.sh
 
+  ### 10. 二维码扫描
   
+  **Google Zxing**
+  
+  二维码扫描入使用口：CaptureActivity
+  更多使用、设置详情参考：./ZxingLib/src/main/readme.txt
+   
  * [ ] 支付
      * [ ] 微信
      * [ ] 支付宝

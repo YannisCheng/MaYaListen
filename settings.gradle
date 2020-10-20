@@ -6,4 +6,6 @@ include ':UMengLib'
 include ':MapLib'
 include ':BaseLib'
 include ':app'
+include ':ZxingLib'
+include ':CameraXLib'
 rootProject.name = "MaYaListen"
