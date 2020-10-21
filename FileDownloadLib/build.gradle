@@ -76,5 +76,8 @@ dependencies {
     //api "androidx.paging:paging-runtime-ktx:$rootProject.pagingVersion"
     // 分页库+rxjava2
     //api "androidx.paging:paging-rxjava2:$rootProject.pagingVersion"
+    // Navigation导航 library
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navVersion"
     api 'com.liulishuo.filedownloader:library:1.7.7'
 }

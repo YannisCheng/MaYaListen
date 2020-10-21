@@ -31,7 +31,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     // 文件处理
-    api project(path: ':FileDownloadLib')
+    api project(path: ':BaseLib')
 
     def camerax_version = "1.0.0-beta11"
     // CameraX core library using camera2 implementation
