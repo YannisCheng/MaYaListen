@@ -47,10 +47,6 @@ public final class LocaleManager {
      * http://support.google.com/merchants/bin/answer.py?hl=en-GB&answer=160619
      */
     private static final Map<String, String> GOOGLE_PRODUCT_SEARCH_COUNTRY_TLD;
-    /**
-     * Book search is offered everywhere that web search is available.
-     */
-    private static final Map<String, String> GOOGLE_BOOK_SEARCH_COUNTRY_TLD = GOOGLE_COUNTRY_TLD;
     private static final Collection<String> TRANSLATED_HELP_ASSET_LANGUAGES =
             Arrays.asList("de", "en", "es", "fa", "fr", "it", "ja", "ko", "nl", "pt", "ru", "uk", "zh-rCN", "zh");
 
@@ -127,6 +123,11 @@ public final class LocaleManager {
     public static String getProductSearchCountryTLD(Context context) {
         return doGetTLD(GOOGLE_PRODUCT_SEARCH_COUNTRY_TLD, context);
     }
+
+    /**
+     * Book search is offered everywhere that web search is available.
+     */
+    private static final Map<String, String> GOOGLE_BOOK_SEARCH_COUNTRY_TLD = GOOGLE_COUNTRY_TLD;
 
     /**
      * The same as above, but specifically for Google Book Search.

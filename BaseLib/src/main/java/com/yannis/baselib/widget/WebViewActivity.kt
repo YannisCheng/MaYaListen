@@ -76,7 +76,7 @@ class WebViewActivity : AppCompatActivity() {
             webViewClient = object : WebViewClient() {
                 //重写shouldOverrideUrlLoading()方法，使得打开网页时不调用系统浏览器， 而是在本WebView中显示
                 override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                    view?.loadUrl(url);
+                    view?.loadUrl(url!!);
                     return true
                 }
 
