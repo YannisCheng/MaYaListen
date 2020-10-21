@@ -5,6 +5,10 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.util.Size
+import android.view.MotionEvent
+import android.view.OrientationEventListener
+import android.view.Surface
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
@@ -18,6 +22,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 
 typealias LumaListener = (luma: Double) -> Unit
 
@@ -33,6 +38,12 @@ class MainActivity : AppCompatActivity() {
     private var imageCapture: ImageCapture? = null
     private lateinit var outputDirectory: File
     private lateinit var cameraExecutor: ExecutorService
+    private var pixelX: Float = 0f
+    private var pixelY: Float = 0f
+    private var rotation: Int = 0
+
+    // 默认选择后置摄像头
+    private var cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,7 +114,7 @@ class MainActivity : AppCompatActivity() {
     // 2.相机准备
     private fun startCameraX() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
-        cameraProviderFuture.addListener(Runnable {
+        cameraProviderFuture.addListener({
             // 用于将摄像机的生命周期绑定到生命周期所有者
             val cameraProvider = cameraProviderFuture.get()
             // 预览
@@ -112,23 +123,32 @@ class MainActivity : AppCompatActivity() {
                 .also {
                     it.setSurfaceProvider(viewFinder.surfaceProvider)
                 }
-            // 初始化，供takePhoto()使用
-            imageCapture = ImageCapture.Builder().build()
+            // 初始化ImageCapture用例，供takePhoto()使用
+            imageCapture = ImageCapture.Builder()
+                .setFlashMode(ImageCapture.FLASH_MODE_AUTO)
+                .setTargetAspectRatio(AspectRatio.RATIO_4_3)
+                .setCaptureMode(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
+                .build()
+
+            setOrientationListener()
 
             // 在ImageAnalysis中实例化LuminosityAnalyzer的实例
-            val imageAnalyzer = ImageAnalysis.Builder().build().also {
-                it.setAnalyzer(cameraExecutor, LuminosityAnalyzer { luma ->
-                    Log.e(TAG, "startCameraX: $luma")
-                })
-            }
-
-            // 默认选择后置摄像头
-            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-
+            val imageAnalyzer = ImageAnalysis.Builder()
+                // 分辨率，最大支持1080p
+                .setTargetResolution(Size(1280, 720))
+                // 仅将最新图像传送到分析仪，并在到达图像时将其丢弃。
+                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                .build().also {
+                    it.setAnalyzer(cameraExecutor, LuminosityAnalyzer { luma ->
+                        //Log.e(TAG, "startCameraX: $luma")
+                    })
+                }
+//Face
+            android.hardware.Camera.FaceDetectionListener
             // 重新绑定之前取消绑定用例
             cameraProvider.unbindAll()
             // 将用例绑定到相机
-            cameraProvider.bindToLifecycle(
+            val camera = cameraProvider.bindToLifecycle(
                 this,
                 cameraSelector,
                 preview,
@@ -136,7 +156,56 @@ class MainActivity : AppCompatActivity() {
                 imageAnalyzer
             )
 
+            setPointAutoFocus(camera)
+
+            camera_choose.setOnClickListener {
+                when (cameraSelector) {
+                    CameraSelector.DEFAULT_BACK_CAMERA -> {
+                        cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
+                        camera_choose.text = "Back"
+                    }
+                    CameraSelector.DEFAULT_FRONT_CAMERA -> {
+                        cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+                        camera_choose.text = "front"
+                    }
+                }
+            }
+
         }, ContextCompat.getMainExecutor(this))
+    }
+
+    private fun setOrientationListener() {
+        var orientationEventListener: OrientationEventListener = object :
+            OrientationEventListener(baseContext) {
+            override fun onOrientationChanged(orientation: Int) {
+                rotation = when (orientation) {
+                    in 45..134 -> Surface.ROTATION_270
+                    in 135..224 -> Surface.ROTATION_180
+                    in 225..314 -> Surface.ROTATION_90
+                    else -> Surface.ROTATION_0
+                }
+                Log.e(TAG, "onOrientationChanged: $rotation")
+                imageCapture?.targetRotation = rotation
+            }
+        }
+        orientationEventListener.enable()
+    }
+
+    // 设置点按自动对焦
+    private fun setPointAutoFocus(camera: Camera) {
+        val cameraControl = camera.cameraControl
+        val factory = SurfaceOrientedMeteringPointFactory(1080f, 1920f)
+        val point = factory.createPoint(pixelX, pixelY)
+        // val point2 = factory.createPoint(500f, 900f)
+        val action = FocusMeteringAction.Builder(point, FocusMeteringAction.FLAG_AF)
+            //.addPoint(point2, FocusMeteringAction.FLAG_AF)
+            .setAutoCancelDuration(5, TimeUnit.SECONDS)
+            .build()
+        val future = cameraControl.startFocusAndMetering(action)
+        future.addListener(Runnable {
+            val get = future.get()
+            Log.e(TAG, "startCameraX isFocusSuccessful is : " + get.isFocusSuccessful)
+        }, cameraExecutor)
     }
 
     private fun allPermissionGranted() = REQUIRED_PERMISSIONS.all {
@@ -150,6 +219,7 @@ class MainActivity : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CODE_PERMISSION) {
             if (allPermissionGranted()) {
                 startCameraX()
@@ -190,4 +260,31 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        when (event?.action) {
+
+            // 点击的开始位置
+            MotionEvent.ACTION_DOWN -> {
+                pixelX = event.x
+                pixelY = event.y
+            }
+
+            // 触屏实时(滑动)位置
+            MotionEvent.ACTION_MOVE -> {
+                pixelX = event.x
+                pixelY = event.y
+            }
+
+            // 离开屏幕的位置
+            MotionEvent.ACTION_UP -> {
+                pixelX = event.x
+                pixelY = event.y
+            }
+        }
+
+        return true
+    }
+
+
 }
