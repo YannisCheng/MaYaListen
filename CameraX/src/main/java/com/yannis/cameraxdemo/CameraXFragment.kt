@@ -1,13 +1,17 @@
 package com.yannis.cameraxdemo
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.hardware.display.DisplayManager
+import android.net.Uri
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -18,10 +22,17 @@ import androidx.camera.view.PreviewView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.blankj.utilcode.util.ToastUtils
 import kotlinx.android.synthetic.main.fragment_camera_x.*
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
+import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 
 
 private const val TAG = "CameraX"
@@ -36,6 +47,9 @@ private val PERMISSIONS_REQUIRED = arrayOf(Manifest.permission.CAMERA)
  */
 class CameraXFragment : Fragment() {
 
+    private var isOpenFlashMode: Boolean = false
+
+    //- - - - -
     private lateinit var container: ConstraintLayout
     private lateinit var viewFinder: PreviewView
 
@@ -78,6 +92,12 @@ class CameraXFragment : Fragment() {
         fun hasPermissions(context: Context) = PERMISSIONS_REQUIRED.all {
             ContextCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
         }
+
+        private const val TAG = "CameraXBasic"
+        private const val FILENAME = "yyyy-MM-dd-HH-mm-ss-SSS"
+        private const val PHOTO_EXTENSION = ".jpg"
+        private const val RATIO_4_3_VALUE = 4.0 / 3.0
+        private const val RATIO_16_9_VALUE = 16.0 / 9.0
     }
 
     private fun getOutputFile(): File {
@@ -130,6 +150,10 @@ class CameraXFragment : Fragment() {
         updateSwitchCameraButton()
     }
 
+    override fun onPause() {
+        super.onPause()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
     }
@@ -177,11 +201,32 @@ class CameraXFragment : Fragment() {
 
     private fun bindCameraUseCase() {
 
-        preview = Preview.Builder().build()
+        // 获取用于设置摄像头以实现全屏分辨率的屏幕指标
+        val metrics = DisplayMetrics().also {
+            viewFinder.display.getRealMetrics(it)
+        }
+        val screenAspectRatio = aspectRatio(metrics.widthPixels, metrics.heightPixels)
+        val rotation = viewFinder.display.rotation
+        Log.e(TAG, "Screen matrics ${metrics.widthPixels} x ${metrics.heightPixels}")
+        Log.d(TAG, "Preview aspect ratio: $screenAspectRatio")
+        Log.e(TAG, "rotation: $rotation")
 
-        imageCapture = ImageCapture.Builder().build()
+        preview = Preview.Builder()
+            .setTargetAspectRatio(screenAspectRatio)
+            .setTargetRotation(rotation)
+            .build()
 
-        imageAnalysis = ImageAnalysis.Builder().build()
+        imageCapture = ImageCapture.Builder()
+            // 拍摄模式最小化延迟
+            .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+            //我们要求宽高比，但没有分辨率以匹配预览配置，但是CameraX可以针对最适合我们用例的特定分辨率进行优化
+            .setTargetAspectRatio(screenAspectRatio)
+            // 设置初始目标旋转，如果在此用例的生命周期内旋转发生变化，我们将不得不再次调用它
+            .setTargetRotation(rotation)
+            .build()
+
+        imageAnalysis = ImageAnalysis.Builder()
+            .build()
 
         val cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
         cameraProvider.unbindAll()
@@ -193,6 +238,39 @@ class CameraXFragment : Fragment() {
             imageAnalysis
         )
         preview.setSurfaceProvider(viewFinder.surfaceProvider)
+        pointFocusByHand(metrics)
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun pointFocusByHand(metrics: DisplayMetrics) {
+        viewFinder.setOnTouchListener { v, event ->
+            when (event?.action) {
+                MotionEvent.ACTION_DOWN -> {
+
+                    val factory = SurfaceOrientedMeteringPointFactory(
+                        metrics.widthPixels.toFloat(),
+                        metrics.heightPixels.toFloat()
+                    )
+                    val point = factory.createPoint(event.x, event.y)
+                    val action = FocusMeteringAction.Builder(point, FocusMeteringAction.FLAG_AF)
+                        .addPoint(point, FocusMeteringAction.FLAG_AWB)
+                        .setAutoCancelDuration(3, TimeUnit.SECONDS)
+                        .build()
+
+                    val future = camera.cameraControl.startFocusAndMetering(action)
+                    future.addListener({
+                        val result = future.get()
+                        if (result.isFocusSuccessful) {
+                            Log.e(TAG, "onTouch: true")
+                        } else {
+                            Log.e(TAG, "onTouch: false")
+                        }
+
+                    }, ContextCompat.getMainExecutor(requireContext()))
+                }
+            }
+            true
+        }
     }
 
     private fun updateSwitchCameraButton() {
@@ -212,6 +290,15 @@ class CameraXFragment : Fragment() {
         return cameraProvider.hasCamera(CameraSelector.DEFAULT_BACK_CAMERA)
     }
 
+    //通过将预览比率的绝对值计数为提供的值之一，来检测@params中提供的尺寸的最合适比率。
+    private fun aspectRatio(width: Int, height: Int): Int {
+        val previewRatio = max(width, height).toDouble() / min(width, height)
+        return if (abs(previewRatio - AspectRatio.RATIO_4_3) <= abs(previewRatio - AspectRatio.RATIO_16_9))
+            AspectRatio.RATIO_4_3
+        else
+            AspectRatio.RATIO_16_9
+    }
+
     private fun updateCameraUI() {
 
         camera_switch.let {
@@ -224,6 +311,52 @@ class CameraXFragment : Fragment() {
                 bindCameraUseCase()
             }
         }
+
+        camera_flash.setOnClickListener {
+            if (isOpenFlashMode) {
+                isOpenFlashMode = false
+                camera.cameraControl.enableTorch(false)
+            } else {
+                isOpenFlashMode = true
+                camera.cameraControl.enableTorch(true)
+            }
+        }
+
+        take_photo.setOnClickListener {
+
+            val photoFile = File(
+                getOutputFile(),
+                SimpleDateFormat(
+                    FILENAME,
+                    Locale.CHINA
+                ).format(System.currentTimeMillis()) + PHOTO_EXTENSION
+            )
+
+            val metadata = ImageCapture.Metadata().apply {
+                isReversedHorizontal = lensFacing == CameraSelector.LENS_FACING_FRONT
+            }
+
+            val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile)
+                .setMetadata(metadata)
+                .build()
+
+            imageCapture.flashMode = ImageCapture.FLASH_MODE_AUTO
+            imageCapture.takePicture(
+                outputOptions,
+                cameraExecutor,
+                object : ImageCapture.OnImageSavedCallback {
+                    override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                        val resultUri = outputFileResults.savedUri ?: Uri.fromFile(photoFile)
+                        ToastUtils.showShort("保存成功，路径为：$resultUri")
+                    }
+
+                    override fun onError(exception: ImageCaptureException) {
+                        ToastUtils.showShort("保存失败：${exception.toString()}")
+                    }
+
+                })
+        }
     }
+
 
 }
