@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.yannis.cameraxdemo.utils.FLAGS_FULLSCREEN
 import kotlinx.android.synthetic.main.activity_main_camerax.*
-import java.io.File
 
 const val KEY_EVENT_ACTION = "key_event_action"
 const val KEY_EVENT_EXTRA = "key_event_extra"
@@ -21,12 +20,10 @@ private const val IMMERSIVE_FLAG_TIMEOUT = 500L
  */
 class CameraXActivity : AppCompatActivity() {
 
-    var outputFile: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_camerax)
-
 
         // 在设置全屏标志之前，我们必须稍等片刻以让UI稳定下来；
         // 否则，我们可能会尝试将应用设置为沉浸式模式，然后再准备就绪且标志不会黏住
@@ -34,8 +31,10 @@ class CameraXActivity : AppCompatActivity() {
             { fragment_container.systemUiVisibility = FLAGS_FULLSCREEN },
             IMMERSIVE_FLAG_TIMEOUT
         )
-        supportFragmentManager.beginTransaction()
+        supportFragmentManager
+            .beginTransaction()
             .replace(R.id.fragment_container, CameraXFragment.newInstance())
+            .commit()
     }
 
     /**

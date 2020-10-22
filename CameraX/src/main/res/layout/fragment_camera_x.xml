@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/constraint"
     tools:context=".MainActivity">
 
     <Button
@@ -19,7 +20,7 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/camera_choose"
+        android:id="@+id/camera_switch"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginLeft="12dp"
@@ -52,7 +53,7 @@
         android:scaleType="fitCenter"
         android:text="闪光灯"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/camera_choose" />
+        app:layout_constraintLeft_toRightOf="@id/camera_switch" />
 
     <TextView
         android:id="@+id/tv_orientation"

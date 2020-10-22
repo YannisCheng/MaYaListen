@@ -144,7 +144,6 @@ class MainActivity : AppCompatActivity() {
                     })
                 }
 //Face
-            android.hardware.Camera.FaceDetectionListener
             // 重新绑定之前取消绑定用例
             cameraProvider.unbindAll()
             // 将用例绑定到相机
