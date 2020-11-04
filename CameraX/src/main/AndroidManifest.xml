@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yannis.cameraxdemo">
-    <!--添加android.hardware.camera.any可以确保设备具有摄像头。
-    指定.any表示它可以是前置摄像头或后置摄像头-->
+    <!--
+    添加android.hardware.camera.any可以确保设备具有摄像头。
+    指定.any表示它可以是前置摄像头或后置摄像头
+    -->
     <uses-feature android:name="android.hardware.camera.any" />
+
     <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CameraXActivity">
+        <!--<activity android:name=".GestureTouchSimpleActivity"/>-->
+        <!--<activity android:name=".CameraXActivity">-->
+        <activity android:name=".GestureTouchSimpleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

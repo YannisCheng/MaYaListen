@@ -10,10 +10,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import android.widget.Toast
 import androidx.camera.core.*
@@ -29,13 +26,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
 
-private const val TAG = "CameraX"
+private const val DEBUG_TAG = "CameraX"
 private const val PERMISSIONS_REQUEST_CODE = 10
 private val PERMISSIONS_REQUIRED = arrayOf(Manifest.permission.CAMERA)
 
@@ -45,7 +41,8 @@ private val PERMISSIONS_REQUIRED = arrayOf(Manifest.permission.CAMERA)
  * @author  yannischeng  cwj1714@163.com
  * @date    2020/10/21 - 13:59
  */
-class CameraXFragment : Fragment() {
+class CameraXFragment : Fragment(), GestureDetector.OnGestureListener,
+    GestureDetector.OnDoubleTapListener {
 
     private var isOpenFlashMode: Boolean = false
 
@@ -243,7 +240,7 @@ class CameraXFragment : Fragment() {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun pointFocusByHand(metrics: DisplayMetrics) {
-        viewFinder.setOnTouchListener { v, event ->
+        /*viewFinder.setOnTouchListener { v, event ->
             when (event?.action) {
                 MotionEvent.ACTION_DOWN -> {
 
@@ -270,7 +267,7 @@ class CameraXFragment : Fragment() {
                 }
             }
             true
-        }
+        }*/
     }
 
     private fun updateSwitchCameraButton() {
@@ -356,6 +353,60 @@ class CameraXFragment : Fragment() {
 
                 })
         }
+    }
+
+
+    override fun onDown(event: MotionEvent?): Boolean {
+        Log.e(DEBUG_TAG, "onDown: $event")
+        return true
+    }
+
+    override fun onShowPress(e: MotionEvent?) {
+        Log.e(DEBUG_TAG, "onShowPress: $e")
+    }
+
+    override fun onSingleTapUp(e: MotionEvent?): Boolean {
+        Log.e(DEBUG_TAG, "onSingleTapUp: $e")
+        return true
+    }
+
+    override fun onScroll(
+        e1: MotionEvent?,
+        e2: MotionEvent?,
+        distanceX: Float,
+        distanceY: Float
+    ): Boolean {
+        Log.e(DEBUG_TAG, "onScroll: $e1 $e2")
+        return true
+    }
+
+    override fun onLongPress(e: MotionEvent?) {
+        Log.e(DEBUG_TAG, "onLongPress: $e")
+    }
+
+    override fun onFling(
+        e1: MotionEvent?,
+        e2: MotionEvent?,
+        velocityX: Float,
+        velocityY: Float
+    ): Boolean {
+        Log.e(DEBUG_TAG, "onFling: $e1 $e2")
+        return true
+    }
+
+    override fun onSingleTapConfirmed(event: MotionEvent?): Boolean {
+        Log.e(DEBUG_TAG, "onSingleTapConfirmed: $event")
+        return true
+    }
+
+    override fun onDoubleTap(e: MotionEvent?): Boolean {
+        Log.e(DEBUG_TAG, "onDoubleTap: $e")
+        return true
+    }
+
+    override fun onDoubleTapEvent(e: MotionEvent?): Boolean {
+        Log.e(DEBUG_TAG, "onDoubleTapEvent: $e")
+        return true
     }
 
 
