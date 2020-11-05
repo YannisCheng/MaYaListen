@@ -5,6 +5,30 @@ ijkplayer底层是基于FFplay的，FFplay是FFmpeg项目提供的播放器示�
 因此要分析ijkplayer的底层处理流程首先需要了解ffplay的代码处理流程。
 ijkplayer在底层重写了ffplay.c文件。其中去除了ffplay中使用"sdl音视频库"播放音视频的部分；增加了对移动端的硬件解码部分、视频渲染部分、音频播放的部分实现，其中ijkplayer不支持硬件音频解码。
 
+ijkplayer项目文件目录：
+  .
+ ├── android    -android平台上的上层接口封装以及平台相关方法
+ │   ├── contrib
+ │   ├── ijkplayer
+ │   └── patches
+ ├── config     -编译ffmpeg使用的配置文件
+ ├── doc
+ ├── extra  -存放编译ijkplayer所需的依赖源文件, 如ffmpeg、openssl等
+ │   ├── ffmpeg
+ │   ├── libyuv
+ │   ├── openssl
+ │   └── soundtouch
+ ├── ijkmedia   -核心代码
+ │   ├── ijkj4a     -android平台下使用，用来实现c代码调用java层代码，这个文件夹是通过bilibili的另一个开源项目jni4android自动生成的。
+ │   ├── ijkplayer      -播放器数据下载及解码相关
+ │   ├── ijksdl     -音视频数据渲染相关
+ │   ├── ijksoundtouch
+ │   └── ijkyuv
+ ├── ijkprof
+ │   └── android-ndk-profiler-dummy
+ ├── ios    -iOS平台上的上层接口封装以及平台相关方法
+ └── tools    -初始化项目工程脚本
+     └── copyrighter
 - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
