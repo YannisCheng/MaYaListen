@@ -1,11 +1,16 @@
 
+# ijkplayer-android项目
+
+## 项目框架整体认识
+
+### 概述
 [Ijkplayer-Android项目框架](https://blog.csdn.net/weixin_39799839/article/details/79186034?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.pc_relevant_is_cache&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.pc_relevant_is_cache)
 
 ijkplayer底层是基于FFplay的，FFplay是FFmpeg项目提供的播放器示例。
 因此要分析ijkplayer的底层处理流程首先需要了解ffplay的代码处理流程。
 ijkplayer在底层重写了ffplay.c文件。其中去除了ffplay中使用"sdl音视频库"播放音视频的部分；增加了对移动端的硬件解码部分、视频渲染部分、音频播放的部分实现，其中ijkplayer不支持硬件音频解码。
 
-ijkplayer项目文件目录：
+### ijkplayer-android项目文件目录：
   .
  ├── android    -android平台上的上层接口封装以及平台相关方法
  │   ├── contrib
@@ -31,6 +36,7 @@ ijkplayer项目文件目录：
      └── copyrighter
 - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+### 项目使用主要入口文件
 
   IjkPlayer从使用角度上主要有五个文件分别是:
   
@@ -58,6 +64,34 @@ ijkplayer项目文件目录：
   
   [AndroidMediaPlayer](https://github.com/bilibili/ijkplayer/blob/master/android/ijkplayer/ijkplayer-java/src/main/java/tv/danmaku/ijk/media/player/AndroidMediaPlayer.java)
   继承AbstractMediaPlayer，使用Android系统的编解码对视屏进行操作。
+  
+ ### ijkplayer播放器初始化
+ 
+ 初始化入口方法：IjkMediaPlayer#initPlayer()
+ 
+     private void initPlayer(IjkLibLoader libLoader) {
+         // 加载本地库：ijkffmpeg、ijksdl、ijkplayer
+         loadLibrariesOnce(libLoader);
+         // 在此方法中调用 native方法 native_init()，初始化已加载的本地库。
+         initNativeOnce();
+         
+         // 通过Android平台的Handler处理Looper中遍历由native发送的指定消息（message）
+         Looper looper;
+         if ((looper = Looper.myLooper()) != null) {
+             mEventHandler = new EventHandler(this, looper);
+         } else if ((looper = Looper.getMainLooper()) != null) {
+             mEventHandler = new EventHandler(this, looper);
+         } else {
+             mEventHandler = null;
+         }
+ 
+         /*
+          * Native setup requires a weak reference to our object. It's easier to
+          * create it here than in C++.
+          * 本机设置需要对我们的对象的弱引用。 在这里创建它比在C ++中更容易。
+          */
+         native_setup(new WeakReference<IjkMediaPlayer>(this));
+     }
   
   
   
