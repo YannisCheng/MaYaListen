@@ -37,7 +37,7 @@ ijkplayer在底层重写了ffplay.c文件。其中去除了ffplay中使用"sdl�
      └── copyrighter
 ```
 
-- - - - - - - - - - - - - - - - - - - - - - - - - -
+- - -
 
 ### 项目使用主要入口文件
 
@@ -57,7 +57,7 @@ ijkplayer在底层重写了ffplay.c文件。其中去除了ffplay中使用"sdl�
   - IjkMediaPlayer是使用ijkplayer底层库处理视频
  
   
-  - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - -
   
   [IMediaPlayer 接口](https://github.com/bilibili/ijkplayer/blob/master/android/ijkplayer/ijkplayer-java/src/main/java/tv/danmaku/ijk/media/player/IMediaPlayer.java)
   定义了一个播放器的类应该需要实现的基础功能的接口，所以播放视屏的功能函数在这里都能找到。
