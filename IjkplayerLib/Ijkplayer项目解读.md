@@ -11,7 +11,8 @@ ijkplayer底层是基于FFplay的，FFplay是FFmpeg项目提供的播放器示�
 ijkplayer在底层重写了ffplay.c文件。其中去除了ffplay中使用"sdl音视频库"播放音视频的部分；增加了对移动端的硬件解码部分、视频渲染部分、音频播放的部分实现，其中ijkplayer不支持硬件音频解码。
 
 ### ijkplayer-android项目文件目录：
-  .
+
+```
  ├── android    -android平台上的上层接口封装以及平台相关方法
  │   ├── contrib
  │   ├── ijkplayer
@@ -34,6 +35,8 @@ ijkplayer在底层重写了ffplay.c文件。其中去除了ffplay中使用"sdl�
  ├── ios    -iOS平台上的上层接口封装以及平台相关方法
  └── tools    -初始化项目工程脚本
      └── copyrighter
+```
+
 - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 ### 项目使用主要入口文件
@@ -68,7 +71,8 @@ ijkplayer在底层重写了ffplay.c文件。其中去除了ffplay中使用"sdl�
  ### ijkplayer播放器初始化
  
  初始化入口方法：IjkMediaPlayer#initPlayer()
- 
+
+ ```
      private void initPlayer(IjkLibLoader libLoader) {
          // 加载本地库：ijkffmpeg、ijksdl、ijkplayer
          loadLibrariesOnce(libLoader);
@@ -92,6 +96,6 @@ ijkplayer在底层重写了ffplay.c文件。其中去除了ffplay中使用"sdl�
           */
          native_setup(new WeakReference<IjkMediaPlayer>(this));
      }
-  
+ ```
   
   
