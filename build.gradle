@@ -59,6 +59,10 @@ buildscript {
         skeletonVersion = "1.1.2"
         skeletonShimmerlayoutVersion = "2.1.0"
         flexboxVersion = "2.0.1"
+        // media
+        androidx_media_version = '1.2.0'
+        // exoplayer
+        exoplayer_version = '2.11.5'
     }
 
     repositories {

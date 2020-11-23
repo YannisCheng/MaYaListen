@@ -27,5 +27,9 @@ android {
 dependencies {
     api project(path: ':BaseLib')
     implementation fileTree(dir: "libs", include: ["*.jar"])
-
+    api "androidx.media:media:$androidx_media_version"
+    api "com.google.android.exoplayer:exoplayer-core:$exoplayer_version"
+    api "com.google.android.exoplayer:exoplayer-ui:$exoplayer_version"
+    api "com.google.android.exoplayer:extension-mediasession:$exoplayer_version"
+    api "com.google.android.exoplayer:extension-cast:$exoplayer_version"
 }
