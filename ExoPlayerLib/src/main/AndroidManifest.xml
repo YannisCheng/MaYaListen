@@ -1,4 +1,9 @@
-<manifest package="com.cwj.exoplayerlib">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cwj.exoplayerlib">
 
-    /
+    <application>
+        <activity android:name=".MediaRootActivity" />
+    </application>
+
 </manifest>

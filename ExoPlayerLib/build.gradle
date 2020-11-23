@@ -3,11 +3,17 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
+
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        minSdkVersion 22
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -25,8 +31,11 @@ android {
 }
 
 dependencies {
-    api project(path: ':BaseLib')
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    api project(path: ':BaseLib')
+    // 文件处理
+    api project(path: ':FileDownloadLib')
     api "androidx.media:media:$androidx_media_version"
     api "com.google.android.exoplayer:exoplayer-core:$exoplayer_version"
     api "com.google.android.exoplayer:exoplayer-ui:$exoplayer_version"

@@ -28,9 +28,9 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar","*.aar"])
+    //implementation fileTree(dir: "libs", include: ["*.jar","*.aar"])
     // 播放器java
     api 'com.yannis:ijkplyer_cwj:0.0.8@aar'
     // 文件处理
-    //api project(path: ':FileDownloadLib')
+    api project(path: ':FileDownloadLib')
 }

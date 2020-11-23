@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.cwj.exoplayerlib.MediaRootActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.yannis.baselib.base.BaseActivity
 import com.yannis.ijkplayerlib.ui.IjkPlayerActivity
@@ -115,6 +116,10 @@ class MainActivity : BaseActivity<AggregateRankFirstPageVM, ActivityMainBinding>
             //TestCaseActivity.start(this)
 
             IjkPlayerActivity.start(this)
+        }
+
+        binding.ivCook.setOnClickListener {
+            MediaRootActivity.start(this)
         }
     }
 

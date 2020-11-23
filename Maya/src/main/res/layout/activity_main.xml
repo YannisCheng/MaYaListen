@@ -49,6 +49,17 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:id="@+id/iv_cook"
+                android:layout_width="140px"
+                android:layout_height="140px"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16px"
+                android:layout_toLeftOf="@id/iv_share"
+                android:padding="34px"
+                android:src="@drawable/baseline_accessible_forward_black_24dp"
+                android:tint="@color/maya_color_black_text_main" />
+
+            <ImageView
                 android:id="@+id/iv_share"
                 android:layout_width="140px"
                 android:layout_height="140px"
