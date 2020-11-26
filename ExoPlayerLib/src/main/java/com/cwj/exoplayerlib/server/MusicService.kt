@@ -55,3 +55,19 @@ class MusicService : MediaBrowserServiceCompat() {
         super.onDestroy()
     }
 }
+
+/*
+ * (Media) Session events
+ */
+const val NETWORK_FAILURE = "com.example.android.uamp.media.session.NETWORK_FAILURE"
+
+/** Content styling constants */
+private const val CONTENT_STYLE_BROWSABLE_HINT = "android.media.browse.CONTENT_STYLE_BROWSABLE_HINT"
+private const val CONTENT_STYLE_PLAYABLE_HINT = "android.media.browse.CONTENT_STYLE_PLAYABLE_HINT"
+private const val CONTENT_STYLE_SUPPORTED = "android.media.browse.CONTENT_STYLE_SUPPORTED"
+private const val CONTENT_STYLE_LIST = 1
+private const val CONTENT_STYLE_GRID = 2
+
+private const val UAMP_USER_AGENT = "uamp.next"
+
+val MEDIA_DESCRIPTION_EXTRAS_START_PLAYBACK_POSITION_MS = "playback_start_position_ms"

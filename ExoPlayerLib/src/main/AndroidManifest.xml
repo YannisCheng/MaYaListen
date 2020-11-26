@@ -4,7 +4,7 @@
 
     <application>
         <service
-            android:name=".server.AudioPlayerService"
+            android:name=".server.MusicService"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -13,6 +13,11 @@
         </service>
 
         <activity android:name=".MediaRootActivity" />
+
+        <provider
+            android:name=".library.AlbumArtContentProvider"
+            android:authorities="com.example.android.uamp.media.library.provider"
+            android:exported="false" />
     </application>
 
 </manifest>
