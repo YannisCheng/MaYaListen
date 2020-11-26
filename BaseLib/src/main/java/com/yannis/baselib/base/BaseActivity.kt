@@ -38,6 +38,7 @@ import com.yannis.baselib.widget.LoadingDialog
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/6/8
  */
+private const val TAG = "BaseActivity"
 abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatActivity() {
     private val PERMISSION_REQUEST: Int = 1001
 
@@ -191,8 +192,15 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
     private fun initBinding() {
         val inflater = DataBindingUtil.inflate<VDB>(layoutInflater, getLayoutId(), null, false)
         if (ViewModel::class.java != setBindViewModel()) {
-            viewModel = ViewModelProvider(this)[setBindViewModel()]
-            // -- databinding --
+            setBindViewModel()?.let {
+                try {
+                    // ViewMode::class.java 不为null的情况下调用
+                    viewModel = ViewModelProvider(this)[it]
+                } catch (e: RuntimeException) {
+                    Log.e(TAG, "ViewModel class not allow null !! ")
+                }
+            }
+            // -- databinding 在xml界面中直接赋值--
             //inflater.setVariable(BR.itemMode, viewModel)
             setVariables(inflater)
             inflater.lifecycleOwner = this
@@ -208,7 +216,7 @@ abstract class BaseActivity<VM : ViewModel, VDB : ViewDataBinding> : AppCompatAc
      */
     fun setVariables(inflater: VDB) {}
 
-    abstract fun setBindViewModel(): Class<VM>
+    abstract fun setBindViewModel(): Class<VM>?
 
     /**
      * 初始化view布局

@@ -1,0 +1,109 @@
+package com.cwj.exoplayerlib.history
+
+import android.app.Service
+import android.content.Intent
+import android.os.Bundle
+import android.os.IBinder
+import android.support.v4.media.MediaBrowserCompat
+import android.support.v4.media.session.MediaControllerCompat
+import android.support.v4.media.session.MediaSessionCompat
+import android.support.v4.media.session.PlaybackStateCompat
+import androidx.media.MediaBrowserServiceCompat
+
+/**
+ * AudioPlayerService  音频播放器后台服务
+ *
+ * @author  wenjia.Cheng  cwj1714@163.com
+ * @date    2020/11/24 14:15
+*/
+private const val MY_MEDIA_ROOT_ID = "media_root_id"
+private const val MY_EMPTY_MEDIA_ROOT_ID = "empty_root_id"
+private const val TAG = "AudioPlayerService"
+class AudioPlayerService : MediaBrowserServiceCompat() {
+
+    var mediaSession: MediaSessionCompat? = null
+    private lateinit var stateBuilder: PlaybackStateCompat.Builder
+    lateinit var controller: MediaControllerCompat
+
+    override fun onCreate() {
+        super.onCreate()
+        // 创建媒体会话器
+        mediaSession = MediaSessionCompat(this,TAG).apply {
+            // 启用来自MediaButtons和TransportControls的回调
+            setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS
+                    or MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS)
+
+            // 使用ACTION_PLAY设置初始PlaybackState，以便媒体按钮可以启动播放器
+            stateBuilder = PlaybackStateCompat.Builder().setActions(
+                PlaybackStateCompat.ACTION_PLAY or PlaybackStateCompat.ACTION_PLAY_PAUSE
+            )
+            setPlaybackState(stateBuilder.build())
+
+            // MySessionCallback（）具有处理来自媒体控制器的回调的方法
+            setCallback(object :MediaSessionCompat.Callback() {
+                override fun onPlay() {
+                    super.onPlay()
+                    // Get the session's metadata
+                    val mediaMetadata = controller.metadata
+                    val description = mediaMetadata.description
+                }
+            })
+
+            // 设置会话的令牌，以便客​​户端活动可以与其进行通信。
+            setSessionToken(sessionToken)
+        }
+        controller = mediaSession!!.controller
+    }
+
+
+    /**
+     * 管理客户端连接，处理客户端连接方法2 - 传达内容：使客户端能够构建和显示 内容层次结构菜单
+     */
+    override fun onLoadChildren(
+        parentId: String,
+        result: Result<MutableList<MediaBrowserCompat.MediaItem>>
+    ) {
+        if (MY_EMPTY_MEDIA_ROOT_ID == parentId) {
+            result.sendResult(null)
+            return
+        }
+
+        // 假设音乐目录已经 被加载/缓存。
+        val mediaItems = emptyList<MediaBrowserCompat.MediaItem>()
+
+        // 检查这是否是根菜单
+        if (MY_MEDIA_ROOT_ID == parentId) {
+            // 为顶层构建MediaItem对象
+        } else {
+            // 检查传递的parentMediaId以查看我们在哪个子菜单中
+        }
+
+        result.sendResult(mediaItems as MutableList<MediaBrowserCompat.MediaItem>?)
+    }
+
+    /**
+     * 管理客户端连接，处理客户端连接方法1 - 控制对服务的访问层级
+     * 返回内容层次结构的根节点。如果该方法返回 null，则会拒绝连接
+     * onGetRoot() 必须返回非 null 的 BrowserRoot，这是代表您的内容层次结构的根 ID。
+     * 用户身份验证和其他运行缓慢的进程不应在 onGetRoot() 中运行。大多数业务逻辑应该在 onLoadChildren() 方法中处理
+     */
+    override fun onGetRoot(
+        clientPackageName: String,
+        clientUid: Int,
+        rootHints: Bundle?
+    ): BrowserRoot? {
+        // （可选）控制指定程序包名称的访问级别
+        // 您需要编写自己的逻辑来执行此操作
+        return if (allowBrowsing(clientPackageName, clientUid)) {
+            // 返回客户端可以与onLoadChildren（）一起使用内容层次结构的根ID。
+            BrowserRoot(MY_MEDIA_ROOT_ID, null)
+        } else {
+            // 客户端可以连接，但是此BrowserRoot是一个空的层次结构, 因此onLoadChildren不返回任何内容。这将禁用浏览内容的功能。
+            BrowserRoot(MY_EMPTY_MEDIA_ROOT_ID, null)
+        }
+    }
+
+    override fun onBind(intent: Intent): IBinder {
+        TODO("Return the communication channel to the service.")
+    }
+}

@@ -1,0 +1,319 @@
+package com.cwj.exoplayerlib
+
+import android.content.*
+import android.media.AudioAttributes
+import android.media.AudioFocusRequest
+import android.media.AudioManager
+import android.media.AudioManager.ACTION_AUDIO_BECOMING_NOISY
+import android.os.Build
+import android.os.Handler
+import android.service.media.MediaBrowserService
+import android.support.v4.media.MediaBrowserCompat
+import android.support.v4.media.MediaMetadataCompat
+import android.support.v4.media.session.MediaControllerCompat
+import android.support.v4.media.session.MediaSessionCompat
+import android.support.v4.media.session.PlaybackStateCompat
+import android.util.Log
+import androidx.annotation.RequiresApi
+import androidx.core.app.ServiceCompat
+import androidx.core.app.ServiceCompat.stopForeground
+import com.amap.api.mapcore.util.id
+import com.cwj.exoplayerlib.databinding.MediaActivityRootBinding
+import com.cwj.exoplayerlib.model.MediaRootViewModel
+import com.cwj.exoplayerlib.server.AudioPlayerService
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.SimpleExoPlayer
+import com.yannis.baselib.base.BaseActivity
+import java.util.concurrent.TimeUnit
+
+/**
+ * MediaRootActivity  媒体播放测试页入口
+ *
+ * 数据使用接口：https://storage.googleapis.com/uamp/catalog.json
+ * @author  wenjia.Cheng  cwj1714@163.com
+ * @date    2020/11/24 14:15
+ */
+class MediaRootActivity : BaseActivity<MediaRootViewModel, MediaActivityRootBinding>() {
+
+    companion object {
+        @JvmStatic
+        fun start(context: Context) {
+            val starter = Intent(context, MediaRootActivity::class.java)
+            //.putExtra()
+            context.startActivity(starter)
+        }
+    }
+
+    // noisy 音频输出变化(耳机、内置音响)监听处理
+    private val intentFilter = IntentFilter(ACTION_AUDIO_BECOMING_NOISY)
+    private val myNoisyAudioStreamReceiver = BecomingNoisyReceiver()
+
+    // AudioFocus焦点
+    private lateinit var afChangerListener: AudioManager.OnAudioFocusChangeListener
+    private lateinit var audioFocusRequest: AudioFocusRequest
+
+    // 音频播放器后台服务
+    lateinit var service: AudioPlayerService
+
+    private lateinit var myPlayerNotification: MediaStyleNotification
+
+    private val playerListener = object : Player.EventListener {
+        override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
+            super.onPlayerStateChanged(playWhenReady, playbackState)
+            when (playbackState) {
+                Player.STATE_BUFFERING,
+                Player.STATE_READY -> {
+                    Log.e("TAG", "onPlayerStateChanged: 为通知栏设置player")
+                    if (Player.STATE_READY == playbackState) {
+                        // 播放/暂停状态
+
+                        if (!playWhenReady) {
+                            Log.e("TAG", "onPlayerStateChanged: 停止前台服务")
+                        }
+                    }
+                }
+                else -> {
+                    Log.e("TAG", "onPlayerStateChanged: 隐藏通知栏")
+                }
+            }
+        }
+    }
+
+    /**
+     * 播放器状态更改的侦听器
+     */
+    private val player: ExoPlayer by lazy {
+        SimpleExoPlayer.Builder(this).build().apply {
+            setAudioAttributes(uAmpAudioAttributes, true)
+            setHandleAudioBecomingNoisy(true)
+            addListener(playerListener)
+        }
+    }
+
+
+    private lateinit var mediaBrowser: MediaBrowserCompat
+    private lateinit var mediaSession: MediaSessionCompat
+    private val handler = Handler()
+
+    /**
+     * 延迟了对永久性失去音频焦点的停止回调
+     */
+    private var delayedStopRunnable = Runnable {
+        mediaController.transportControls.stop()
+    }
+
+    /**
+     * 当音频输出切回到内置扬声器时，系统会发生此广播
+     */
+    private class BecomingNoisyReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent != null) {
+                if (intent.action == AudioManager.ACTION_AUDIO_BECOMING_NOISY) {
+                    // 暂停播放
+                }
+            }
+        }
+    }
+
+    private val callback = object : MediaSessionCompat.Callback() {
+        @RequiresApi(Build.VERSION_CODES.O)
+        override fun onPlay() {
+            super.onPlay()
+            // 确保在用户重新开始播放时不会触发延迟停止
+            handler.removeCallbacks(delayedStopRunnable)
+            val am = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+
+            // 响应音频焦点更改
+            afChangerListener = AudioManager.OnAudioFocusChangeListener { focusChange ->
+                when (focusChange) {
+                    AudioManager.AUDIOFOCUS_LOSS -> {
+                        /// 永久性失去音频焦点，则其他应用会播放音频。
+                        // 您的应用应立即暂停播放，因为它不会收到 AUDIOFOCUS_GAIN 回调。
+                        mediaController.transportControls.pause()
+                        // Wait 30 seconds before stopping playback
+                        handler.postDelayed(delayedStopRunnable, TimeUnit.SECONDS.toMillis(30))
+                    }
+                    AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> {
+                        // Pause playback
+                    }
+                    AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -> {
+                        // 焦点更改是暂时性的,您的应用应该降低音量或暂停播放，否则保持相同的状态。
+                    }
+                    AudioManager.AUDIOFOCUS_GAIN -> {
+                        // Your app has been granted audio focus again
+                        // Raise volume to normal, restart playback if necessary
+                        // 当抢占焦点的应用放弃焦点时,将音量恢复到正常水平或重新开始播放，必要时重新开始播放
+                    }
+                }
+            }
+
+            // Android 8.0(O)
+            // AudioFocusRequest包含有关应用的音频上下文和功能的信息。
+            // 系统使用这些信息来自动管理音频焦点的得到和失去。
+            audioFocusRequest = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN).run {
+                setOnAudioFocusChangeListener { afChangerListener }
+                // 描述了应用的用例。系统会在应用获得和失去音频焦点时查看这些属性。这些属性取代了音频流类型的概念。
+                setAudioAttributes(AudioAttributes.Builder().run {
+                    setUsage(AudioAttributes.USAGE_GAME)
+                    setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                    build()
+                })
+                build()
+            }
+
+            // 音频焦点处理 AudioFocus。在即将开始播放之前调用此方法
+            val result = am.requestAudioFocus(audioFocusRequest)
+            if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                // 开启服务
+                startService(Intent(this@MediaRootActivity, AudioPlayerService::class.java))
+                // 将会话设置为活动（并更新元数据和状态）
+                mediaSession.isActive = true
+                // 启动播放器（自定义player）
+                player.start()
+                // 注册BECOME_NOISY BroadcastReceiver
+                registerReceiver(myNoisyAudioStreamReceiver, intentFilter)
+                // 将服务放在前台，发布通知
+                service.startForeground(id, myPlayerNotification)
+            }
+        }
+
+        override fun onStop() {
+            super.onStop()
+            unregisterReceiver(myNoisyAudioStreamReceiver)
+        }
+
+
+    }
+
+    private val connectionCallbacks = object : MediaBrowserCompat.ConnectionCallback() {
+
+        override fun onConnected() {
+            super.onConnected()
+            mediaBrowser.sessionToken.also {
+                // 创建一个MediaControllerCompat
+                val mediaController = MediaControllerCompat(this@MediaRootActivity, it)
+                // 保存控制器,以便处理媒体按钮
+                MediaControllerCompat.setMediaController(this@MediaRootActivity, mediaController)
+            }
+            // 完成构建用户界面
+            buildTransportControls()
+        }
+
+        override fun onConnectionFailed() {
+            super.onConnectionFailed()
+            // 服务已拒绝我们的连接
+        }
+
+        override fun onConnectionSuspended() {
+            super.onConnectionSuspended()
+            // 服务已崩溃。禁用传输控件，直到它自动重新连接
+        }
+    }
+
+    private var controllerCallback = object : MediaControllerCompat.Callback() {
+        override fun onMetadataChanged(metadata: MediaMetadataCompat?) {
+            super.onMetadataChanged(metadata)
+        }
+
+        override fun onPlaybackStateChanged(state: PlaybackStateCompat?) {
+            super.onPlaybackStateChanged(state)
+        }
+
+    }
+
+    private fun buildTransportControls() {
+        val mediaController = MediaControllerCompat.getMediaController(this)
+        binding.playPause.setOnClickListener {
+            val pbState = mediaController.playbackState.state
+            if (pbState == PlaybackStateCompat.STATE_PLAYING) {
+                mediaController.transportControls.pause()
+            } else {
+                mediaController.transportControls.play()
+            }
+        }
+
+        val metadata = mediaController.metadata
+        val playbackState = mediaController.playbackState
+        mediaController.registerCallback(controllerCallback)
+    }
+
+    override fun dataToView() {
+
+    }
+
+    override fun setBindViewModel(): Class<MediaRootViewModel> {
+        return MediaRootViewModel::class.java
+    }
+
+    override fun initView() {
+        // 构造 MediaBrowserCompat
+        mediaBrowser = MediaBrowserCompat(
+            this,
+            ComponentName(this, AudioPlayerService::class.java),
+            connectionCallbacks,
+            null
+        )
+    }
+
+    /**
+     * 连接到 MediaBrowserService。
+     * 如果连接成功，onConnect() 回调会创建媒体控制器，将其链接到媒体会话，
+     * 将您的界面控件链接到 MediaController，并注册控制器以接收来自媒体会话的回调。
+     */
+    override fun onStart() {
+        super.onStart()
+        mediaBrowser.connect()
+    }
+
+    /**
+     * 设置音频流，以便您的应用响应设备上的"音乐"音量控制。
+     */
+    override fun onResume() {
+        val am = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        //Log.e("TAG", "onResume: ", am.isVolumeFixed)
+        super.onResume()
+        volumeControlStream = AudioManager.STREAM_MUSIC
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.media_activity_root
+    }
+
+    override fun onPause() {
+        super.onPause()
+        player.pause()
+        unregisterReceiver(myNoisyAudioStreamReceiver)
+        service.stopForeground(false)
+    }
+
+    /**
+     * 断开 MediaBrowser 的连接，并在 Activity 停止时取消注册 MediaController.Callback。
+     */
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onStop() {
+        super.onStop()
+        MediaControllerCompat.getMediaController(this)?.unregisterCallback(controllerCallback)
+        mediaBrowser.disconnect()
+        // ------
+        val am = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        // 放弃音频焦点
+        am.abandonAudioFocusRequest(audioFocusRequest)
+        unregisterReceiver(myNoisyAudioStreamReceiver)
+        service.stopSelf()
+        mediaSession.isActive = false
+        player.stop()
+        service.stopForeground(false)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(delayedStopRunnable)
+        player.removeListener(playerListener)
+        player.release()
+    }
+
+    override fun permissionOk() {
+
+    }
+}

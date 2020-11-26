@@ -44,3 +44,37 @@
 锁屏控件
 
 通知
+
+## UAMP项目解析：
+
+### Kotlin语法
+ - **函数：** [let、with、run、apply、also](https://www.jianshu.com/p/6e8d4912c576)
+ - **协程：**[Job和SupervisorJob](https://www.jianshu.com/p/95aa7d074150)、[suspend](https://blog.csdn.net/qq_39969226/article/details/101058033)
+ -  **延迟初始化：**[lateinit 和 by lazy](https://www.jianshu.com/p/e2cb4c65d4ff)
+
+
+### 主要概念及其实现
+- **MusicServiceConnection**
+  - MediaBrowserCompat；
+  - MediaBrowserCompat.ConnectionCallback（作为MediaBrowserCompat的构造参数）
+  - MediaControllerCompat（在MediaBrowserCompat.ConnectionCallback.onConnected()初始化）
+  - MediaControllerCompat.Callback()（作为MediaControllerCompat的注册回调的参数）
+  -  以及向外界提供各种连接状态通知
+
+```
+管理与MediaBrowserServiceCompat实例的连接的类，通常是MusicService或其子类之一。
+通常，最好使用DI或像UAMP一样在app模块中使用InjectorUtils来构造/注入依赖项。 这里有一些难点：
+
+1. MediaBrowserCompat是最终类，因此很难对其进行模拟。
+2. 一个MediaBrowserConnectionCallback是构造MediaBrowserCompat的参数成，并且提供回调此类。
+3. MediaBrowserCompat.ConnectionCallback.onConnected是构造MediaControllerCompat的最佳位置，该控件将用于控制MediaSessionCompat 。
+由于这些原因，而不是构造其他类，因此将其视为黑匣子（这就是为什么这里的逻辑很少）的原因。
+这也是为什么构造MusicServiceConnection的参数是简单参数而不是私有属性的原因。 仅需要它们来构建MediaBrowserConnectionCallback和MediaBrowserCompat对象。
+```
+
+- **MusicService : MediaBrowserServiceCompat**
+
+```
+此类是从APP的UI和希望通过UAMP播放音乐的其他应用（例如Android Auto或Google Assistant）浏览和播放命令的入口点。
+浏览从MusicService.onGetRoot方法开始，并在回调MusicService.onLoadChildren中继续。
+```
