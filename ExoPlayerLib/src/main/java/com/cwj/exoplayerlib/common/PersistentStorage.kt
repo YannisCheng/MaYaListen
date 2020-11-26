@@ -8,7 +8,6 @@ import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaDescriptionCompat
 import com.bumptech.glide.Glide
 import com.cwj.exoplayerlib.extensions.asAlbumArtContentUri
-import com.cwj.exoplayerlib.library.NOTIFICATION_LARGE_ICON_SIZE
 import com.cwj.exoplayerlib.server.MEDIA_DESCRIPTION_EXTRAS_START_PLAYBACK_POSITION_MS
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -58,7 +57,10 @@ class PersistentStorage private constructor(val context: Context) {
              * 相反，我们将iconUri转换为指向Glide磁盘缓存
              */
             val localIconUri = Glide.with(context).asFile().load(description.iconUri)
-                .submit(NOTIFICATION_LARGE_ICON_SIZE, NOTIFICATION_LARGE_ICON_SIZE).get()
+                .submit(
+                    NOTIFICATION_LARGE_ICON_SIZE,
+                    NOTIFICATION_LARGE_ICON_SIZE
+                ).get()
                 .asAlbumArtContentUri()
 
             preferences.edit()

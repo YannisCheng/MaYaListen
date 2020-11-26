@@ -12,7 +12,7 @@ import java.io.File
 /**
  * 含java.io.File类的扩展方法,返回AlbumArtContentProvider的Content Uri
  */
-private const val AUTHORITY = "com.cwj.exoplayerlib.library.AlbumArtContentProvider"
+private const val AUTHORITY = "com.cwj.exoplayerlib.source.AlbumArtContentProvider"
 fun File.asAlbumArtContentUri(): Uri {
     return Uri.Builder()
         .scheme(ContentResolver.SCHEME_CONTENT)

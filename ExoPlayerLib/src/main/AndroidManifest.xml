@@ -15,8 +15,8 @@
         <activity android:name=".MediaRootActivity" />
 
         <provider
-            android:name=".library.AlbumArtContentProvider"
-            android:authorities="com.example.android.uamp.media.library.provider"
+            android:name=".source.AlbumArtContentProvider"
+            android:authorities="com.cwj.exoplayerlib.source.provider"
             android:exported="false" />
     </application>
 

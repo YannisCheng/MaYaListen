@@ -1,4 +1,4 @@
-package com.cwj.exoplayerlib.library
+package com.cwj.exoplayerlib.source
 
 import android.content.ContentProvider
 import android.content.ContentValues

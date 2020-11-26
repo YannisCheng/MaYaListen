@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cwj.exoplayerlib.library
+package com.cwj.exoplayerlib.source
 
 import android.content.Context
 import android.support.v4.media.MediaBrowserCompat

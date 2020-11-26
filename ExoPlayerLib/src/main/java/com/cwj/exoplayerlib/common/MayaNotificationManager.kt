@@ -1,16 +1,18 @@
-package com.cwj.exoplayerlib.library
+package com.cwj.exoplayerlib.common
 
 import android.app.PendingIntent
 import android.content.Context
 import android.graphics.Bitmap
+import android.net.Uri
 import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.MediaSessionCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.cwj.exoplayerlib.R
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ui.PlayerNotificationManager
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.*
 
 /**
  * MayaNotificationManager
@@ -54,29 +56,6 @@ class MayaNotificationManager(
         }
     }
 
-    private inner class DescriptionAdapter(private val mediaController: MediaControllerCompat) :
-        PlayerNotificationManager.MediaDescriptionAdapter {
-        override fun createCurrentContentIntent(player: Player): PendingIntent? {
-            TODO("Not yet implemented")
-        }
-
-        override fun getCurrentContentText(player: Player): CharSequence? {
-            TODO("Not yet implemented")
-        }
-
-        override fun getCurrentContentTitle(player: Player): CharSequence {
-            TODO("Not yet implemented")
-        }
-
-        override fun getCurrentLargeIcon(
-            player: Player,
-            callback: PlayerNotificationManager.BitmapCallback
-        ): Bitmap? {
-            TODO("Not yet implemented")
-        }
-
-    }
-
     fun hideNotification() {
         notificationManager.setPlayer(null)
     }
@@ -85,4 +64,58 @@ class MayaNotificationManager(
         notificationManager.setPlayer(player)
     }
 
+    private inner class DescriptionAdapter(private val mediaController: MediaControllerCompat) :
+        PlayerNotificationManager.MediaDescriptionAdapter {
+
+        var currentIconUri: Uri? = null
+        var currentBitmap: Bitmap? = null
+
+        override fun createCurrentContentIntent(player: Player): PendingIntent? =
+            mediaController.sessionActivity
+
+        override fun getCurrentContentText(player: Player): CharSequence? =
+            mediaController.metadata.description.subtitle.toString()
+
+        override fun getCurrentContentTitle(player: Player): CharSequence =
+            mediaController.metadata.description.title.toString()
+
+        override fun getCurrentLargeIcon(
+            player: Player,
+            callback: PlayerNotificationManager.BitmapCallback
+        ): Bitmap? {
+            val iconUri = mediaController.metadata.description.iconUri
+            return if (iconUri != currentIconUri || currentBitmap == null) {
+                // 缓存当前歌曲的位图，以便连续调用`getCurrentLargeIcon`不会导致重新创建位图。
+                currentIconUri = iconUri
+                serverScope.launch {
+                    currentBitmap = iconUri?.let {
+                        resolveUriAsBitmap(it)
+                    }
+                    currentBitmap?.let {
+                        callback.onBitmap(it)
+                    }
+                }
+                null
+            } else {
+                currentBitmap
+            }
+        }
+
+        private suspend fun resolveUriAsBitmap(uri: Uri): Bitmap? {
+            return withContext(Dispatchers.IO) {
+                Glide.with(context).applyDefaultRequestOptions(glideOptions)
+                    .asBitmap()
+                    .load(uri)
+                    .submit(
+                        NOTIFICATION_LARGE_ICON_SIZE,
+                        NOTIFICATION_LARGE_ICON_SIZE
+                    )
+                    .get()
+            }
+        }
+    }
 }
+
+private val glideOptions = RequestOptions()
+    .fallback(R.drawable.default_art)
+    .diskCacheStrategy(DiskCacheStrategy.DATA)
