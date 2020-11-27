@@ -90,7 +90,11 @@ class MusicServiceConnection(context: Context, serviceComponent: ComponentName) 
 
     // - - - - 方法 - - - -
     /**
-     * 向Service层发起数据请求
+     * 向Service层发起数据请求。
+     * 调用此方法后，会接着执行MusicService中的onGetRoot()和onLoadChildren()。
+     * onGetRoot()(只会调用一次)决定是否允许当前客户端连接服务和获取媒体数据，
+     * 如果允许连接服务同时也允许获取媒体数据，则会接着调用onLoadChildren()开始获取数据。
+     * 数据获取成功后会调用subscribe的回调接口SubscriptionCallback将数据返回回来
      */
     fun subscribe(parentId: String, callback: MediaBrowserCompat.SubscriptionCallback) {
         mediaBrowser.subscribe(parentId, callback)
