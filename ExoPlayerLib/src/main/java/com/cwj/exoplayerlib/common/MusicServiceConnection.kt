@@ -7,6 +7,7 @@ import android.support.v4.media.MediaBrowserCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaControllerCompat
 import android.support.v4.media.session.PlaybackStateCompat
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.cwj.exoplayerlib.extensions.id
 import com.cwj.exoplayerlib.server.NETWORK_FAILURE
@@ -19,6 +20,7 @@ import com.cwj.exoplayerlib.server.NETWORK_FAILURE
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/11/26
  */
+private const val TAG = "MusicServiceConnection"
 class MusicServiceConnection(context: Context, serviceComponent: ComponentName) {
 
     /**
@@ -120,6 +122,7 @@ class MusicServiceConnection(context: Context, serviceComponent: ComponentName) 
                     registerCallback(mediaControllerCallback)
                 }
             isConnected.postValue(true)
+            Log.e(TAG, "onConnected: ok")
         }
 
         /**
