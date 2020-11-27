@@ -12,6 +12,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 /**
+ * MusicService 音乐浏览器服务端
  *
  * @author  wenjia.Cheng  cwj1714@163.com
  * @date    2020/11/26
