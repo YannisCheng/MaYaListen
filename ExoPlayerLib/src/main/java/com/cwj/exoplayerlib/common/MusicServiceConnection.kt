@@ -90,7 +90,7 @@ class MusicServiceConnection(context: Context, serviceComponent: ComponentName) 
 
     // - - - - 方法 - - - -
     /**
-     * 封装一层订阅方法，此方法的作用是：从Service中获取已经得到的数据
+     * 向Service层发起数据请求
      */
     fun subscribe(parentId: String, callback: MediaBrowserCompat.SubscriptionCallback) {
         mediaBrowser.subscribe(parentId, callback)
