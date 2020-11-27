@@ -17,10 +17,11 @@ import androidx.media.MediaBrowserServiceCompat
 import com.cwj.exoplayerlib.R
 import com.cwj.exoplayerlib.common.MayaNotificationManager
 import com.cwj.exoplayerlib.common.PersistentStorage
-import com.cwj.exoplayerlib.extensions.album
-import com.cwj.exoplayerlib.extensions.id
-import com.cwj.exoplayerlib.extensions.toMediaSource
-import com.cwj.exoplayerlib.extensions.trackNumber
+import com.cwj.exoplayerlib.extensions.*
+import com.cwj.exoplayerlib.source.BrowseTree
+import com.cwj.exoplayerlib.source.MEDIA_SEARCH_SUPPORTED
+import com.cwj.exoplayerlib.source.UAMP_BROWSABLE_ROOT
+import com.cwj.exoplayerlib.source.UAMP_RECENT_ROOT
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.audio.AudioAttributes
 import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector
@@ -95,6 +96,10 @@ class MusicService : MediaBrowserServiceCompat() {
         )
     }
 
+    private val browseTree: BrowseTree by lazy {
+        BrowseTree(applicationContext, musicSource)
+    }
+
     private var isForegroundService = false
 
 
@@ -149,7 +154,28 @@ class MusicService : MediaBrowserServiceCompat() {
         parentId: String,
         result: Result<MutableList<MediaBrowserCompat.MediaItem>>
     ) {
+        if (parentId == UAMP_RECENT_ROOT) {
+            result.sendResult(
+                storage.loadRecentSong()
+                    ?.let { song -> listOf(song) } as MutableList<MediaBrowserCompat.MediaItem>?)
+        } else {
 
+            val resultsSent = musicSource.whenReady { successfullyInitialized ->
+                if (successfullyInitialized) {
+                    val children = browseTree[parentId]?.map { item ->
+                        MediaBrowserCompat.MediaItem(item.description, item.flag)
+                    }
+                    result.sendResult(children as MutableList<MediaBrowserCompat.MediaItem>?)
+                } else {
+                    mediaSession.sendSessionEvent(NETWORK_FAILURE, null)
+                    result.sendResult(null)
+                }
+            }
+
+            if (!resultsSent) {
+                result.detach()
+            }
+        }
     }
 
     override fun onGetRoot(
@@ -157,7 +183,18 @@ class MusicService : MediaBrowserServiceCompat() {
         clientUid: Int,
         rootHints: Bundle?
     ): BrowserRoot? {
-        return null
+        val rootExtras = Bundle().apply {
+            putBoolean(
+                MEDIA_SEARCH_SUPPORTED,
+                browseTree.searchableByUnknownCaller
+            )
+            putBoolean(CONTENT_STYLE_SUPPORTED, true)
+            putInt(CONTENT_STYLE_BROWSABLE_HINT, CONTENT_STYLE_GRID)
+            putInt(CONTENT_STYLE_PLAYABLE_HINT, CONTENT_STYLE_LIST)
+        }
+        val isRecentRequest = rootHints?.getBoolean(BrowserRoot.EXTRA_RECENT) ?: false
+        val browserRootPath = if (isRecentRequest) UAMP_RECENT_ROOT else UAMP_BROWSABLE_ROOT
+        return BrowserRoot(browserRootPath, rootExtras)
     }
 
     override fun onDestroy() {
