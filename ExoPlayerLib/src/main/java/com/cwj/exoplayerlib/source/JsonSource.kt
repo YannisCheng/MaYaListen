@@ -6,7 +6,6 @@ import android.support.v4.media.MediaDescriptionCompat
 import android.support.v4.media.MediaMetadataCompat
 import android.util.Log
 import com.cwj.exoplayerlib.extensions.*
-import com.example.android.uamp.media.extensions.*
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -38,10 +37,10 @@ class JsonSource(private val sourceUri: Uri) : AbstractMusicSource() {
             {
                 catalog = updatedCatalog
                 state = STATE_INITIALIZED
-            } ?: run {
+            }/* ?: run {
                 catalog = emptyList();
                 state = STATE_ERROR
-            }
+            }*/
         }
     }
 
