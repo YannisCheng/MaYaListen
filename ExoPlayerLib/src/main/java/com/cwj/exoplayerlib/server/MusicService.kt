@@ -13,6 +13,7 @@ import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import android.util.Log
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.media.MediaBrowserServiceCompat
 import com.cwj.exoplayerlib.R
 import com.cwj.exoplayerlib.common.MayaNotificationManager
@@ -227,13 +228,21 @@ class MusicService : MediaBrowserServiceCompat() {
             notification: Notification,
             ongoing: Boolean
         ) {
-            super.onNotificationPosted(notificationId, notification, ongoing)
-            Log.e(TAG, "onNotificationPosted")
+            if (ongoing && !isForegroundService) {
+                ContextCompat.startForegroundService(
+                    applicationContext,
+                    Intent(applicationContext, this@MusicService.javaClass)
+                )
+
+                startForeground(notificationId, notification)
+                isForegroundService = true
+            }
         }
 
         override fun onNotificationCancelled(notificationId: Int, dismissedByUser: Boolean) {
-            super.onNotificationCancelled(notificationId, dismissedByUser)
-            Log.e(TAG, "onNotificationCancelled")
+            stopForeground(true)
+            isForegroundService = false
+            stopSelf()
         }
     }
 
