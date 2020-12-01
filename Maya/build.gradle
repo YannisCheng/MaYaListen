@@ -91,7 +91,6 @@ dependencies {
     implementation project(path: ':BaseLib')
     // 美团多渠道打包
     api 'com.meituan.android.walle:library:1.1.7'
-    implementation project(path: ':ExoPlayerLib')
 }
 
 walle {

@@ -1,3 +1,4 @@
+include ':mayaplay'
 include ':ExoPlayerLib'
 include ':IjkplayerLib'
 include ':ImageUploadLib'

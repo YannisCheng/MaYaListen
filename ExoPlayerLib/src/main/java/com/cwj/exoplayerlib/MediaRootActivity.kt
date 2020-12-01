@@ -1,60 +1,85 @@
 package com.cwj.exoplayerlib
 
-import android.content.Context
-import android.content.Intent
-import android.util.Log
+import android.media.AudioManager
+import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelLazy
 import com.cwj.exoplayerlib.common.InjectorUtils
-import com.cwj.exoplayerlib.databinding.MediaActivityRootBinding
 import com.cwj.exoplayerlib.model.MediaRootViewModel
-import com.yannis.baselib.base.BaseActivity
+import com.example.android.uamp.fragments.MediaItemFragment
 
 /**
  * 媒体测试播放页
  */
 private const val TAG = "MediaRootActivity"
-class MediaRootActivity : BaseActivity<MediaRootViewModel, MediaActivityRootBinding>() {
 
-    /*private val viewModelMusic by viewModels<MediaRootViewModel> {
+class MediaRootActivity : AppCompatActivity() {
+
+    private val viewModel by viewModels<MediaRootViewModel> {
         InjectorUtils.provideMediaRootViewModel(this)
-    }*/
+    }
 
-    private val viewModelMusic by ViewModelLazy(
-        MediaRootViewModel::class,
-        { viewModelStore },
-        { InjectorUtils.provideMediaRootViewModel(this) }
-    )
-
-
-    companion object {
+    /*companion object {
         @JvmStatic
         fun start(context: Context) {
             val starter = Intent(context, MediaRootActivity::class.java)
-            //.putExtra()
             context.startActivity(starter)
         }
-    }
+    }*/
 
-    override fun dataToView() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main_exoplayer)
 
-    }
+        // 音量控制流
+        volumeControlStream = AudioManager.STREAM_MUSIC
 
-    override fun setBindViewModel(): Class<MediaRootViewModel>? {
-        return null
-    }
+        viewModel.navigateToFragment.observe(this, Observer {
+            it?.getContentIfNotHandled()?.let { fragmentRequest ->
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.replace(
+                    R.id.fragmentContainer, fragmentRequest.fragment, fragmentRequest.tag
+                )
+                if (fragmentRequest.backStack) transaction.addToBackStack(null)
+                transaction.commit()
+            }
+        })
 
-    override fun initView() {
-        viewModelMusic.tempCase.observe(this, Observer {
-            Log.e(TAG, "initView: ${viewModelMusic.tempCase.value}")
+        /**
+         * Observe changes to the [MainActivityViewModel.rootMediaId]. When the app starts,
+         * and the UI connects to [MusicService], this will be updated and the app will show
+         * the initial list of media items.
+         */
+        viewModel.rootMediaId.observe(this,
+            Observer<String> { rootMediaId ->
+                rootMediaId?.let { navigateToMediaItem(it) }
+            })
+
+        /**
+         * Observe [MainActivityViewModel.navigateToMediaItem] for [Event]s indicating
+         * the user has requested to browse to a different [MediaItemData].
+         */
+        viewModel.navigateToMediaItem.observe(this, Observer {
+            it?.getContentIfNotHandled()?.let { mediaId ->
+                navigateToMediaItem(mediaId)
+            }
         })
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.media_activity_root
+    private fun navigateToMediaItem(mediaId: String) {
+        var fragment: MediaItemFragment? = getBrowseFragment(mediaId)
+        if (fragment == null) {
+            fragment = MediaItemFragment.newInstance(mediaId)
+            // If this is not the top level media (root), we add it to the fragment
+            // back stack, so that actionbar toggle and Back will work appropriately:
+            viewModel.showFragment(fragment, !isRootId(mediaId), mediaId)
+        }
     }
 
-    override fun permissionOk() {
+    private fun isRootId(mediaId: String) = mediaId == viewModel.rootMediaId.value
 
+    private fun getBrowseFragment(mediaId: String): MediaItemFragment? {
+        return supportFragmentManager.findFragmentByTag(mediaId) as MediaItemFragment?
     }
 }
