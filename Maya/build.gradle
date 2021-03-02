@@ -9,6 +9,9 @@ apply plugin: 'walle'
 //配置jenkins与本地打包的输出路径
 apply from:"../apk_output_path.gradle"
 
+//添加 埋点插件
+apply plugin: 'com.pansoft.analytics.android'
+
 android {
 
     // 视图绑定与数据绑定

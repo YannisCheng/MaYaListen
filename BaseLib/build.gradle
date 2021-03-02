@@ -70,6 +70,8 @@ dependencies {
     // ijkplayer播放器
     api project(path: ':IjkplayerLib')
 
+    implementation 'com.pansoft.mobile.devops:BuriedPointSDK:4.4.92@aar'
+
     // = = = = = = = 第三方依赖 = = = = = = =
     kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"

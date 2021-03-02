@@ -1,5 +1,6 @@
 package com.yannis.baselib.net
 
+import com.sensorsdata.analytics.android.sdk.cost.okhttp3.NetworkListener
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -33,6 +34,7 @@ class RetrofitManager2 private constructor() {
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
+            .eventListenerFactory(NetworkListener.get())
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .addInterceptor(Interceptor { chain ->
                 chain.proceed(

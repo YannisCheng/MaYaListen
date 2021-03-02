@@ -70,10 +70,13 @@ buildscript {
         jcenter()
         // 友盟
         maven { url 'https://dl.bintray.com/umsdk/release' }
+        // 控件点击事件、方法耗时全埋点插件
+        maven {url 'http://mobilemvn.openserver.cn/repository/Android/'}
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.pansoft.mobile.devops:BuriedPointPlugin:3.3.50@jar'
         // tinkersupport插件
         //classpath "com.tencent.bugly:tinker-support:1.2.0"
         // 美团打包
@@ -91,6 +94,8 @@ allprojects {
         maven { url 'https://dl.bintray.com/umsdk/release' }
         // MPAndroidChart
         maven { url 'https://jitpack.io' }
+        // 控件点击事件、方法耗时全埋点插件
+        maven {url 'http://mobilemvn.openserver.cn/repository/Android/'}
     }
 }
 
